@@ -27,8 +27,7 @@ public final class Levels {
 		levels.put(11, new Level(11, 8, 26, 10, "Something New", "They're frantic.")); // 2.6/sec
 		levels.put(12, new Level(12, 12, 20, 10, "So Many!", "It's meerkat city.")); // 2/sec
 		levels.put(13, new Level(13, 8, 54, 20, "Step It Up!", "So quick.")); // 2.7/sec
-		levels.put(14, new Level(14, 1, 10, 500, "The Sprint", "With a slow start.")); // 2.8/sec
-//		levels.put(14, new Level(14, 10, 10, 5, "The Sprint", "With a slow start.")); // 2.8/sec
+		levels.put(14, new Level(14, 10, 10, 5, "The Sprint", "With a slow start.")); // 2.8/sec
 		levels.put(15, new Level(15, 8, 80, 30, "Hold Steady", "How long can you hold out?")); // 2.6/sec
 		
 		// Forth tier: Pro
