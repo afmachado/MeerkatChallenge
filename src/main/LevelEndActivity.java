@@ -13,6 +13,8 @@ import entities.Level;
 import entities.Preferences;
 
 public class LevelEndActivity extends Activity {
+	// Delay before enabling the button in ms
+	final static int ENABLED_BUTTON_DELAY = 700;
 	Level level;
 	LevelEndActivity lea;
 
@@ -75,6 +77,6 @@ public class LevelEndActivity extends Activity {
 			}
 		};			
 
-		h.postDelayed(r, 1000);
+		h.postDelayed(r, ENABLED_BUTTON_DELAY);
 	}
 }
