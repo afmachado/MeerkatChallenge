@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Meerkat Challenge</string>
+    <string name="menu_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_level">Level</string>
+    <string name="level_1_title">Welcome to Meerkat Challenge!</string>
+    <string name="level_1_description">To get started, bop 15 Meerkats in 10 seconds</string>
+    <string name="level_1_button">Let\'s Go!</string>
+    <string name="title_activity_level_end">LevelEndActivity</string>
+    <string name="title_activity_start_game">StartGameActivity</string>
+    <string name="retry">Again?</string>
+    <string name="next">Next!</string>
+
+</resources>
