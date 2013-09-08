@@ -17,9 +17,9 @@ public class PopUpBehavior implements GameComponent {
 	private long nextShowTime = 0;
 
 	// The meerkat this behavior controls
-	Meerkat meerkat;
+	Sprite meerkat;
 
-	public PopUpBehavior(Meerkat meerkat) {
+	public PopUpBehavior(Sprite meerkat) {
 		this.meerkat = meerkat;
 	}
 

@@ -23,7 +23,7 @@ import entities.Actor;
  * @author John Casson
  * 
  */
-public class Meerkat extends Actor implements Drawable, GameComponent, Animatable {
+public class Sprite extends Actor implements Drawable, GameComponent, Animatable {
 	// The speed to pop up at
 	final int POPUP_SPEED = 150;
 
@@ -35,7 +35,7 @@ public class Meerkat extends Actor implements Drawable, GameComponent, Animatabl
 	private List<Animator> animators = new CopyOnWriteArrayList<Animator>();
 	Matrix matrix;
 
-	public Meerkat(GameBoard gameboard, Placer placer) {
+	public Sprite(GameBoard gameboard, Placer placer) {
 		super(gameboard, placer);
 		this.behavior = new PopUpBehavior(this);
 		matrix = new Matrix();

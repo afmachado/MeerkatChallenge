@@ -6,7 +6,6 @@ import interfaces.Placer;
 import java.util.Random;
 
 import android.graphics.Rect;
-import android.util.Log;
 
 public class RandomPlacer implements Placer {
 
@@ -29,7 +28,6 @@ public class RandomPlacer implements Placer {
 			y = r.nextInt(maxY - minY + 1) + minY;
 			count++;
 			if (count > 100) {
-				Log.e("JC", "Can't place locatable");
 				throw new Exception("Can't place locatable");
 			}
 		} while (locatable.doesOverlap(x, y));
