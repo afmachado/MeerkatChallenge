@@ -1,6 +1,8 @@
 package interfaces;
 
+import android.graphics.Rect;
+
 public interface Hittable {
-	// Do the points x, y hit this entity?
-	public boolean isHit(float x, float y);
+	// Does the passed rect hit this entity?
+	public boolean isHit(Rect rectangle);
 }

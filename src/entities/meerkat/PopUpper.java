@@ -52,6 +52,7 @@ public class PopUpper implements Animator {
 			finished = true;
 			return;
 		}
+		
 		int slice = (int) (originalBm.getHeight() - (originalBm.getHeight() * popUpPercent));
 		animBm = Bitmap.createBitmap(originalBm, 0, 0, originalBm.getWidth(),
 				originalBm.getHeight() - slice);

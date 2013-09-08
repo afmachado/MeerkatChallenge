@@ -1,55 +1,45 @@
 package entities;
 
+import interfaces.Animatable;
+import interfaces.Animator;
+import interfaces.Drawable;
 import interfaces.Hittable;
 import interfaces.Locatable;
+import interfaces.OnHideListener;
 import interfaces.OnShowListener;
 import interfaces.Placer;
 import interfaces.Showable;
-import main.GameBoard;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
+import entities.meerkat.Sprite;
 
 /**
- * Responsible for having and setting a location,
- * showing and hiding and being hit.
+ * Responsible for having and setting a location, showing and hiding and being
+ * hit.
+ * 
  * @author John Casson
- *
+ * 
  */
-public abstract class Actor implements Locatable, Showable, Hittable {
+public class Actor implements Locatable, Showable, Hittable, Drawable,
+		Animatable {
 	private Point location;
 	protected Rect bounds;
-	protected GameBoard gameBoard;
 	protected boolean visible = false;
 	private Placer placer;
 	private OnShowListener onShowListener;
+	private Sprite sprite;
+	private OnHideListener onHideListener;
 
-	public Actor(GameBoard gameBoard, Placer placer) {
-		this.gameBoard = gameBoard;
+	public Actor(Placer placer, Sprite sprite) {
 		this.placer = placer;
+		this.sprite = sprite;
 	}
 
 	public void setLocation(int x, int y) {
 		this.location = new Point(x, y);
-	}
-
-	public void setBounds(Rect bounds) {
-		this.bounds = bounds;
-	}
-
-	public int getX() {
-		return location.x;
-	}
-
-	public int getY() {
-		return location.y;
-	}
-
-	public int getMaxX() {
-		return gameBoard.getWidth() - bounds.width();
-	}
-
-	public int getMaxY() {
-		return gameBoard.getHeight() - bounds.height();
 	}
 
 	public Rect getBounds() {
@@ -67,21 +57,20 @@ public abstract class Actor implements Locatable, Showable, Hittable {
 	 * @throws Exception
 	 *             If this actor is already visible
 	 */
-	public void show() throws Exception {
+	public void show() {
 		if (visible) {
-			throw new Exception("Can't show a visible actor");
+			throw new RuntimeException("Can't show a visible actor");
 		}
-		
+
 		placer.place(this);
-		gameBoard.addMover(this);
 		visible = true;
 		onShowListener.onShow();
 	}
 
 	public void hide() {
 		visible = false;
-		gameBoard.removeMover(this);
 		setLocation(-1, -1);
+		onHideListener.onHide();
 	}
 
 	/**
@@ -90,26 +79,62 @@ public abstract class Actor implements Locatable, Showable, Hittable {
 	 * @param ev
 	 * @return
 	 */
-	public boolean isHit(float x, float y) {
-		Rect r1 = new Rect(getX(), getY(), getX() + getBounds().width(), getY()
+	public boolean isHit(Rect shot) {
+		int x = location.x;
+		int y = location.y;
+		Rect thisBounds = new Rect(x, y, x + getBounds().width(), y
 				+ getBounds().height());
 
-		Rect r2 = new Rect((int) x - 5, (int) y - 5, (int) x + 5, (int) y + 5);
-		if (r1.intersect(r2)) {
+		if (thisBounds.intersect(shot)) {
 			return true;
 		}
 		return false;
 	}
-	
-	public boolean doesOverlap(int x, int y) {
-		return gameBoard.doesOverlap(x, y);
-	}
-	
-	public Rect getContainerSize() {
-		return new Rect(0, 0, gameBoard.getWidth(), gameBoard.getHeight());
-	}
-	
+
 	public void setOnShow(OnShowListener onShowListener) {
 		this.onShowListener = onShowListener;
+	}
+	
+	public void setOnHide(OnHideListener onHideListener) {
+		this.onHideListener = onHideListener;
+	}
+
+	/**
+	 * Sets this Actor's image
+	 * 
+	 * @param Bitmap
+	 *            bm This Actor's image
+	 */
+	public void setBitmap(Bitmap bm, int size) {
+		this.sprite.setBitmap(bm, size);
+		this.bounds = new Rect(0, 0, size, size);
+	}
+
+	@Override
+	public void draw(Canvas canvas) {
+		// If we're visible, draw the actor
+		if (visible) {
+			sprite.draw(canvas, location.x, location.y);
+		}
+	}
+
+	@Override
+	public void registerAnimation(Animator a) {
+		sprite.registerAnimation(a);
+	}
+
+	@Override
+	public void unregisterAnimation(Animator a) {
+		sprite.unregisterAnimation(a);
+	}
+
+	@Override
+	public Bitmap getBitmap() {
+		return sprite.getBitmap();
+	}
+
+	@Override
+	public Matrix getMatrix() {
+		return sprite.getMatrix();
 	}
 }

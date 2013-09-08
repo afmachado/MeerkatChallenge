@@ -1,10 +1,13 @@
 package entities.meerkat;
 
+import interfaces.Behavior;
 import interfaces.GameComponent;
 
 import java.util.Random;
 
-public class PopUpBehavior implements GameComponent {
+import entities.Actor;
+
+public class PopUpBehavior implements GameComponent, Behavior {
 	// Minimum and maximum times (ms) for the meerkat to be on screen
 	final int MIN_SHOW_TIME = 1000;
 	final int MAX_SHOW_TIME = 4000;
@@ -17,10 +20,10 @@ public class PopUpBehavior implements GameComponent {
 	private long nextShowTime = 0;
 
 	// The meerkat this behavior controls
-	Sprite sprite;
+	Actor actor;
 
-	public PopUpBehavior(Sprite meerkat) {
-		this.sprite = meerkat;
+	public PopUpBehavior(Actor actor)  {
+		this.actor = actor;
 	}
 
 	/**
@@ -28,7 +31,7 @@ public class PopUpBehavior implements GameComponent {
 	 * Add one to the score and show it again after a delay
 	 */
 	public void hit() {
-		sprite.hide();
+		actor.hide();
 		showDelayed();
 	}
 
@@ -55,13 +58,13 @@ public class PopUpBehavior implements GameComponent {
 	public void play() throws Exception {
 		// check whether to show or hide this meerkat
 		long now = System.currentTimeMillis();
-		if((!sprite.isVisible()) && now > nextShowTime) {
-			sprite.show();
+		if((!actor.isVisible()) && now > nextShowTime) {
+			actor.show();
 			hideDelayed();
 		}
 		
-		if(sprite.isVisible() && now > nextHideTime) {
-			sprite.hide();
+		if(actor.isVisible() && now > nextHideTime) {
+			actor.hide();
 			showDelayed();
 		}
 		

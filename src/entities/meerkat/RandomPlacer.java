@@ -5,22 +5,28 @@ import interfaces.Placer;
 
 import java.util.Random;
 
+import main.GameBoard;
 import android.graphics.Rect;
 
 public class RandomPlacer implements Placer {
+	private GameBoard gameBoard;
+
+	public RandomPlacer(GameBoard gameBoard) {
+		this.gameBoard = gameBoard;
+	}
 
 	@Override
-	public void place(Locatable locatable) throws Exception {
+	public void place(Locatable locatable) {
 		Random r = new Random();
 		int minX = 0;
 		int minY = 0;
 		int x = 0;
 		int y = 0;
 
-		int width = locatable.getContainerSize().width();
+		int width = gameBoard.getWidth();
 		Rect rect1 = locatable.getBounds();
 		int maxX = width - rect1.width();
-		int maxY = locatable.getContainerSize().height() - locatable.getBounds().height();
+		int maxY = gameBoard.getHeight() - locatable.getBounds().height();
 
 		int count = 0;
 		do {
@@ -28,9 +34,9 @@ public class RandomPlacer implements Placer {
 			y = r.nextInt(maxY - minY + 1) + minY;
 			count++;
 			if (count > 100) {
-				throw new Exception("Can't place locatable");
+				throw new RuntimeException("Can't place locatable");
 			}
-		} while (locatable.doesOverlap(x, y));
+		} while (gameBoard.doesOverlap(new Rect(x, y, x + gameBoard.getWidth(), y + gameBoard.getHeight())));
 		locatable.setLocation(x, y);
 	}
 }

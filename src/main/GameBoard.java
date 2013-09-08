@@ -3,10 +3,11 @@ package main;
 
 import java.util.ArrayList;
 
+import android.graphics.Rect;
 import entities.Actor;
 
 public class GameBoard {
-	private ArrayList<Actor> movers = new ArrayList<Actor>();
+	private ArrayList<Actor> actors = new ArrayList<Actor>();
 
 	int width;
 	int height;
@@ -33,19 +34,19 @@ public class GameBoard {
 	}
 
 	public void reset() {
-		movers = new ArrayList<Actor>();
+		actors = new ArrayList<Actor>();
 	}
 
 	// To be called when a mover is added to the game board
-	synchronized public void addMover(Actor m) throws Exception {
+	synchronized public void addMover(Actor m) {
 		if (hasMover(m)) {
-			throw new Exception("Mover already registered with the game board");
+			throw new RuntimeException("Mover already registered with the game board");
 		}
-		movers.add(m);
+		actors.add(m);
 	}
 
 	public boolean hasMover(Actor m) {
-		if (movers.contains(m)) {
+		if (actors.contains(m)) {
 			return true;
 		} else {
 			return false;
@@ -53,28 +54,18 @@ public class GameBoard {
 	}
 
 	synchronized public void removeMover(Actor m) {
-		movers.remove(m);
+		actors.remove(m);
 	}
 
 	/**
-	 * Does the passed co-ordinate overlap with any registered movers?
+	 * Does the passed rect overlap with any registered actors?
 	 * 
-	 * @param Actor The mover to check for overlapping
+	 * @param Sprite The mover to check for overlapping
 	 * @return boolean
 	 */
-	synchronized public boolean doesOverlap(int x, int y) {
-		for (Actor m : movers) {
-			boolean xOverlap = false;
-			if (Math.abs(m.getX() - x) < m.getBounds().width()) {
-				xOverlap = true;
-			}
-			
-			boolean yOverlap = false;
-			if (Math.abs(m.getY() - y) < m.getBounds().height()) {
-				yOverlap = true;
-			}
-			
-			if(xOverlap && yOverlap) {
+	synchronized public boolean doesOverlap(Rect rectangle) {
+		for (Actor a : actors) {
+			if(a.isHit(rectangle)) {
 				return true;
 			}
 		}
