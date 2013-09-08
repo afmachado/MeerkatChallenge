@@ -37,7 +37,7 @@ public final class Levels {
 		levels.put(19, new Level(19, 2, 18, 20, "Change of Pace", "Fast fingers only.")); // 0.9/sec
 		levels.put(20, new Level(20, 10, 210, 60, "Ender", "They won't know what hit 'em.")); // 3.5/sec
 		
-		levels.put(99, new Level(99, 1, 210, 60, "DEBUG", "Test mode")); // 3.5/sec
+		levels.put(99, new Level(99, 5, 210, 60, "DEBUG", "Test mode")); // 3.5/sec
 	}
 	
 	public static Level get(int number) {

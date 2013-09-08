@@ -24,8 +24,7 @@ public class RandomPlacer implements Placer {
 		int y = 0;
 
 		int width = gameBoard.getWidth();
-		Rect rect1 = locatable.getBounds();
-		int maxX = width - rect1.width();
+		int maxX = width - locatable.getBounds().width();
 		int maxY = gameBoard.getHeight() - locatable.getBounds().height();
 
 		int count = 0;

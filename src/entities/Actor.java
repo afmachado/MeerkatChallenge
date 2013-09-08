@@ -30,8 +30,8 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	protected boolean visible = false;
 	private Placer placer;
 	private OnShowListener onShowListener;
-	private Sprite sprite;
 	private OnHideListener onHideListener;
+	private Sprite sprite;
 
 	public Actor(Placer placer, Sprite sprite) {
 		this.placer = placer;
@@ -76,10 +76,13 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	/**
 	 * Detects a hit between a point and this object
 	 * 
-	 * @param ev
+	 * @param Rect shot the shot to detect
 	 * @return
 	 */
 	public boolean isHit(Rect shot) {
+		if(!visible) {
+			return false;
+		}
 		int x = location.x;
 		int y = location.y;
 		Rect thisBounds = new Rect(x, y, x + getBounds().width(), y
