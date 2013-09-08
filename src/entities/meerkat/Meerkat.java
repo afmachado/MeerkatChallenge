@@ -5,6 +5,7 @@ import interfaces.Animator;
 import interfaces.Drawable;
 import interfaces.GameComponent;
 import interfaces.Hittable;
+import interfaces.Showable;
 
 import java.util.List;
 import java.util.Random;
@@ -26,14 +27,14 @@ import entities.Actor;
  * @author John Casson
  * 
  */
-public class Meerkat extends Actor implements Drawable, GameComponent,	Animatable, Hittable {
+public class Meerkat extends Actor implements Drawable, GameComponent,	Animatable, Hittable, Showable {
 	// The speed to pop up at
 	final int POPUP_SPEED = 150;
 
 	private Bitmap bm;
 	private Bitmap originalBm;
 	private PopUpBehavior behavior;
-	private boolean visible = false;
+	
 	// CopyOnWriteArrayList used to avoid concurrent access + read / write issues
 	private List<Animator> animators = new CopyOnWriteArrayList<Animator>();
 	Matrix matrix;
@@ -106,21 +107,17 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 
 
 	/**
-	 * Places this meerkat on the gameboard at random. Ensures the mover doesn't
-	 * overlap with any other movers. The overlap check ensures this mover
+	 * Places this meerkat on the gameboard at random. Ensures the meerkat doesn't
+	 * overlap with any other meerkats. The overlap check ensures this mover
 	 * doesn't have the same X co-ordinate as any other movers.
 	 * 
 	 * @throws Exception
 	 *             If this meerkat is already visible
 	 */
 	public void show() throws Exception {
-		if (visible) {
-			throw new Exception("Can't show an already shown meerkat");
-		}
 		Point p = findEmptySpace();
-		gameBoard.addMover(this);
 		setLocation(p.x, p.y);
-		visible = true;
+		super.show();
 		register(new PopUpper(this, POPUP_SPEED));
 	}
 
@@ -160,8 +157,7 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 	 * Hides this meerkat
 	 */
 	public void hide() {
-		visible = false;
-		gameBoard.removeMover(this);
+		super.hide();
 		// Reset the meerkat image
 		bm = originalBm;
 		setLocation(-1, -1);
@@ -174,10 +170,6 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 	@Override
 	public void play() throws Exception {
 		behavior.play();
-	}
-
-	public boolean getVisible() {
-		return visible;
 	}
 
 	@Override
@@ -194,4 +186,5 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 	public Matrix getMatrix() {
 		return matrix;
 	}
+
 }

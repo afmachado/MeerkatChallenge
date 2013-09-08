@@ -87,8 +87,11 @@ public class GameFactory {
 		// When we're hit, add one to the score and tell the behavior we've been hit
 		OnHitDetected ohd = new OnHitDetected() {
 			public void onHit() {
-				s.add(1);
-				m.getPopUpBehavior().hit();
+				// Only react if the meerkat is visible
+				if(m.isVisible()) {
+					s.add(1);
+					m.getPopUpBehavior().hit();
+				}
 			}
 		};
 		

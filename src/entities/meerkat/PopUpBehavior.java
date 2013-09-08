@@ -55,12 +55,12 @@ public class PopUpBehavior implements GameComponent {
 	public void play() throws Exception {
 		// check whether to show or hide this meerkat
 		long now = System.currentTimeMillis();
-		if((!meerkat.getVisible()) && now > nextShowTime) {
+		if((!meerkat.isVisible()) && now > nextShowTime) {
 			meerkat.show();
 			hideDelayed();
 		}
 		
-		if(meerkat.getVisible() && now > nextHideTime) {
+		if(meerkat.isVisible() && now > nextHideTime) {
 			meerkat.hide();
 			showDelayed();
 		}
