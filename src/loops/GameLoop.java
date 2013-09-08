@@ -1,6 +1,6 @@
 package loops;
 
-import interfaces.Actor;
+import interfaces.GameComponent;
 import interfaces.StopAction;
 import interfaces.StopCondition;
 
@@ -14,12 +14,12 @@ public class GameLoop {
 	private static final int FRAME_RATE = 20; // 50 frames per second
 	
 	private Handler frame = new Handler();
-	private ArrayList<Actor> actors = new ArrayList<Actor>();
+	private ArrayList<GameComponent> components = new ArrayList<GameComponent>();
 	private ArrayList<StopCondition> stopConditions = new ArrayList<StopCondition>();
 	private ArrayList<StopAction> stopAction = new ArrayList<StopAction>();
 	
-	public void register(Actor a) {
-		actors.add(a);
+	public void addGameComponent(GameComponent a) {
+		components.add(a);
 	}
 	
 	public void addStopAction(StopAction stopAction) {
@@ -34,9 +34,9 @@ public class GameLoop {
 	public Runnable frameUpdate = new Runnable() {
 		@Override
 		synchronized public void run() {
-			for(Actor a : actors) {
+			for(GameComponent gameComponent : components) {
 				try {
-					a.act();
+					gameComponent.play();
 				} catch (Exception e) {
 					// TODO: Global exception handling
 					e.printStackTrace();

@@ -1,15 +1,15 @@
 package entities.meerkat;
 
-import interfaces.Actor;
+import interfaces.GameComponent;
 import interfaces.Animatable;
 import interfaces.Animator;
 import interfaces.Drawable;
 import interfaces.ReceivesInput;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-import main.GameActivity;
 import main.GameBoard;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -25,38 +25,43 @@ import entities.Score;
 /**
  * Responsible for the meerkat's picture, receiving and processing user input
  * and showing and hiding the Meerkat.
+ * 
  * @author John Casson
- *
+ * 
  */
-public class Meerkat extends Mover implements ReceivesInput, Drawable, Actor, Animatable {
-	// The meerkat size in density independent pixels
-	final int MEERKAT_SIZE = 50;
+public class Meerkat extends Mover implements ReceivesInput, Drawable, GameComponent,
+		Animatable {
 	// The speed to pop up at
 	final int POPUP_SPEED = 150;
-	
+
 	private Bitmap bm;
+	private Bitmap originalBm;
 	private PopUpBehavior behavior;
-	public GameActivity mainActivity;
+	private Score score;
 	private boolean visible = false;
-	private ArrayList<Animator> animators = new ArrayList<Animator>();
+	// CopyOnWriteArrayList used to avoid concurrent access + read / write issues
+	private List<Animator> animators = new CopyOnWriteArrayList<Animator>();
 	Matrix matrix;
-	
-	public Meerkat(GameBoard gameboard, Score score, GameActivity ma) {
+
+	public Meerkat(GameBoard gameboard, Score score) {
 		super(gameboard);
-		this.behavior = new PopUpBehavior(this, score);
-		this.mainActivity = ma;
+		this.score = score;
+		this.behavior = new PopUpBehavior(this);
 		matrix = new Matrix();
 		behavior.showDelayed();
 	}
-	
+
 	/**
 	 * Sets this Meerkat's image
-	 * @param Bitmap bm This Meerkat's image
+	 * 
+	 * @param Bitmap
+	 *            bm This Meerkat's image
 	 */
-	public void setBitmap(Bitmap bm) {
-		// Convert the meerkat size to density independent pixels
-		int size = mainActivity.dpToPx(MEERKAT_SIZE);
+	public void setBitmap(Bitmap bm, int size) {
+		// Not necessary: Convert the meerkat size to density independent pixels
+		// size = mainActivity.dpToPx(size);
 		this.bm = Bitmap.createScaledBitmap(bm, size, size, false);
+		this.originalBm = this.bm;
 		this.bounds = new Rect(0, 0, size, size);
 	}
 
@@ -71,29 +76,36 @@ public class Meerkat extends Mover implements ReceivesInput, Drawable, Actor, An
 			// place the meerkat
 			matrix.postTranslate((float) getX(), (float) getY());
 			// Add each animator in turn
-			for(Animator a : animators) {
-				a.animate(getBitmap(), matrix);
-				bm = a.getBitmap();
-				matrix = a.getMatrix();
+			synchronized(animators) {
+				for (Animator a : animators) {
+					a.animate(getBitmap(), matrix);
+					bm = a.getBitmap();
+					matrix = a.getMatrix();
+				}
 			}
 			canvas.drawBitmap(getBitmap(), matrix, null);
 		}
 	}
 
 	/**
-	 *  On user input, detect whether this Meerkat has been hit
+	 * On user input, detect whether this Meerkat has been hit
 	 */
 	@Override
 	public void onInput(View v, MotionEvent ev) {
 		// If we're not visible, don't respond to input events
-		if(!visible) {
+		if (!visible) {
 			return;
 		}
 		final int action = ev.getAction();
 		switch (action & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_DOWN:
+			// Deliberately no break here
 		case MotionEvent.ACTION_POINTER_DOWN:
-			if (detectCollision(ev.getX(), ev.getY())) {
+			// Find the index of the action (for multitouch e.g.
+			// 0 is the first finger down, 1 is the second)
+			int actionIndex = ev.getActionIndex();
+			if (detectHit(ev.getX(actionIndex), ev.getY(actionIndex))) {
+				score.add(1);
 				behavior.hit();
 			}
 			break;
@@ -101,34 +113,34 @@ public class Meerkat extends Mover implements ReceivesInput, Drawable, Actor, An
 	}
 
 	/**
-	 * Detects a collision between a point and this meerkat
+	 * Detects a hit between a point and this meerkat
+	 * 
 	 * @param ev
 	 * @return
 	 */
-	public boolean detectCollision(float x, float y) {
+	private boolean detectHit(float x, float y) {
 		Rect r1 = new Rect(getX(), getY(), getX() + getBounds().width(), getY()
 				+ getBounds().height());
 
-		Rect r2 = new Rect((int) x - 5, (int) y - 5,
-				(int) x + 5, (int) y + 5);
+		Rect r2 = new Rect((int) x - 5, (int) y - 5, (int) x + 5, (int) y + 5);
 
 		if (r1.intersect(r2)) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
 	/**
-	 * Places this meerkat on the gameboard at random
-	 * Ensures the mover doesn't overlap with any other
-     * movers.
-	 * The overlap check ensures this mover doesn't have
-	 * the same X co-ordinate as any other movers.
-	 * @throws Exception If this meerkat is already visible
+	 * Places this meerkat on the gameboard at random. Ensures the mover doesn't
+	 * overlap with any other movers. The overlap check ensures this mover
+	 * doesn't have the same X co-ordinate as any other movers.
+	 * 
+	 * @throws Exception
+	 *             If this meerkat is already visible
 	 */
 	public void show() throws Exception {
-		if(visible) {
+		if (visible) {
 			throw new Exception("Can't show an already shown meerkat");
 		}
 		Point p = findEmptySpace();
@@ -137,11 +149,13 @@ public class Meerkat extends Mover implements ReceivesInput, Drawable, Actor, An
 		visible = true;
 		register(new PopUpAnimator(this, POPUP_SPEED));
 	}
-	
+
 	/**
 	 * Finds an empty space on the gameboard
+	 * 
 	 * @return
-	 * @throws Exception If the meerkat can't be placed
+	 * @throws Exception
+	 *             If the meerkat can't be placed
 	 */
 	private Point findEmptySpace() throws Exception {
 		Random r = new Random();
@@ -160,20 +174,22 @@ public class Meerkat extends Mover implements ReceivesInput, Drawable, Actor, An
 			x = r.nextInt(maxX - minX + 1) + minX;
 			y = r.nextInt(maxY - minY + 1) + minY;
 			count++;
-			if(count > 100) {
+			if (count > 100) {
 				Log.e("JC", "Can't place meerkat");
 				throw new Exception("Can'tplacemeerkat");
 			}
 		} while (gameBoard.doesOverlap(x, y));
 		return new Point(x, y);
 	}
-	
-    /**
-     * Hides this meerkat
-     */
+
+	/**
+	 * Hides this meerkat
+	 */
 	public void hide() {
 		visible = false;
 		gameBoard.removeMover(this);
+		// Reset the meerkat image
+		bm = originalBm;
 		setLocation(-1, -1);
 	}
 
@@ -182,21 +198,21 @@ public class Meerkat extends Mover implements ReceivesInput, Drawable, Actor, An
 	}
 
 	@Override
-	public void act() throws Exception {
-		behavior.act();
+	public void play() throws Exception {
+		behavior.play();
 	}
-	
+
 	public boolean getVisible() {
 		return visible;
 	}
 
 	@Override
 	public void register(Animator a) {
-		animators.add(a);
+			animators.add(a);
 	}
 
 	@Override
 	public void unregister(Animator a) {
-		animators.remove(a);
+			animators.remove(a);
 	}
 }

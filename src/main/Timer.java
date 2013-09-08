@@ -1,6 +1,6 @@
 package main;
 
-import interfaces.Actor;
+import interfaces.GameComponent;
 import interfaces.Drawable;
 import interfaces.StopCondition;
 import meerkatchallenge.main.R;
@@ -8,7 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-public class Timer implements StopCondition, Actor, Drawable {
+public class Timer implements StopCondition, GameComponent, Drawable {
 	boolean finished = false;
 
 	long startTime;
@@ -46,7 +46,7 @@ public class Timer implements StopCondition, Actor, Drawable {
 	// Calculate the current game time and check whether the play time
 	// has exceeded the game time
 	@Override
-	public void act() throws Exception {
+	public void play() throws Exception {
 		long timePlayed = System.currentTimeMillis() - startTime;
 		if(timePlayed > gameTime) {
 			finished = true;

@@ -20,15 +20,22 @@ public class PopUpAnimator implements Animator {
 	private Animatable animatable;
 	// Pop up speed in milliseconds
 	private int popUpSpeed;
+	// indicates this animation is ready to fire.
+	private boolean ready = false;
 
 	public PopUpAnimator(Animatable animatable, int popUpSpeed) {
 		this.animatable = animatable;
 		this.originalBm = animatable.getBitmap();
 		this.popUpSpeed = popUpSpeed;
 		startTime = System.currentTimeMillis();
+		ready = true;
 	}
 
-	public void animate(Bitmap bm, Matrix m) {
+	public synchronized void animate(Bitmap bm, Matrix m) {
+		// don't start animating till the constructor has completed
+		if(!ready) {
+			return;
+		}
 		matrix = m;
 		// Calculate the "slice" height of meerkat to show
 		long now = System.currentTimeMillis();

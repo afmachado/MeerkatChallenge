@@ -18,21 +18,23 @@ public class GameFactory {
 	private GraphicsLoop graphicsLoop;
 	private GameBoard gameBoard;
 
-	public void createGame(GameActivity gameActivity, Level level) throws Exception {
+	public void createGame(GameActivity gameActivity, Level level)
+			throws Exception {
 		// Set up the game engine
 		this.gameLoop = new GameLoop();
 		this.inputLoop = new InputLoop();
 		graphicsLoop = ((GraphicsLoop) gameActivity.findViewById(R.id.canvas));
-		gameLoop.register(graphicsLoop);
-		gameBoard = new GameBoard(graphicsLoop.getWidth(), graphicsLoop.getHeight());
+		gameLoop.addGameComponent(graphicsLoop);
+		gameBoard = new GameBoard(graphicsLoop.getWidth(),
+				graphicsLoop.getHeight());
 		gameBoard.reset();
 		View canvasInput = (View) gameActivity.findViewById(R.id.canvas);
-		
+
 		// Load images
-		Bitmap meerkatPic = (BitmapFactory.decodeResource(gameActivity.getResources(),
-				R.drawable.meerkat));
-		Bitmap backgroundPic = BitmapFactory.decodeResource(gameActivity.getResources(),
-				R.drawable.background);
+		Bitmap meerkatPic = (BitmapFactory.decodeResource(
+				gameActivity.getResources(), R.drawable.meerkat));
+		Bitmap backgroundPic = BitmapFactory.decodeResource(
+				gameActivity.getResources(), R.drawable.background);
 
 		// Set up background
 		Background background = new Background(gameBoard, backgroundPic);
@@ -41,16 +43,17 @@ public class GameFactory {
 		// Create a score entity to keep score
 		Score score = new Score(gameBoard, gameActivity, level);
 
-		for(int i=0; i<level.getPopUpMeerkats(); i++) {
-			addMeerkat(score, gameActivity, meerkatPic, gameLoop);
+		for (int i = 0; i < level.getPopUpMeerkats(); i++) {
+			addMeerkat(score, meerkatPic, gameLoop, gameBoard);
 		}
 
 		// Receive user input from the canvas
 		canvasInput.setOnTouchListener(inputLoop);
 
 		// Set a timer to stop the game after a specified time
-		Timer t = new Timer(level.getTimeLimit() * 1000, gameBoard, gameActivity);
-		gameLoop.register(t);
+		Timer t = new Timer(level.getTimeLimit() * 1000, gameBoard,
+				gameActivity);
+		gameLoop.addGameComponent(t);
 		gameLoop.registerStop(t);
 		graphicsLoop.register(t);
 
@@ -64,20 +67,20 @@ public class GameFactory {
 		// The final stop action is to show the level end screen
 		ShowLevelEnd sle = new ShowLevelEnd(gameActivity, score, level);
 		gameLoop.addStopAction(sle);
-		
-		
 
 		// Start the game
 		gameLoop.start();
 	}
-	
-	private void addMeerkat(Score s, GameActivity mainActivity,
-			Bitmap meerkatPic, GameLoop gameLoop) throws Exception {
+
+	private void addMeerkat(Score s, Bitmap meerkatPic, GameLoop gameLoop,
+			GameBoard gameBoard) throws Exception {
 		// Set up the first meerkat
-		Meerkat m = new Meerkat(gameBoard, s, mainActivity);
-		m.setBitmap(meerkatPic);
+		Meerkat m = new Meerkat(gameBoard, s);
+		// Set the size of the meerkat to be a fixed % of the gameboard's height
+		int size = (int) (gameBoard.getHeight() * 0.08);
+		m.setBitmap(meerkatPic, size);
 		graphicsLoop.register(m);
 		inputLoop.register(m);
-		gameLoop.register(m);
+		gameLoop.addGameComponent(m);
 	}
 }

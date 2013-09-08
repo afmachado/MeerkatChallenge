@@ -1,6 +1,6 @@
 package loops;
 
-import interfaces.Actor;
+import interfaces.GameComponent;
 import interfaces.Drawable;
 import interfaces.StopAction;
 
@@ -12,7 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class GraphicsLoop extends View implements Actor, StopAction {
+public class GraphicsLoop extends View implements GameComponent, StopAction {
 	ArrayList<Drawable> drawables = new ArrayList<Drawable>();
 	BitmapDrawable background;
 	boolean running = true;
@@ -36,7 +36,7 @@ public class GraphicsLoop extends View implements Actor, StopAction {
 	}
 
 	@Override
-	public void act() {
+	public void play() {
 		invalidate();
 	}
 
