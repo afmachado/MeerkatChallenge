@@ -22,6 +22,7 @@ public class PopUpper implements Animator {
 	private int popUpSpeed;
 	// indicates this animation is ready to fire.
 	private boolean ready = false;
+	private boolean finished = false;
 
 	public PopUpper(Animatable animatable, int popUpSpeed) {
 		this.animatable = animatable;
@@ -48,7 +49,7 @@ public class PopUpper implements Animator {
 
 		if (popUpPercent >= 1) {
 			animBm = originalBm;
-			animatable.unregister(this);
+			finished = true;
 			return;
 		}
 		int slice = (int) (originalBm.getHeight() - (originalBm.getHeight() * popUpPercent));
@@ -61,6 +62,10 @@ public class PopUpper implements Animator {
 
 	@Override
 	public Bitmap getBitmap() {
+		// Ensure the original bitmap is always sent back when this animation ends
+		if(finished) {
+			animatable.unregisterAnimation(this);
+		}
 		return animBm;
 	}
 

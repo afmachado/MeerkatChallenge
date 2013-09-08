@@ -17,10 +17,10 @@ public class PopUpBehavior implements GameComponent {
 	private long nextShowTime = 0;
 
 	// The meerkat this behavior controls
-	Sprite meerkat;
+	Sprite sprite;
 
 	public PopUpBehavior(Sprite meerkat) {
-		this.meerkat = meerkat;
+		this.sprite = meerkat;
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class PopUpBehavior implements GameComponent {
 	 * Add one to the score and show it again after a delay
 	 */
 	public void hit() {
-		meerkat.hide();
+		sprite.hide();
 		showDelayed();
 	}
 
@@ -55,13 +55,13 @@ public class PopUpBehavior implements GameComponent {
 	public void play() throws Exception {
 		// check whether to show or hide this meerkat
 		long now = System.currentTimeMillis();
-		if((!meerkat.isVisible()) && now > nextShowTime) {
-			meerkat.show();
+		if((!sprite.isVisible()) && now > nextShowTime) {
+			sprite.show();
 			hideDelayed();
 		}
 		
-		if(meerkat.isVisible() && now > nextHideTime) {
-			meerkat.hide();
+		if(sprite.isVisible() && now > nextHideTime) {
+			sprite.hide();
 			showDelayed();
 		}
 		

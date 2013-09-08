@@ -17,18 +17,13 @@ import android.graphics.Rect;
 import entities.Actor;
 
 /**
- * Responsible for the meerkat's picture, receiving and processing user input
- * and showing and hiding the Meerkat.
+ * Responsible for storage of and animating of an image.
  * 
  * @author John Casson
  * 
  */
 public class Sprite extends Actor implements Drawable, GameComponent, Animatable {
-	// The speed to pop up at
-	final int POPUP_SPEED = 150;
-
 	private Bitmap bm;
-	private Bitmap originalBm;
 	private PopUpBehavior behavior;
 	
 	// CopyOnWriteArrayList used to avoid concurrent access + read / write issues
@@ -56,7 +51,6 @@ public class Sprite extends Actor implements Drawable, GameComponent, Animatable
 		// Not necessary: Convert the meerkat size to density independent pixels
 		// size = mainActivity.dpToPx(size);
 		this.bm = Bitmap.createScaledBitmap(bm, size, size, false);
-		this.originalBm = this.bm;
 		this.bounds = new Rect(0, 0, size, size);
 	}
 
@@ -84,28 +78,21 @@ public class Sprite extends Actor implements Drawable, GameComponent, Animatable
 
 
 	/**
-	 * Places this meerkat on the gameboard at random. Ensures the meerkat doesn't
-	 * overlap with any other meerkats. The overlap check ensures this mover
-	 * doesn't have the same X co-ordinate as any other movers.
+	 * Adds an animation when showing this sprite
 	 * 
 	 * @throws Exception
 	 *             If this meerkat is already visible
 	 */
 	public void show() throws Exception {
 		super.show();
-		register(new PopUpper(this, POPUP_SPEED));
+		
 	}
 
-	
-
 	/**
-	 * Hides this meerkat
+	 * Hides this sprite
 	 */
 	public void hide() {
 		super.hide();
-		// Reset the meerkat image
-		bm = originalBm;
-		setLocation(-1, -1);
 	}
 
 	public Bitmap getBitmap() {
@@ -118,12 +105,12 @@ public class Sprite extends Actor implements Drawable, GameComponent, Animatable
 	}
 
 	@Override
-	public void register(Animator a) {
+	public void registerAnimation(Animator a) {
 			animators.add(a);
 	}
 
 	@Override
-	public void unregister(Animator a) {
+	public void unregisterAnimation(Animator a) {
 			animators.remove(a);
 	}
 

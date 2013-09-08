@@ -1,7 +1,5 @@
 package main;
 
-import interfaces.OnHitDetected;
-import interfaces.Scorer;
 import loops.GameLoop;
 import loops.GraphicsLoop;
 import loops.InputLoop;
@@ -12,9 +10,6 @@ import android.view.View;
 import entities.Background;
 import entities.Level;
 import entities.VisibleScore;
-import entities.meerkat.Sprite;
-import entities.meerkat.RandomPlacer;
-import entities.meerkat.TouchHitDetector;
 
 public class GameFactory {
 	private GameLoop gameLoop;
@@ -48,7 +43,7 @@ public class GameFactory {
 		VisibleScore score = new VisibleScore(gameBoard, gameActivity, level);
 
 		for (int i = 0; i < level.getPopUpMeerkats(); i++) {
-			addMeerkat(score, meerkatPic, gameLoop, gameBoard);
+			MeerkatFactory.addMeerkat(score, meerkatPic, gameLoop, gameBoard, graphicsLoop, inputLoop);
 		}
 
 		// Receive user input from the canvas
@@ -74,30 +69,5 @@ public class GameFactory {
 
 		// Start the game
 		gameLoop.start();
-	}
-
-	private void addMeerkat(final Scorer s, Bitmap meerkatPic, GameLoop gameLoop,
-			GameBoard gameBoard) throws Exception {
-		// Set up the first meerkat
-		final Sprite m = new Sprite(gameBoard, new RandomPlacer());
-		// Set the size of the meerkat to be a fixed % of the gameboard's height
-		int size = (int) (gameBoard.getHeight() * 0.08);
-		m.setBitmap(meerkatPic, size);
-		graphicsLoop.register(m);
-		
-		// When we're hit, add one to the score and tell the behavior we've been hit
-		OnHitDetected ohd = new OnHitDetected() {
-			public void onHit() {
-				// Only react if the meerkat is visible
-				if(m.isVisible()) {
-					s.add(1);
-					m.getPopUpBehavior().hit();
-				}
-			}
-		};
-		
-		TouchHitDetector thd = new TouchHitDetector(ohd, m);
-		inputLoop.register(thd);
-		gameLoop.addGameComponent(m);
 	}
 }

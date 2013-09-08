@@ -2,18 +2,26 @@ package entities;
 
 import interfaces.Hittable;
 import interfaces.Locatable;
+import interfaces.OnShowListener;
 import interfaces.Placer;
 import interfaces.Showable;
 import main.GameBoard;
 import android.graphics.Point;
 import android.graphics.Rect;
 
+/**
+ * Responsible for having and setting a location,
+ * showing and hiding and being hit.
+ * @author John Casson
+ *
+ */
 public abstract class Actor implements Locatable, Showable, Hittable {
 	private Point location;
 	protected Rect bounds;
 	protected GameBoard gameBoard;
 	protected boolean visible = false;
 	private Placer placer;
+	private OnShowListener onShowListener;
 
 	public Actor(GameBoard gameBoard, Placer placer) {
 		this.gameBoard = gameBoard;
@@ -65,14 +73,15 @@ public abstract class Actor implements Locatable, Showable, Hittable {
 		}
 		
 		placer.place(this);
-
 		gameBoard.addMover(this);
 		visible = true;
+		onShowListener.onShow();
 	}
 
 	public void hide() {
 		visible = false;
 		gameBoard.removeMover(this);
+		setLocation(-1, -1);
 	}
 
 	/**
@@ -86,11 +95,9 @@ public abstract class Actor implements Locatable, Showable, Hittable {
 				+ getBounds().height());
 
 		Rect r2 = new Rect((int) x - 5, (int) y - 5, (int) x + 5, (int) y + 5);
-
 		if (r1.intersect(r2)) {
 			return true;
 		}
-
 		return false;
 	}
 	
@@ -100,5 +107,9 @@ public abstract class Actor implements Locatable, Showable, Hittable {
 	
 	public Rect getContainerSize() {
 		return new Rect(0, 0, gameBoard.getWidth(), gameBoard.getHeight());
+	}
+	
+	public void setOnShow(OnShowListener onShowListener) {
+		this.onShowListener = onShowListener;
 	}
 }
