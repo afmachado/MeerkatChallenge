@@ -14,26 +14,26 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="main.GameActivity"
+            android:name="game.entities.GameActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
-            android:name="main.LevelActivity"
+            android:name="levels.LevelActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="main.LevelEndActivity"
+            android:name="levels.LevelEndActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="main.StartGameActivity"
+            android:name="levels.StartGameActivity"
              android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
