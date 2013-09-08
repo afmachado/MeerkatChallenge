@@ -1,6 +1,5 @@
 package levels;
 
-import game.entities.GameActivity;
 import meerkatchallenge.main.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,14 +12,14 @@ public class StartGameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start_game);
 		// Start the game
-//		Preferences.setLevel(this, 1);
-//		Intent intent = new Intent(this, LevelActivity.class);
-//		startActivity(intent);
+		Preferences.setLevel(this, 1);
+		Intent intent = new Intent(this, LevelActivity.class);
+		startActivity(intent);
 		
 		// Useful debugging code - start a specific level
-		Intent intent = new Intent(this, GameActivity.class);
-		intent.putExtra("main.challenge", Levels.get(20));
-		startActivity(intent);
+//		Intent intent = new Intent(this, GameActivity.class);
+//		intent.putExtra("main.challenge", Levels.get(20));
+//		startActivity(intent);
 	}
 
 }
