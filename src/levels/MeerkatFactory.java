@@ -23,7 +23,7 @@ import android.graphics.Bitmap;
  *
  */
 public class MeerkatFactory {
-	public static void addMeerkat(final Scorer s, Bitmap meerkatPic, GameLoop gameLoop,
+	public static void addMeerkat(final Scorer s, final Bitmap meerkatPic, GameLoop gameLoop,
 			final GameBoard gameBoard, GraphicsLoop graphicsLoop, InputLoop inputLoop) throws Exception {
 		// The speed to pop up at
 		final int POPUP_SPEED = 150;
@@ -31,7 +31,7 @@ public class MeerkatFactory {
 		Placer placer = new RandomPlacer(gameBoard);
 		final Actor meerkat = new Actor(placer, new Sprite());
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
-		int size = (int) (gameBoard.getHeight() * 0.08);
+		final int size = (int) (gameBoard.getHeight() * 0.08);
 		meerkat.setBitmap(meerkatPic, size);
 		
 		meerkat.setOnShow(new OnShowListener() {
@@ -57,6 +57,7 @@ public class MeerkatFactory {
 				if(meerkat.isVisible()) {
 					s.add(1);
 					behavior.hit();
+					meerkat.setBitmap(meerkatPic, size);
 				}
 			}
 		};

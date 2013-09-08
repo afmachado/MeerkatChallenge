@@ -5,7 +5,6 @@ import game.interfaces.GameComponent;
 
 import java.util.Random;
 
-
 public class PopUpBehavior implements GameComponent, Behavior {
 	// Minimum and maximum times (ms) for the meerkat to be on screen
 	final int MIN_SHOW_TIME = 1000;
