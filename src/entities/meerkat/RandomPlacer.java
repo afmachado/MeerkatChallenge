@@ -18,24 +18,21 @@ public class RandomPlacer implements Placer {
 	@Override
 	public void place(Locatable locatable) {
 		Random r = new Random();
-		int minX = 0;
-		int minY = 0;
 		int x = 0;
 		int y = 0;
 
-		int width = gameBoard.getWidth();
-		int maxX = width - locatable.getBounds().width();
+		int maxX = gameBoard.getWidth() - locatable.getBounds().width();
 		int maxY = gameBoard.getHeight() - locatable.getBounds().height();
-
+		
 		int count = 0;
 		do {
-			x = r.nextInt(maxX - minX + 1) + minX;
-			y = r.nextInt(maxY - minY + 1) + minY;
+			x = r.nextInt(maxX);
+			y = r.nextInt(maxY);
 			count++;
 			if (count > 100) {
 				throw new RuntimeException("Can't place locatable");
 			}
-		} while (gameBoard.doesOverlap(new Rect(x, y, x + gameBoard.getWidth(), y + gameBoard.getHeight())));
+		} while (gameBoard.doesOverlap(new Rect(x, y, x + locatable.getBounds().width(), y + locatable.getBounds().height())));
 		locatable.setLocation(x, y);
 	}
 }
