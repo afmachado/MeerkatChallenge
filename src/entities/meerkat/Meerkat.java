@@ -4,7 +4,8 @@ import interfaces.Animatable;
 import interfaces.Animator;
 import interfaces.Drawable;
 import interfaces.GameComponent;
-import interfaces.ReceivesInput;
+import interfaces.HitDetector;
+import interfaces.Hittable;
 
 import java.util.List;
 import java.util.Random;
@@ -17,10 +18,7 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import entities.Mover;
-import entities.Score;
+import entities.Actor;
 
 /**
  * Responsible for the meerkat's picture, receiving and processing user input
@@ -29,26 +27,32 @@ import entities.Score;
  * @author John Casson
  * 
  */
-public class Meerkat extends Mover implements ReceivesInput, Drawable, GameComponent,
-		Animatable {
+public class Meerkat extends Actor implements Drawable, GameComponent,	Animatable, Hittable {
 	// The speed to pop up at
 	final int POPUP_SPEED = 150;
 
 	private Bitmap bm;
 	private Bitmap originalBm;
 	private PopUpBehavior behavior;
-	private Score score;
 	private boolean visible = false;
 	// CopyOnWriteArrayList used to avoid concurrent access + read / write issues
 	private List<Animator> animators = new CopyOnWriteArrayList<Animator>();
 	Matrix matrix;
+	private HitDetector hitDetector;
 
-	public Meerkat(GameBoard gameboard, Score score) {
+	public Meerkat(GameBoard gameboard) {
 		super(gameboard);
-		this.score = score;
 		this.behavior = new PopUpBehavior(this);
 		matrix = new Matrix();
 		behavior.showDelayed();
+	}
+	
+	public PopUpBehavior getPopUpBehavior() {
+		return this.behavior;
+	}
+	
+	public HitDetector getHitDetector() {
+		return this.hitDetector;
 	}
 
 	/**
@@ -88,37 +92,12 @@ public class Meerkat extends Mover implements ReceivesInput, Drawable, GameCompo
 	}
 
 	/**
-	 * On user input, detect whether this Meerkat has been hit
-	 */
-	@Override
-	public void onInput(View v, MotionEvent ev) {
-		// If we're not visible, don't respond to input events
-		if (!visible) {
-			return;
-		}
-		final int action = ev.getAction();
-		switch (action & MotionEvent.ACTION_MASK) {
-		case MotionEvent.ACTION_DOWN:
-			// Deliberately no break here
-		case MotionEvent.ACTION_POINTER_DOWN:
-			// Find the index of the action (for multitouch e.g.
-			// 0 is the first finger down, 1 is the second)
-			int actionIndex = ev.getActionIndex();
-			if (detectHit(ev.getX(actionIndex), ev.getY(actionIndex))) {
-				score.add(1);
-				behavior.hit();
-			}
-			break;
-		}
-	}
-
-	/**
-	 * Detects a hit between a point and this meerkat
+	 * Detects a hit between a point and 
 	 * 
 	 * @param ev
 	 * @return
 	 */
-	private boolean detectHit(float x, float y) {
+	public boolean isHit(float x, float y) {
 		Rect r1 = new Rect(getX(), getY(), getX() + getBounds().width(), getY()
 				+ getBounds().height());
 
@@ -130,6 +109,7 @@ public class Meerkat extends Mover implements ReceivesInput, Drawable, GameCompo
 
 		return false;
 	}
+
 
 	/**
 	 * Places this meerkat on the gameboard at random. Ensures the mover doesn't

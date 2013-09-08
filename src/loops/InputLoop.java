@@ -1,6 +1,6 @@
 package loops;
 
-import interfaces.ReceivesInput;
+import interfaces.InputReceiver;
 
 import java.util.ArrayList;
 
@@ -10,15 +10,15 @@ import android.view.View.OnTouchListener;
 
 public class InputLoop implements OnTouchListener {
 
-	ArrayList<ReceivesInput> listeners = new ArrayList<ReceivesInput>();
+	ArrayList<InputReceiver> listeners = new ArrayList<InputReceiver>();
 
-	public void register(ReceivesInput listener) {
+	public void register(InputReceiver listener) {
 		listeners.add(listener);
 	}
 
 	@Override
 	public boolean onTouch(View v, MotionEvent ev) {
-		for (ReceivesInput l : listeners) {
+		for (InputReceiver l : listeners) {
 			l.onInput(v, ev);
 		}
 		return true;

@@ -4,7 +4,7 @@ import main.GameBoard;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-public abstract class Mover {
+public abstract class Actor {
 	private Point location;
 	protected Rect bounds;
 	protected GameBoard gameBoard;
@@ -37,7 +37,7 @@ public abstract class Mover {
 		return this.bounds;
 	}
 	
-	public Mover(GameBoard gameBoard) {
+	public Actor(GameBoard gameBoard) {
 		this.gameBoard = gameBoard;
 	}
 }

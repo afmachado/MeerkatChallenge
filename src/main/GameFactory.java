@@ -11,6 +11,8 @@ import entities.Background;
 import entities.Level;
 import entities.Score;
 import entities.meerkat.Meerkat;
+import interfaces.OnHitDetected;
+import entities.meerkat.TouchHitDetector;
 
 public class GameFactory {
 	private GameLoop gameLoop;
@@ -72,15 +74,25 @@ public class GameFactory {
 		gameLoop.start();
 	}
 
-	private void addMeerkat(Score s, Bitmap meerkatPic, GameLoop gameLoop,
+	private void addMeerkat(final Score s, Bitmap meerkatPic, GameLoop gameLoop,
 			GameBoard gameBoard) throws Exception {
 		// Set up the first meerkat
-		Meerkat m = new Meerkat(gameBoard, s);
+		final Meerkat m = new Meerkat(gameBoard);
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
 		int size = (int) (gameBoard.getHeight() * 0.08);
 		m.setBitmap(meerkatPic, size);
 		graphicsLoop.register(m);
-		inputLoop.register(m);
+		
+		// When we're hit, add one to the score and tell the behavior we've been hit
+		OnHitDetected ohd = new OnHitDetected() {
+			public void onHit() {
+				s.add(1);
+				m.getPopUpBehavior().hit();
+			}
+		};
+		
+		TouchHitDetector thd = new TouchHitDetector(ohd, m);
+		inputLoop.register(thd);
 		gameLoop.addGameComponent(m);
 	}
 }
