@@ -4,7 +4,7 @@ import interfaces.StopAction;
 import android.app.Activity;
 import android.content.Intent;
 import entities.Level;
-import entities.Score;
+import entities.VisibleScore;
 
 /**
  * Shows the level end screen
@@ -13,10 +13,10 @@ import entities.Score;
  */
 public class ShowLevelEnd implements StopAction {
 	private Activity activity;
-	private Score score;
+	private VisibleScore score;
 	private Level level;
 	
-	public ShowLevelEnd(Activity activity, Score score, Level level) {
+	public ShowLevelEnd(Activity activity, VisibleScore score, Level level) {
 		this.activity = activity;
 		this.score = score;
 		this.level = level;

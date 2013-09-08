@@ -10,7 +10,7 @@ import android.graphics.Matrix;
  * 
  * @author John Casson
  */
-public class PopUpAnimator implements Animator {
+public class PopUpper implements Animator {
 	// The original bitmap (never changes)
 	private Bitmap originalBm;
 	// The animated bitmap (changes with each frame)
@@ -23,7 +23,7 @@ public class PopUpAnimator implements Animator {
 	// indicates this animation is ready to fire.
 	private boolean ready = false;
 
-	public PopUpAnimator(Animatable animatable, int popUpSpeed) {
+	public PopUpper(Animatable animatable, int popUpSpeed) {
 		this.animatable = animatable;
 		this.originalBm = animatable.getBitmap();
 		this.popUpSpeed = popUpSpeed;

@@ -1,6 +1,5 @@
 package entities.meerkat;
 
-import interfaces.HitDetector;
 import interfaces.Hittable;
 import interfaces.InputReceiver;
 import interfaces.OnHitDetected;
@@ -8,7 +7,7 @@ import interfaces.Scorable;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class TouchHitDetector implements InputReceiver, Scorable, HitDetector {
+public class TouchHitDetector implements InputReceiver, Scorable  {
 	private OnHitDetected callback;
 	private Hittable hittable;
 	public TouchHitDetector(OnHitDetected hitDetected, Hittable hittable) {

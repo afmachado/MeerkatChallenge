@@ -1,5 +1,7 @@
 package main;
 
+import interfaces.OnHitDetected;
+import interfaces.Scorer;
 import loops.GameLoop;
 import loops.GraphicsLoop;
 import loops.InputLoop;
@@ -9,9 +11,8 @@ import android.graphics.BitmapFactory;
 import android.view.View;
 import entities.Background;
 import entities.Level;
-import entities.Score;
+import entities.VisibleScore;
 import entities.meerkat.Meerkat;
-import interfaces.OnHitDetected;
 import entities.meerkat.TouchHitDetector;
 
 public class GameFactory {
@@ -43,7 +44,7 @@ public class GameFactory {
 		graphicsLoop.register(background);
 
 		// Create a score entity to keep score
-		Score score = new Score(gameBoard, gameActivity, level);
+		VisibleScore score = new VisibleScore(gameBoard, gameActivity, level);
 
 		for (int i = 0; i < level.getPopUpMeerkats(); i++) {
 			addMeerkat(score, meerkatPic, gameLoop, gameBoard);
@@ -74,7 +75,7 @@ public class GameFactory {
 		gameLoop.start();
 	}
 
-	private void addMeerkat(final Score s, Bitmap meerkatPic, GameLoop gameLoop,
+	private void addMeerkat(final Scorer s, Bitmap meerkatPic, GameLoop gameLoop,
 			GameBoard gameBoard) throws Exception {
 		// Set up the first meerkat
 		final Meerkat m = new Meerkat(gameBoard);

@@ -1,6 +1,7 @@
 package entities;
 
 import interfaces.Drawable;
+import interfaces.Scorer;
 import main.GameActivity;
 import main.GameBoard;
 import meerkatchallenge.main.R;
@@ -9,7 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-public class Score implements Drawable {
+public class VisibleScore implements Drawable, Scorer {
 	private int score = 0;
 	private Paint textPaint;
 	private GameBoard gameBoard;
@@ -18,7 +19,7 @@ public class Score implements Drawable {
 	private int topMargin;
 	private Level level;
 	
-	public Score(GameBoard gameBoard, GameActivity ma, Level level) {
+	public VisibleScore(GameBoard gameBoard, GameActivity ma, Level level) {
 		this.gameBoard = gameBoard;
 		this.mainActivity = ma;
 		this.level = level;

@@ -4,7 +4,6 @@ import interfaces.Animatable;
 import interfaces.Animator;
 import interfaces.Drawable;
 import interfaces.GameComponent;
-import interfaces.HitDetector;
 import interfaces.Hittable;
 
 import java.util.List;
@@ -38,7 +37,6 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 	// CopyOnWriteArrayList used to avoid concurrent access + read / write issues
 	private List<Animator> animators = new CopyOnWriteArrayList<Animator>();
 	Matrix matrix;
-	private HitDetector hitDetector;
 
 	public Meerkat(GameBoard gameboard) {
 		super(gameboard);
@@ -49,10 +47,6 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 	
 	public PopUpBehavior getPopUpBehavior() {
 		return this.behavior;
-	}
-	
-	public HitDetector getHitDetector() {
-		return this.hitDetector;
 	}
 
 	/**
@@ -127,7 +121,7 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 		gameBoard.addMover(this);
 		setLocation(p.x, p.y);
 		visible = true;
-		register(new PopUpAnimator(this, POPUP_SPEED));
+		register(new PopUpper(this, POPUP_SPEED));
 	}
 
 	/**
