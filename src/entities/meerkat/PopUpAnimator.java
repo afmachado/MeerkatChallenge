@@ -31,12 +31,12 @@ public class PopUpAnimator implements Animator {
 		ready = true;
 	}
 
-	public synchronized void animate(Bitmap bm, Matrix m) {
+	public synchronized void animate() {
 		// don't start animating till the constructor has completed
 		if(!ready) {
 			return;
 		}
-		matrix = m;
+		matrix = animatable.getMatrix();
 		// Calculate the "slice" height of meerkat to show
 		long now = System.currentTimeMillis();
 		float difference = now - startTime; // time in ms between starting pop
@@ -68,5 +68,4 @@ public class PopUpAnimator implements Animator {
 	public Matrix getMatrix() {
 		return matrix;
 	}
-
 }

@@ -1,9 +1,9 @@
 package entities.meerkat;
 
-import interfaces.GameComponent;
 import interfaces.Animatable;
 import interfaces.Animator;
 import interfaces.Drawable;
+import interfaces.GameComponent;
 import interfaces.ReceivesInput;
 
 import java.util.List;
@@ -78,7 +78,7 @@ public class Meerkat extends Mover implements ReceivesInput, Drawable, GameCompo
 			// Add each animator in turn
 			synchronized(animators) {
 				for (Animator a : animators) {
-					a.animate(getBitmap(), matrix);
+					a.animate();
 					bm = a.getBitmap();
 					matrix = a.getMatrix();
 				}
@@ -214,5 +214,10 @@ public class Meerkat extends Mover implements ReceivesInput, Drawable, GameCompo
 	@Override
 	public void unregister(Animator a) {
 			animators.remove(a);
+	}
+
+	@Override
+	public Matrix getMatrix() {
+		return matrix;
 	}
 }
