@@ -13,6 +13,7 @@ import entities.Background;
 import entities.Level;
 import entities.VisibleScore;
 import entities.meerkat.Meerkat;
+import entities.meerkat.RandomPlacer;
 import entities.meerkat.TouchHitDetector;
 
 public class GameFactory {
@@ -78,7 +79,7 @@ public class GameFactory {
 	private void addMeerkat(final Scorer s, Bitmap meerkatPic, GameLoop gameLoop,
 			GameBoard gameBoard) throws Exception {
 		// Set up the first meerkat
-		final Meerkat m = new Meerkat(gameBoard);
+		final Meerkat m = new Meerkat(gameBoard, new RandomPlacer());
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
 		int size = (int) (gameBoard.getHeight() * 0.08);
 		m.setBitmap(meerkatPic, size);

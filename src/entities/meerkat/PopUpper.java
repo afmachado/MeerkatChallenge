@@ -37,7 +37,7 @@ public class PopUpper implements Animator {
 			return;
 		}
 		matrix = animatable.getMatrix();
-		// Calculate the "slice" height of meerkat to show
+		// Calculate the "slice" height of animatable to show
 		long now = System.currentTimeMillis();
 		float difference = now - startTime; // time in ms between starting pop
 											// up and now

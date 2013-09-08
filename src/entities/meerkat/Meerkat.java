@@ -4,20 +4,16 @@ import interfaces.Animatable;
 import interfaces.Animator;
 import interfaces.Drawable;
 import interfaces.GameComponent;
-import interfaces.Hittable;
-import interfaces.Showable;
+import interfaces.Placer;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import main.GameBoard;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 import entities.Actor;
 
 /**
@@ -27,7 +23,7 @@ import entities.Actor;
  * @author John Casson
  * 
  */
-public class Meerkat extends Actor implements Drawable, GameComponent,	Animatable, Hittable, Showable {
+public class Meerkat extends Actor implements Drawable, GameComponent, Animatable {
 	// The speed to pop up at
 	final int POPUP_SPEED = 150;
 
@@ -39,8 +35,8 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 	private List<Animator> animators = new CopyOnWriteArrayList<Animator>();
 	Matrix matrix;
 
-	public Meerkat(GameBoard gameboard) {
-		super(gameboard);
+	public Meerkat(GameBoard gameboard, Placer placer) {
+		super(gameboard, placer);
 		this.behavior = new PopUpBehavior(this);
 		matrix = new Matrix();
 		behavior.showDelayed();
@@ -86,25 +82,6 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 		}
 	}
 
-	/**
-	 * Detects a hit between a point and 
-	 * 
-	 * @param ev
-	 * @return
-	 */
-	public boolean isHit(float x, float y) {
-		Rect r1 = new Rect(getX(), getY(), getX() + getBounds().width(), getY()
-				+ getBounds().height());
-
-		Rect r2 = new Rect((int) x - 5, (int) y - 5, (int) x + 5, (int) y + 5);
-
-		if (r1.intersect(r2)) {
-			return true;
-		}
-
-		return false;
-	}
-
 
 	/**
 	 * Places this meerkat on the gameboard at random. Ensures the meerkat doesn't
@@ -115,43 +92,11 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 	 *             If this meerkat is already visible
 	 */
 	public void show() throws Exception {
-		Point p = findEmptySpace();
-		setLocation(p.x, p.y);
 		super.show();
 		register(new PopUpper(this, POPUP_SPEED));
 	}
 
-	/**
-	 * Finds an empty space on the gameboard
-	 * 
-	 * @return
-	 * @throws Exception
-	 *             If the meerkat can't be placed
-	 */
-	private Point findEmptySpace() throws Exception {
-		Random r = new Random();
-		int minX = 0;
-		int minY = 0;
-		int x = 0;
-		int y = 0;
-
-		int width = gameBoard.getWidth();
-		Rect rect1 = getBounds();
-		int maxX = width - rect1.width();
-		int maxY = gameBoard.getHeight() - getBounds().height();
-
-		int count = 0;
-		do {
-			x = r.nextInt(maxX - minX + 1) + minX;
-			y = r.nextInt(maxY - minY + 1) + minY;
-			count++;
-			if (count > 100) {
-				Log.e("JC", "Can't place meerkat");
-				throw new Exception("Can'tplacemeerkat");
-			}
-		} while (gameBoard.doesOverlap(x, y));
-		return new Point(x, y);
-	}
+	
 
 	/**
 	 * Hides this meerkat
@@ -186,5 +131,4 @@ public class Meerkat extends Actor implements Drawable, GameComponent,	Animatabl
 	public Matrix getMatrix() {
 		return matrix;
 	}
-
 }
