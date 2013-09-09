@@ -2,19 +2,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView
+    
+    <ImageView
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:contentDescription="@string/title_image"
+        android:layout_width="fill_parent"
         android:layout_height="0sp"
         android:layout_weight="1"
-        android:background="@color/background"
-        android:fontFamily="sans"
-        android:gravity="center"
-        android:text="@string/title"
-        android:textAlignment="center"
-        android:textColor="@color/text"
-        android:textStyle="italic" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/title" />
 
     <ImageView
         android:layout_width="fill_parent"
@@ -24,18 +20,13 @@
         android:scaleType="centerCrop"
         android:src="@drawable/start_screen" />
 
-    <TextView
+    <ImageView
         android:id="@+id/go_button"
-        android:layout_width="match_parent"
+        android:contentDescription="@string/go_button"
+        android:layout_width="fill_parent"
+        android:scaleType="centerCrop"
         android:layout_height="0sp"
         android:layout_weight="1"
-        android:background="@color/background"
-        android:fontFamily="sans"
-        android:gravity="center"
-        android:text="@string/go"
-        android:textAlignment="center"
-        android:textColor="@color/text"
-        android:textSize="30sp"
-        android:textStyle="italic" />
+		android:src="@drawable/go_button" />
 
 </LinearLayout>
