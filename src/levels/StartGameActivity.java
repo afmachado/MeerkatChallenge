@@ -21,5 +21,4 @@ public class StartGameActivity extends Activity {
 //		intent.putExtra("main.challenge", Levels.get(20));
 //		startActivity(intent);
 	}
-
 }

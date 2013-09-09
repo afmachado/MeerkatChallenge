@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:fontFamily="sans"
+        android:gravity="center"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textColor="@color/text"
+        android:textStyle="italic" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="0sp"
+        android:layout_weight="6"
+        android:contentDescription="@string/start_screen_description"
+        android:scaleType="centerCrop"
+        android:src="@drawable/start_screen" />
+
+    <TextView
+        android:id="@+id/go_button"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:fontFamily="sans"
+        android:gravity="center"
+        android:text="@string/go"
+        android:textAlignment="center"
+        android:textColor="@color/text"
+        android:textSize="30sp"
+        android:textStyle="italic" />
+
+</LinearLayout>

@@ -30,7 +30,12 @@ public class LevelEndActivity extends Activity {
 		String message;
 		boolean showNext = false;
 		if (score >= level.getTargetScore()) {
-			Preferences.setLevel(this, level.getNumber() + 1);
+			// A hack to put the level back to 1 if the game is won (level 20 complete)
+			if(level.getNumber() != 20) {
+				Preferences.setLevel(this, level.getNumber() + 1);
+			} else {
+				Preferences.setLevel(this, 1);
+			}
 			message = "Congratulations!\nYou did it!\n\nYour score:";
 			showNext = true;
 		} else {
