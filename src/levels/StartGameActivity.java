@@ -15,10 +15,5 @@ public class StartGameActivity extends Activity {
 		Preferences.setLevel(this, 1);
 		Intent intent = new Intent(this, LevelActivity.class);
 		startActivity(intent);
-		
-		// Useful debugging code - start a specific level
-//		Intent intent = new Intent(this, GameActivity.class);
-//		intent.putExtra("main.challenge", Levels.get(20));
-//		startActivity(intent);
 	}
 }

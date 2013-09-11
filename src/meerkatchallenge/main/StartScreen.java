@@ -1,6 +1,5 @@
 package meerkatchallenge.main;
 
-import levels.LevelActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +21,7 @@ public class StartScreen extends Activity {
 		goButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(reference, LevelActivity.class);
+				Intent intent = new Intent(reference, LevelSelect.class);
 				startActivity(intent);
 			}
 		});

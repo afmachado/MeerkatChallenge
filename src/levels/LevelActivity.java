@@ -5,7 +5,6 @@ import meerkatchallenge.main.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,9 +17,8 @@ public class LevelActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_level);
-		
-		int levelNumber = Preferences.getLevel(this);
-		Log.e("JC", "Loading level " + levelNumber);
+		Bundle extras = getIntent().getExtras();
+		int levelNumber = extras.getInt("level");
 		
 		level = Levels.get(levelNumber);
 		
