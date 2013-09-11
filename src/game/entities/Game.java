@@ -2,7 +2,7 @@ package game.entities;
 
 import levels.GameFactory;
 import levels.Level;
-import levels.LevelActivity;
+import levels.StartLevel;
 import meerkatchallenge.main.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 
-public class GameActivity extends Activity {
+public class Game extends Activity {
 	// To detect whether the game needs resetting
 	// This is set to true if the Activity goes into the background
 	// It's checked in the onResume activity
@@ -24,7 +24,7 @@ public class GameActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		challenge = (Level) getIntent().getExtras().getSerializable(
 				"main.challenge");
-		final GameActivity ga = this;
+		final Game ga = this;
 
 		Handler h = new Handler();
 		// We can't initialize the graphics immediately because the layout
@@ -46,7 +46,7 @@ public class GameActivity extends Activity {
 	 * Resets the game
 	 */
 	public void reset() {
-		Intent intent = new Intent(this, LevelActivity.class);
+		Intent intent = new Intent(this, StartLevel.class);
 		finish();
 		// Hide the default animation
 		overridePendingTransition(0, 0);

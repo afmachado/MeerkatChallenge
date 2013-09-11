@@ -23,7 +23,7 @@ public class ShowLevelEnd implements StopAction {
 	
 	@Override
 	public void onStop() {
-		Intent intent = new Intent(activity, LevelEndActivity.class);
+		Intent intent = new Intent(activity, EndLevel.class);
 		intent.putExtra("main.score", score.get());
 		intent.putExtra("main.level", level);
 		activity.startActivity(intent);

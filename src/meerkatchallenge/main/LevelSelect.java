@@ -1,7 +1,7 @@
 package meerkatchallenge.main;
 
-import levels.LevelActivity;
 import levels.Preferences;
+import levels.StartLevel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -55,7 +55,7 @@ public class LevelSelect extends Activity {
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent(reference,
-								LevelActivity.class);
+								StartLevel.class);
 						Bundle bundle = new Bundle();
 						bundle.putInt("level",
 								Integer.parseInt(tv.getText().toString()));
@@ -67,5 +67,11 @@ public class LevelSelect extends Activity {
 		}
 
 	}
-
+	
+	// Always go back to the start screen
+	@Override
+	public void onBackPressed() {
+		Intent i = new Intent(LevelSelect.this, StartScreen.class);
+		startActivity(i);
+	}
 }

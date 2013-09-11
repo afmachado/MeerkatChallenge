@@ -1,21 +1,23 @@
 package levels;
 
-import game.entities.GameActivity;
+import game.entities.Game;
+import meerkatchallenge.main.LevelSelect;
 import meerkatchallenge.main.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class LevelEndActivity extends Activity {
+public class EndLevel extends Activity {
 	// Delay before enabling the button in ms
 	final static int ENABLED_BUTTON_DELAY = 700;
 	Level level;
-	LevelEndActivity lea;
+	EndLevel lea;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,6 @@ public class LevelEndActivity extends Activity {
 		}
 		
 		delayedEnable();
-
 	}
 
 	public void delayedEnable() {
@@ -65,7 +66,10 @@ public class LevelEndActivity extends Activity {
 				Button next = (Button) findViewById(R.id.next_level);
 				next.setOnClickListener(new OnClickListener() { 
 					public void onClick(View v) {
-						Intent intent = new Intent(lea, LevelActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putInt("level", Preferences.getLevel(lea));
+						Intent intent = new Intent(lea, StartLevel.class);
+						intent.putExtras(bundle);
 						startActivity(intent);
 					}
 				});
@@ -73,7 +77,7 @@ public class LevelEndActivity extends Activity {
 				Button retry = (Button) findViewById(R.id.retry);
 				retry.setOnClickListener(new OnClickListener() { 
 					public void onClick(View v) {				
-						Intent intent = new Intent(lea, GameActivity.class);
+						Intent intent = new Intent(lea, Game.class);
 						intent.putExtra("main.challenge", level);
 						startActivity(intent);
 					}
@@ -82,5 +86,16 @@ public class LevelEndActivity extends Activity {
 		};			
 
 		h.postDelayed(r, ENABLED_BUTTON_DELAY);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			Intent i = new Intent(EndLevel.this, LevelSelect.class);
+			startActivity(i);
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
 	}
 }

@@ -16,13 +16,13 @@ public class Timer implements StopCondition, GameComponent, Drawable {
 	GameBoard gameBoard;
 	Paint textPaint;
 
-	private GameActivity mainActivity;
+	private Game mainActivity;
 	
 	/**
 	 * Stops the game after a specified time
 	 * @param gameTime The time to stop after
 	 */
-	public Timer(int gameTime, GameBoard gameBoard, GameActivity ma) {
+	public Timer(int gameTime, GameBoard gameBoard, Game ma) {
 		this.gameTime = gameTime;
 		this.gameBoard = gameBoard;
 		this.mainActivity = ma;

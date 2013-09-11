@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import game.entities.Background;
-import game.entities.GameActivity;
+import game.entities.Game;
 import game.entities.GameBoard;
 import game.entities.Timer;
 import game.entities.VisibleScore;
@@ -19,7 +19,7 @@ public class GameFactory {
 	private GraphicsLoop graphicsLoop;
 	private GameBoard gameBoard;
 
-	public void createGame(GameActivity gameActivity, Level level)
+	public void createGame(Game gameActivity, Level level)
 			throws Exception {
 		// Set up the game engine
 		this.gameLoop = new GameLoop();

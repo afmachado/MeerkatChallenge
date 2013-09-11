@@ -1,6 +1,7 @@
 package levels;
 
-import game.entities.GameActivity;
+import game.entities.Game;
+import meerkatchallenge.main.LevelSelect;
 import meerkatchallenge.main.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,37 +11,43 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class LevelActivity extends Activity implements OnClickListener {
+public class StartLevel extends Activity implements OnClickListener {
 	Level level;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_level);
 		Bundle extras = getIntent().getExtras();
 		int levelNumber = extras.getInt("level");
-		
+
 		level = Levels.get(levelNumber);
-		
+
 		TextView title = (TextView) findViewById(R.id.title);
 		title.setText("Level " + level.getNumber() + ": " + level.getTitle());
 		TextView description = (TextView) findViewById(R.id.description);
-		description.setText(level.getDescription());	
-		
+		description.setText(level.getDescription());
+
 		TextView meerkatCount = (TextView) findViewById(R.id.meerkats);
 		meerkatCount.setText(Integer.toString(level.getTargetScore()));
-		
+
 		TextView time = (TextView) findViewById(R.id.time);
 		time.setText(Integer.toString(level.getTimeLimit()));
-		
+
 		Button b = (Button) findViewById(R.id.start);
 		b.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(this, GameActivity.class);
+		Intent intent = new Intent(this, Game.class);
 		intent.putExtra("main.challenge", level);
 		startActivity(intent);
+	}
+
+	@Override
+	public void onBackPressed() {
+		Intent i = new Intent(StartLevel.this, LevelSelect.class);
+		startActivity(i);
 	}
 }

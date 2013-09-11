@@ -24,7 +24,11 @@ public class StartScreen extends Activity {
 				Intent intent = new Intent(reference, LevelSelect.class);
 				startActivity(intent);
 			}
-		});
-		
+		});	
+	}
+	
+	// Don't go back from here
+	@Override
+	public void onBackPressed() {
 	}
 }

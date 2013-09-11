@@ -13,12 +13,12 @@ public class VisibleScore implements Drawable, Scorer {
 	private int score = 0;
 	private Paint textPaint;
 	private GameBoard gameBoard;
-	private GameActivity mainActivity;
+	private Game mainActivity;
 	private int rightMargin;
 	private int topMargin;
 	private Level level;
 	
-	public VisibleScore(GameBoard gameBoard, GameActivity ma, Level level) {
+	public VisibleScore(GameBoard gameBoard, Game ma, Level level) {
 		this.gameBoard = gameBoard;
 		this.mainActivity = ma;
 		this.level = level;
