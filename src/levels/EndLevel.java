@@ -34,7 +34,10 @@ public class EndLevel extends Activity {
 		if (score >= level.getTargetScore()) {
 			// A hack to put the level back to 1 if the game is won (level 20 complete)
 			if(level.getNumber() != 20) {
-				Preferences.setLevel(this, level.getNumber() + 1);
+				// If the user has already completed this level don't increment
+				if(level.getNumber() >= Preferences.getLevel(this)) { 
+					Preferences.setLevel(this, level.getNumber() + 1);
+				}
 			} else {
 				Preferences.setLevel(this, 1);
 			}
