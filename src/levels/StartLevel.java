@@ -1,25 +1,23 @@
-
 package levels;
 
 import game.entities.Game;
-import levels.EditNameDialog.EditNameDialogListener;
 import meerkatchallenge.main.LevelSelect;
 import meerkatchallenge.main.R;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
 /**
  * The "Start a level" activity
+ * 
  * @author John Casson
- *
+ * 
  */
-public class StartLevel extends FragmentActivity implements OnClickListener, EditNameDialogListener {
+public class StartLevel extends Activity implements OnClickListener {
 	Level level;
 
 	@Override
@@ -46,21 +44,7 @@ public class StartLevel extends FragmentActivity implements OnClickListener, Edi
 
 		Button b = (Button) findViewById(R.id.start);
 		b.setOnClickListener(this);
-		showEditDialog();
-		
 	}
-	
-	private void showEditDialog() {
-        FragmentManager fm = getSupportFragmentManager();
-        EditNameDialog editNameDialog = new EditNameDialog();
-        editNameDialog.show(fm, "fragment_edit_name");
-	}
-	
-	@Override
-    public void onFinishEditDialog(String inputText) {
-        Toast.makeText(this, "Hi, " + inputText, Toast.LENGTH_SHORT).show();
-    }
-
 
 	/**
 	 * When the start button is pressed, start the game
