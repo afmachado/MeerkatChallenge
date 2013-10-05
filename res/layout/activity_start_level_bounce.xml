@@ -20,20 +20,75 @@
 	        android:id="@+id/linearLayout_dummy1" android:layout_weight=".15">
 	    </LinearLayout>
 	    
-	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    <LinearLayout style="@style/LevelInfoBackground"
 		   android:layout_height="fill_parent"
 		   android:layout_width="0dip" android:layout_weight=".7"
 		   android:layout_gravity="center"
 		   android:orientation="vertical"
 		   android:gravity="center" >
+
+	        <TextView
+	            android:id="@+id/title"
+	            style="@style/LevelInfoTitleText"
+	            android:text="Level 5: Hold Steady"
+	             />
+
+	        <TextView
+	            android:id="@+id/description"
+	            style="@style/LevelInfoTitleText"
+	            android:text="How long can you hold out?" />
 	    
-	        <Button android:text="Button" android:id="@+id/button1"
-	            android:layout_width="fill_parent" 
-	            android:layout_height="wrap_content">
-	        </Button>
-	      
-		        <Button android:layout_width="fill_parent" android:id="@+id/button2"
-		            android:layout_height="wrap_content" android:text="Button"></Button>
+	        <LinearLayout
+	            android:id="@+id/targets"
+		        android:layout_width="match_parent"
+		        android:gravity="center"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="@dimen/LevelMargin"
+		        android:layout_marginBottom="@dimen/LevelMargin"
+		        android:orientation="horizontal">
+        
+	            <LinearLayout style="@style/LevelInfoTargetContainer">
+			        <ImageView
+			            android:id="@+id/meerkat_image"
+						style="@style/LevelInfoPicture"
+			            android:paddingTop="2dp"
+			            android:src="@drawable/meerkat" />
+			        
+			        <TextView
+			            android:id="@+id/meerkats"
+						style="@style/LevelInfoTargets"
+			            android:text="20" />
+		        </LinearLayout>
+		
+	            <LinearLayout style="@style/LevelInfoTargetContainer">
+			        <ImageView
+			            android:id="@+id/clock_image"
+						style="@style/LevelInfoPicture"
+			            android:src="@drawable/clock" />
+			
+			        <TextView
+			            android:id="@+id/time"
+						style="@style/LevelInfoTargets"
+			            android:text="15" />
+			    </LinearLayout>
+
+    		</LinearLayout>
+
+	        <LinearLayout 
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal">
+		        <Button
+		            style="@style/LevelInfoButtons"
+		            android:id="@+id/button1"
+		            android:text="Button"
+		             />
+	
+		        <Button
+		            style="@style/LevelInfoButtons"
+		            android:id="@+id/button2"
+		            android:text="Button" />
+	        </LinearLayout>
 	       
 	    </LinearLayout>
 	
