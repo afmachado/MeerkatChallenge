@@ -1,0 +1,50 @@
+<!--  TODO: Refactor into a start level bounce screen -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:orientation="vertical"
+    android:id="@+id/login_form">
+
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="0dip" android:orientation="horizontal"
+        android:id="@+id/linearLayout_dummy1" android:layout_weight=".20">
+    </LinearLayout>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dip" android:orientation="horizontal"
+	    android:layout_weight="0.6"
+	    android:id="@+id/login_form">
+		
+	    <LinearLayout android:layout_width="0dip"
+	        android:layout_height="wrap_content" android:orientation="horizontal"
+	        android:id="@+id/linearLayout_dummy1" android:layout_weight=".15">
+	    </LinearLayout>
+	    
+	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		   android:layout_height="fill_parent"
+		   android:layout_width="0dip" android:layout_weight=".7"
+		   android:layout_gravity="center"
+		   android:orientation="vertical"
+		   android:gravity="center" >
+	    
+	        <Button android:text="Button" android:id="@+id/button1"
+	            android:layout_width="fill_parent" 
+	            android:layout_height="wrap_content">
+	        </Button>
+	      
+		        <Button android:layout_width="fill_parent" android:id="@+id/button2"
+		            android:layout_height="wrap_content" android:text="Button"></Button>
+	       
+	    </LinearLayout>
+	
+	    <LinearLayout android:layout_width="0dip"
+	        android:layout_height="wrap_content" android:orientation="horizontal"
+	        android:id="@+id/linearLayout_dummy2" android:layout_weight=".15">
+	    </LinearLayout>
+	   
+	</LinearLayout>
+	<LinearLayout android:layout_height="0dip"
+        android:layout_width="wrap_content" android:orientation="horizontal"
+        android:id="@+id/linearLayout_dummy2" android:layout_weight=".20">
+    </LinearLayout>
+</LinearLayout>
