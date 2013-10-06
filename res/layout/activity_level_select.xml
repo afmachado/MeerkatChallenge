@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <!-- The title -->
     <ImageView
         android:id="@+id/title"
         android:layout_width="fill_parent"
@@ -13,13 +14,13 @@
         android:scaleType="centerCrop"
         android:src="@drawable/levels_title" />
 
-    <!-- The bottom half of the screen -->
-
+    <!-- Level numbers -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:background="@drawable/level_select_background" >
 
         <!-- Level 1 - 5 -->
 
@@ -27,7 +28,6 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="#3fb4b4"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -123,12 +123,10 @@
         </LinearLayout>
 
         <!-- Level  6 - 10 -->
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="#256825"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -223,12 +221,10 @@
         </LinearLayout>
 
         <!-- Level  11 - 15 -->
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="#d64c3c"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -327,7 +323,6 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="#ebeb55"
             android:orientation="vertical" >
 
             <LinearLayout
