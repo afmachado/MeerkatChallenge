@@ -1,6 +1,5 @@
 package meerkatchallenge.main;
 
-// TODO: Remove when prototyping is complete
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.animation.Animation;

@@ -17,22 +17,50 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="LevelInfoSidePadding">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_weight">0.05</item>
+    </style>
 
-    <style name="LevelInfoTitleText">
+    <style name="LevelInfoTitle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#1d5b15</item>
-        <item name="android:textSize">27sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
     </style>
 
     <style name="LevelInfoBackground">
-        <item name="android:background">#aaf943</item>
+        <item name="android:layout_height">350dp</item>
+		<item name="android:layout_width">0dip</item>
+		<item name="android:layout_weight">.7</item>
+		<item name="android:layout_gravity">center</item>
+		<item name="android:orientation">vertical</item>
+		<item name="android:gravity">center</item>
+		<item name="android:background">@drawable/level_info_background_green</item>
+		<item name="android:padding">45dp</item>
+    </style>
+    
+    <style name="LevelInfoSection">
+        <item name="android:layout_height">0dip</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_weight">.33</item>
+		<item name="android:orientation">vertical</item>
+		<item name="android:gravity">center</item>
+    </style>
+    
+    <style name="LevelInfoGap">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_weight">.05</item>
     </style>
 
     <style name="LevelInfoPicture">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
     </style>
 
     <style name="LevelInfoTargets">
@@ -54,7 +82,10 @@
         <item name="android:layout_width">0dip</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_weight">.4</item>
+        <item name="android:layout_weight">.3</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:background">@drawable/button</item>
+        <item name="android:textColor">@color/button_text</item>
     </style>
 
 </resources>
