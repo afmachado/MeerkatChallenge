@@ -26,8 +26,8 @@ public class StartLevel extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_level);
 		Bundle extras = getIntent().getExtras();
 		// Hack for testing
-//		int levelNumber = extras.getInt("level");
-		int levelNumber = 5;
+		int levelNumber = extras.getInt("level");
+//		int levelNumber = 5;
 
 		level = Levels.get(levelNumber);
 
