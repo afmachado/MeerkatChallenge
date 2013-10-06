@@ -1,6 +1,6 @@
 package levels;
 
-import game.entities.Game;
+import game.entities.GameActivity;
 import meerkatchallenge.main.LevelSelect;
 import meerkatchallenge.main.R;
 import android.app.Activity;
@@ -51,7 +51,7 @@ public class StartLevel extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(this, Game.class);
+		Intent intent = new Intent(this, GameActivity.class);
 		intent.putExtra("main.challenge", level);
 		startActivity(intent);
 	}

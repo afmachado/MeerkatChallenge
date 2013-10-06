@@ -1,6 +1,6 @@
 package levels;
 
-import game.entities.Game;
+import game.entities.GameActivity;
 import meerkatchallenge.main.LevelSelect;
 import meerkatchallenge.main.R;
 import android.app.Activity;
@@ -80,7 +80,7 @@ public class EndLevel extends Activity {
 				Button retry = (Button) findViewById(R.id.retry);
 				retry.setOnClickListener(new OnClickListener() { 
 					public void onClick(View v) {				
-						Intent intent = new Intent(lea, Game.class);
+						Intent intent = new Intent(lea, GameActivity.class);
 						intent.putExtra("main.challenge", level);
 						startActivity(intent);
 					}

@@ -2,10 +2,11 @@ package game.entities;
 
 import game.interfaces.Behavior;
 import game.interfaces.GameComponent;
+import game.interfaces.Pausable;
 
 import java.util.Random;
 
-public class PopUpBehavior implements GameComponent, Behavior {
+public class PopUpBehavior implements GameComponent, Behavior, Pausable {
 	// Minimum and maximum times (ms) for the meerkat to be on screen
 	final int MIN_SHOW_TIME = 1000;
 	final int MAX_SHOW_TIME = 4000;
@@ -18,6 +19,7 @@ public class PopUpBehavior implements GameComponent, Behavior {
 	private long nextShowTime = 0;
 	
 	private boolean enabled = false;
+	private long pauseTime;
 
 	// The meerkat this behavior controls
 	Actor actor;
@@ -77,6 +79,18 @@ public class PopUpBehavior implements GameComponent, Behavior {
 	@Override
 	public void enable() {
 		this.enabled = true;
+	}
+
+	@Override
+	public void onPause() {
+		pauseTime = System.currentTimeMillis();
+	}
+
+	@Override
+	public void onUnPause() {
+		long pausedTime = System.currentTimeMillis() - pauseTime;
+		nextShowTime = nextShowTime + pausedTime;
+		nextHideTime = nextHideTime + pausedTime;
 	}
 
 }

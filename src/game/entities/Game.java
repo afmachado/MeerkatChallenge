@@ -1,100 +1,70 @@
 package game.entities;
 
-import levels.GameFactory;
-import levels.Level;
-import levels.StartLevel;
-import meerkatchallenge.main.R;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.DisplayMetrics;
+import java.util.ArrayList;
 
-public class Game extends Activity {
-	// To detect whether the game needs resetting
-	// This is set to true if the Activity goes into the background
-	// It's checked in the onResume activity
-	boolean needsResetting = false;
+import game.interfaces.Pausable;
+import game.loops.GameLoop;
+import game.loops.GraphicsLoop;
+import game.loops.InputLoop;
 
-	Level challenge;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		challenge = (Level) getIntent().getExtras().getSerializable(
-				"main.challenge");
-		final Game ga = this;
-
-		Handler h = new Handler();
-		// We can't initialize the graphics immediately because the layout
-		// manager needs to run first, thus call back in a sec.
-		h.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					new GameFactory().createGame(ga, challenge);
-				} catch (Exception e) {
-					// TODO global exception handler
-					e.printStackTrace();
-				}
-			}
-		}, 1000);
+public class Game {
+	private GameLoop gameLoop;
+	private InputLoop inputLoop;
+	private GraphicsLoop graphicsLoop;
+	private GameBoard gameBoard;
+	public boolean paused = true;
+	private ArrayList<Pausable> pausables = new ArrayList<Pausable>();
+	
+	public Game(GameLoop gameLoop, InputLoop inputLoop,
+			GraphicsLoop graphicsLoop, GameBoard gameBoard) {
+		this.gameLoop = gameLoop;
+		this.inputLoop = inputLoop;
+		this.graphicsLoop = graphicsLoop;
+		this.gameBoard = gameBoard;
 	}
 
-	/**
-	 * Resets the game
-	 */
-	public void reset() {
-		Intent intent = new Intent(this, StartLevel.class);
-		finish();
-		// Hide the default animation
-		overridePendingTransition(0, 0);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivity(intent);
+	public GameBoard getGameBoard() {
+		return gameBoard;
 	}
-
-	/**
-	 * Convert from pixels to density independent pixels
-	 * 
-	 * @param dp
-	 *            Density dependent pixel value to convert
-	 * @return int The size in density independent pixels
-	 */
-	public int dpToPx(int dp) {
-		DisplayMetrics displayMetrics = getApplicationContext().getResources()
-				.getDisplayMetrics();
-		int px = Math.round(dp
-				* (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-		return px;
+	
+	public GraphicsLoop getGraphicsLoop() {
+		return graphicsLoop;
 	}
-
-	/**
-	 * When resuming the activity, see if we were running before (needsResetting
-	 * = true) and if so, reset the activity.
-	 */
-	@Override
-	protected void onResume() {
-		super.onResume();
-		if (needsResetting) {
-			needsResetting = false;
-			reset();
+	
+	public InputLoop getInputLoop() {
+		return inputLoop;
+	}
+	
+	public GameLoop getGameLoop() {
+		return gameLoop;
+	}
+	
+	public void start() {
+		paused = false;
+		gameLoop.start();
+	}
+	
+	public void pause() {
+		paused = true;
+		gameLoop.stop();
+		for(Pausable pausable : pausables) {
+			pausable.onPause();
 		}
 	}
-
-	/**
-	 * If the activity is stopped, set a flag to reset it next time it's brought
-	 * forwards
-	 */
-	protected void onStop() {
-		super.onStop();
-		needsResetting = true;
+	
+	public void unPause() {
+		paused = false;
+		gameLoop.start();
+		for(Pausable pausable : pausables) {
+			pausable.onUnPause();
+		}
+	}
+	
+	public boolean isPaused() {
+		return paused;
 	}
 
-	/**
-	 * Stop the back button from doing anything
-	 */
-	@Override
-	public void onBackPressed() {
+	public void addPausable(Pausable pausable) {
+		pausables.add(pausable);
 	}
 }

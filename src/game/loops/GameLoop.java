@@ -63,4 +63,8 @@ public class GameLoop {
 	public void registerStop(StopCondition sc) {
 		stopConditions.add(sc);
 	}
+	
+	public void stop() {
+		frame.removeCallbacks(frameUpdate);
+	}
 }
