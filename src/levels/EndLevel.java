@@ -70,8 +70,9 @@ public class EndLevel extends Activity {
 				next.setOnClickListener(new OnClickListener() { 
 					public void onClick(View v) {
 						Bundle bundle = new Bundle();
-						bundle.putInt("level", Preferences.getLevel(lea));
-						Intent intent = new Intent(lea, StartLevel.class);
+						level = Levels.get(Preferences.getLevel(lea));
+						bundle.putSerializable("level", level);
+						Intent intent = new Intent(lea, GameActivity.class);
 						intent.putExtras(bundle);
 						startActivity(intent);
 					}

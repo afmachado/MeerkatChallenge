@@ -1,7 +1,9 @@
 package meerkatchallenge.main;
 
+import game.entities.GameActivity;
+import levels.Level;
+import levels.Levels;
 import levels.Preferences;
-import levels.StartLevel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +33,8 @@ public class LevelSelect extends Activity {
 			final TextView tv = (TextView) findViewById(i);
 			if (Integer.parseInt(tv.getText().toString()) == currentLevel) {
 				LinearLayout ll = (LinearLayout) tv.getParent();
-				ll.setBackgroundColor(getResources().getColor(R.color.current_level));
+				ll.setBackgroundColor(getResources().getColor(
+						R.color.current_level));
 			}
 		}
 
@@ -47,7 +50,7 @@ public class LevelSelect extends Activity {
 			tv.setOnClickListener(null);
 		}
 
-		// Set the on click listeners for completed levels
+		// Makes the available levels clickable
 		for (int i : textViews) {
 			final TextView tv = (TextView) findViewById(i);
 			if (!tv.getText().toString().equals(lockedLevel)) {
@@ -55,11 +58,9 @@ public class LevelSelect extends Activity {
 					@Override
 					public void onClick(View v) {
 						Intent intent = new Intent(reference,
-								StartLevel.class);
-						Bundle bundle = new Bundle();
-						bundle.putInt("level",
-								Integer.parseInt(tv.getText().toString()));
-						intent.putExtras(bundle);
+								GameActivity.class);
+						Level level = Levels.get(Integer.parseInt(tv.getText().toString()));
+						intent.putExtra("level", level);
 						startActivity(intent);
 					}
 				});
@@ -67,7 +68,7 @@ public class LevelSelect extends Activity {
 		}
 
 	}
-	
+
 	// Always go back to the start screen
 	@Override
 	public void onBackPressed() {

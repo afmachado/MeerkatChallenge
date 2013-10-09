@@ -1,6 +1,7 @@
 package game.loops;
 
 import game.interfaces.GameComponent;
+import game.interfaces.Pausable;
 import game.interfaces.StopAction;
 import game.interfaces.StopCondition;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 import android.os.Handler;
 
-public class GameLoop {
+public class GameLoop implements Pausable {
 	// Divide the frame by 1000 to calculate how many times per second the
 	// screen will update.
 	private static final int FRAME_RATE = 20; // 50 frames per second
@@ -28,7 +29,7 @@ public class GameLoop {
 	
 	public void start() {
 		frame.removeCallbacks(frameUpdate);
-		frame.postDelayed(frameUpdate, FRAME_RATE);
+		frameUpdate.run();
 	}
 	
 	public Runnable frameUpdate = new Runnable() {
@@ -66,5 +67,16 @@ public class GameLoop {
 	
 	public void stop() {
 		frame.removeCallbacks(frameUpdate);
+	}
+
+	@Override
+	public void onPause() {
+		frame.removeCallbacks(frameUpdate);
+		
+	}
+
+	@Override
+	public void onUnPause() {
+		frameUpdate.run();
 	}
 }

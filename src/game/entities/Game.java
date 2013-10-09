@@ -1,11 +1,11 @@
 package game.entities;
 
-import java.util.ArrayList;
-
 import game.interfaces.Pausable;
 import game.loops.GameLoop;
 import game.loops.GraphicsLoop;
 import game.loops.InputLoop;
+
+import java.util.ArrayList;
 
 public class Game {
 	private GameLoop gameLoop;
@@ -13,6 +13,7 @@ public class Game {
 	private GraphicsLoop graphicsLoop;
 	private GameBoard gameBoard;
 	public boolean paused = true;
+	public boolean started = false;
 	private ArrayList<Pausable> pausables = new ArrayList<Pausable>();
 	
 	public Game(GameLoop gameLoop, InputLoop inputLoop,
@@ -40,24 +41,25 @@ public class Game {
 	}
 	
 	public void start() {
-		paused = false;
 		gameLoop.start();
+		paused = false;
+		started = true;
 	}
 	
 	public void pause() {
-		paused = true;
 		gameLoop.stop();
 		for(Pausable pausable : pausables) {
 			pausable.onPause();
 		}
+		paused = true;
 	}
 	
 	public void unPause() {
-		paused = false;
-		gameLoop.start();
 		for(Pausable pausable : pausables) {
 			pausable.onUnPause();
 		}
+		gameLoop.start();
+		paused = false;
 	}
 	
 	public boolean isPaused() {
@@ -66,5 +68,13 @@ public class Game {
 
 	public void addPausable(Pausable pausable) {
 		pausables.add(pausable);
+	}
+	
+	/**
+	 * Has the game been started?
+	 * @return Boolean
+	 */
+	public boolean isStarted() {
+		return started;
 	}
 }

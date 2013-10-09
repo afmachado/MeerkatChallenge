@@ -26,8 +26,6 @@ public class GameFactory {
 		this.inputLoop = new InputLoop();
 		graphicsLoop = ((GraphicsLoop) gameActivity.findViewById(R.id.canvas));
 		
-		
-		
 		gameLoop.addGameComponent(graphicsLoop);
 		
 		gameBoard = new GameBoard(graphicsLoop.getWidth(),
@@ -75,9 +73,9 @@ public class GameFactory {
 		// The final stop action is to show the level end screen
 		ShowLevelEnd sle = new ShowLevelEnd(gameActivity, score, level);
 		gameLoop.addStopAction(sle);
-
-		
+		game.addPausable(gameLoop);
 		game.addPausable(timer);
+		game.start();
 		return game;
 	}
 }

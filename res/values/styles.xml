@@ -51,12 +51,6 @@
 		<item name="android:orientation">vertical</item>
 		<item name="android:gravity">center</item>
     </style>
-    
-    <style name="LevelInfoGap">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:layout_weight">.05</item>
-    </style>
 
     <style name="LevelInfoPicture">
         <item name="android:layout_width">50dp</item>
@@ -78,11 +72,10 @@
         <item name="android:layout_weight">.5</item>
     </style>
     
-    <style name="LevelInfoButtons">
-        <item name="android:layout_width">0dip</item>
+    <style name="LevelInfoStartButton">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_weight">.3</item>
         <item name="android:textSize">25sp</item>
         <item name="android:background">@drawable/button</item>
         <item name="android:textColor">@color/button_text</item>
