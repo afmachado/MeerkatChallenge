@@ -2,14 +2,14 @@ package levels;
 
 import game.entities.Background;
 import game.entities.Game;
-import game.entities.GameActivity;
 import game.entities.GameBoard;
-import game.entities.VisibleTimer;
 import game.entities.VisibleScore;
+import game.entities.VisibleTimer;
 import game.loops.GameLoop;
 import game.loops.GraphicsLoop;
 import game.loops.InputLoop;
-import meerkatchallenge.main.R;
+import meerkatchallenge.activities.GameActivity;
+import meerkatchallenge.activities.R;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -65,14 +65,10 @@ public class GameFactory {
 
 		// Register the score at the end so it's always drawn on top
 		graphicsLoop.register(score);
-		// Register the action to take when the game stops
-		gameLoop.addStopAction(graphicsLoop);
-		// On game end, the background has a stopaction to remove the bitmap
-		// This is to try and avoid out of memory errors
-		gameLoop.addStopAction(background);
-		// The final stop action is to show the level end screen
-		ShowLevelEnd sle = new ShowLevelEnd(gameActivity, score, level);
-		gameLoop.addStopAction(sle);
+
+		// Show the level end screen when the game stops
+		ShowLevelEnd showLevelEnd = new ShowLevelEnd(gameActivity, score, level);
+		gameLoop.addStopAction(showLevelEnd);
 		game.addPausable(gameLoop);
 		game.addPausable(timer);
 		game.start();

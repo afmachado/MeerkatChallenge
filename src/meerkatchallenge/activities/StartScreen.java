@@ -1,4 +1,4 @@
-package meerkatchallenge.main;
+package meerkatchallenge.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 public class StartScreen extends Activity {
 	StartScreen reference;
 	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		reference = this;
@@ -21,13 +20,13 @@ public class StartScreen extends Activity {
 		goButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(reference, LevelSelect.class);
+				Intent intent = new Intent(StartScreen.this, LevelSelect.class);
 				startActivity(intent);
 			}
 		});	
 	}
 	
-	// Don't go back from here
+	// Disables the back button
 	@Override
 	public void onBackPressed() {
 	}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="meerkatchallenge.main"
+    package="meerkatchallenge.activities"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,20 +14,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme" >
         <activity
-            android:name="game.entities.GameActivity"
+            android:name="meerkatchallenge.activities.GameActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="levels.EndLevel"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="meerkatchallenge.main.StartScreen"
+            android:name="meerkatchallenge.activities.StartScreen"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -38,13 +32,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="meerkatchallenge.main.LevelSelect"
+            android:name="meerkatchallenge.activities.LevelSelect"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="meerkatchallenge.main.StartLevelBounce"
+            android:name="meerkatchallenge.activities.StartLevel"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="meerkatchallenge.activities.EndLevel"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>

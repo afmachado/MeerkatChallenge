@@ -1,11 +1,10 @@
 package game.entities;
 
 import game.interfaces.Drawable;
-import game.interfaces.StopAction;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-public class Background implements Drawable, StopAction {
+public class Background implements Drawable {
 	Bitmap bm;
 	
 	GameBoard gameboard;
@@ -21,12 +20,4 @@ public class Background implements Drawable, StopAction {
 	public void draw(Canvas canvas) {
 		canvas.drawBitmap(bm, 0, 0, null);
 	}
-
-	// When the game stops remove the bitmap reference to reduce memory use
-	@Override
-	public void onStop() {
-		bm = null;
-	}
-	
-	
 }

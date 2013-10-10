@@ -4,7 +4,6 @@
     android:id="@+id/login_form">
 
 	<LinearLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
 	    android:layout_height="0dip"
 	    android:layout_weight="0.6"
@@ -21,13 +20,12 @@
 		        <TextView
 		            android:id="@+id/level_info_start_title"
 		            style="@style/LevelInfoTitle"
-		            android:text="Level 5: Hold Steady"
-		             />
+		            android:text="Level 20: Time to Relax" />
 	
 		        <TextView
 		            android:id="@+id/level_info_start_description"
-		            style="@style/LevelInfoTitle"
-		            android:text="How long can you hold out?" />
+		            style="@style/LevelInfoDescription"
+		            android:text="Let's get started" />
 	        </LinearLayout>
 	    
 	        <LinearLayout
@@ -37,6 +35,17 @@
         
 	            <LinearLayout style="@style/LevelInfoTargetContainer">
 			        <ImageView
+			            android:id="@+id/clock_image"
+						style="@style/LevelInfoPicture"
+			            android:src="@drawable/clock" />
+			
+			        <TextView
+			            android:id="@+id/level_info_start_time"
+						style="@style/LevelInfoTargets" />
+			    </LinearLayout>
+			    
+	            <LinearLayout style="@style/LevelInfoTargetContainer">
+			        <ImageView
 			            android:id="@+id/meerkat_image"
 						style="@style/LevelInfoPicture"
 			            android:paddingTop="2dp"
@@ -44,22 +53,8 @@
 			        
 			        <TextView
 			            android:id="@+id/level_info_start_meerkats"
-						style="@style/LevelInfoTargets"
-			            android:text="20" />
+						style="@style/LevelInfoTargets" />
 		        </LinearLayout>
-		
-	            <LinearLayout style="@style/LevelInfoTargetContainer">
-			        <ImageView
-			            android:id="@+id/clock_image"
-						style="@style/LevelInfoPicture"
-			            android:src="@drawable/clock" />
-			
-			        <TextView
-			            android:id="@+id/level_info_start_time"
-						style="@style/LevelInfoTargets"
-			            android:text="15" />
-			    </LinearLayout>
-
     		</LinearLayout>
 
 	        <LinearLayout style="@style/LevelInfoSection"
@@ -67,12 +62,13 @@
 		        android:orientation="horizontal"
 		        android:paddingTop="10dp"
 		        android:paddingBottom="10dp">
-	            
+	            <View style="@style/LevelInfoSpacer" />
 		        <Button
 		            android:id="@+id/level_info_start_start_button"
-		            style="@style/LevelInfoStartButton"
+		            style="@style/LevelInfoButton"
 		            android:background="@drawable/button"
 		            android:text="@string/start_button" />
+		        <View style="@style/LevelInfoSpacer" />
 	        </LinearLayout>
 	       
 	    </LinearLayout>

@@ -1,4 +1,4 @@
-package meerkatchallenge.main;
+package meerkatchallenge.activities;
 
 import levels.Level;
 import android.app.Activity;
@@ -15,12 +15,12 @@ import android.widget.TextView;
 /**
  * Shows the "Start level" screen that bounces in
  */
-public class StartLevelBounce extends Activity implements OnClickListener {	
+public class StartLevel extends Activity implements OnClickListener {	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_start_level_bounce);
+		setContentView(R.layout.activity_start_level);
 		
 		Bundle extras = getIntent().getExtras();
 		Level level = (Level) extras.getSerializable("level");
@@ -58,7 +58,7 @@ public class StartLevelBounce extends Activity implements OnClickListener {
 	 */
 	@Override
 	public void onBackPressed() {
-		Intent i = new Intent(StartLevelBounce.this, LevelSelect.class);
+		Intent i = new Intent(StartLevel.this, LevelSelect.class);
 		startActivity(i);
 	}
 	

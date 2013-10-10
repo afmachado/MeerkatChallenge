@@ -1,5 +1,6 @@
 package levels;
 
+import meerkatchallenge.activities.EndLevel;
 import game.entities.VisibleScore;
 import game.interfaces.StopAction;
 import android.app.Activity;

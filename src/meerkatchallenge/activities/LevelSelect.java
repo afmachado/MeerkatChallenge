@@ -1,6 +1,5 @@
-package meerkatchallenge.main;
+package meerkatchallenge.activities;
 
-import game.entities.GameActivity;
 import levels.Level;
 import levels.Levels;
 import levels.Preferences;
