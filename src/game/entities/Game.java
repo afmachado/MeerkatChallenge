@@ -7,21 +7,26 @@ import game.loops.InputLoop;
 
 import java.util.ArrayList;
 
+import android.media.SoundPool;
+
 public class Game {
 	private GameLoop gameLoop;
 	private InputLoop inputLoop;
 	private GraphicsLoop graphicsLoop;
 	private GameBoard gameBoard;
+	private SoundPool soundPool;
 	public boolean paused = true;
 	public boolean started = false;
 	private ArrayList<Pausable> pausables = new ArrayList<Pausable>();
 	
 	public Game(GameLoop gameLoop, InputLoop inputLoop,
-			GraphicsLoop graphicsLoop, GameBoard gameBoard) {
+			GraphicsLoop graphicsLoop, GameBoard gameBoard,
+			SoundPool soundPool) {
 		this.gameLoop = gameLoop;
 		this.inputLoop = inputLoop;
 		this.graphicsLoop = graphicsLoop;
 		this.gameBoard = gameBoard;
+		this.soundPool = soundPool;
 	}
 
 	public GameBoard getGameBoard() {
@@ -76,5 +81,9 @@ public class Game {
 	 */
 	public boolean isStarted() {
 		return started;
+	}
+	
+	public SoundPool getSoundPool() {
+		return soundPool;
 	}
 }

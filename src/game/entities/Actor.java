@@ -93,11 +93,11 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 		return false;
 	}
 
-	public void setOnShow(OnShowListener onShowListener) {
+	public void setOnShowListener(OnShowListener onShowListener) {
 		this.onShowListener = onShowListener;
 	}
 	
-	public void setOnHide(OnHideListener onHideListener) {
+	public void setOnHideListener(OnHideListener onHideListener) {
 		this.onHideListener = onHideListener;
 	}
 

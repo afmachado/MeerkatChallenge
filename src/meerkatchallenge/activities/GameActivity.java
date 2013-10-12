@@ -5,6 +5,7 @@ import levels.GameFactory;
 import levels.Level;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -26,6 +27,10 @@ public class GameActivity extends Activity {
 		final Level challenge = (Level) getIntent().getExtras().getSerializable(
 				"level");
 		final GameActivity ga = this;
+		
+		// When in this activity the volume buttons control the music volume
+		// vs the ringtone volume
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		
 		// We can't initialize the graphics immediately because the layout
 	    // manager needs to run first, thus call back in a sec.

@@ -12,6 +12,8 @@ import meerkatchallenge.activities.GameActivity;
 import meerkatchallenge.activities.R;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.view.View;
 
 public class GameFactory {
@@ -31,7 +33,9 @@ public class GameFactory {
 		gameBoard = new GameBoard(graphicsLoop.getWidth(),
 				graphicsLoop.getHeight());
 		
-		Game game = new Game(gameLoop, inputLoop, graphicsLoop, gameBoard);
+		SoundPool soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);
+		
+		Game game = new Game(gameLoop, inputLoop, graphicsLoop, gameBoard, soundPool);
 		
 		gameBoard.reset();
 		View canvasInput = (View) gameActivity.findViewById(R.id.canvas);
@@ -50,7 +54,7 @@ public class GameFactory {
 		VisibleScore score = new VisibleScore(gameBoard, gameActivity, level);
 
 		for (int i = 0; i < level.getPopUpMeerkats(); i++) {
-			MeerkatFactory.addMeerkat(score, meerkatPic, game);
+			MeerkatFactory.addMeerkat(score, meerkatPic, game, gameActivity);
 		}
 
 		// Receive user input from the canvas

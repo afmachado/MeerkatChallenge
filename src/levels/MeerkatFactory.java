@@ -12,7 +12,10 @@ import game.interfaces.OnHitDetected;
 import game.interfaces.OnShowListener;
 import game.interfaces.Placer;
 import game.interfaces.Scorer;
+import meerkatchallenge.activities.GameActivity;
+import meerkatchallenge.activities.R;
 import android.graphics.Bitmap;
+import android.media.SoundPool;
 
 /**
  * Creates a meerkat
@@ -20,7 +23,8 @@ import android.graphics.Bitmap;
  *
  */
 public class MeerkatFactory {
-	public static void addMeerkat(final Scorer s, final Bitmap meerkatPic, final Game game) {
+	public static void addMeerkat(final Scorer s, final Bitmap meerkatPic, 
+			final Game game, GameActivity gameActivity) {
 		// The speed to pop up at
 		final int POPUP_SPEED = 150;
 		// Set up a meerkat
@@ -30,14 +34,14 @@ public class MeerkatFactory {
 		final int size = (int) (game.getGameBoard().getHeight() * 0.08);
 		meerkat.setBitmap(meerkatPic, size);
 		
-		meerkat.setOnShow(new OnShowListener() {
+		meerkat.setOnShowListener(new OnShowListener() {
 			public void onShow() {
 				game.getGameBoard().addMover(meerkat);
 				meerkat.registerAnimation(new PopUpper(meerkat, POPUP_SPEED));
 			}
 		});
 		
-		meerkat.setOnHide(new OnHideListener() {
+		meerkat.setOnHideListener(new OnHideListener() {
 			public void onHide() {
 				game.getGameBoard().removeMover(meerkat);
 			}
@@ -47,6 +51,9 @@ public class MeerkatFactory {
 		final PopUpBehavior behavior = new PopUpBehavior(meerkat);
 		game.addPausable(behavior);
 		
+		SoundPool soundPool = game.getSoundPool();
+		final int hitId = soundPool.load(gameActivity, R.raw.hit, 1);
+		
 		// When we're hit, add one to the score and tell the behavior we've been hit
 		OnHitDetected ohd = new OnHitDetected() {
 			public void onHit() {
@@ -55,14 +62,15 @@ public class MeerkatFactory {
 					s.add(1);
 					behavior.hit();
 					meerkat.setBitmap(meerkatPic, size);
+					game.getSoundPool().play(hitId, 1, 1, 1, 0, 1f);
 				}
 			}
 		};
 		
-		TouchHitDetector thd = new TouchHitDetector(ohd, meerkat);
+		TouchHitDetector touchHitDetector = new TouchHitDetector(ohd, meerkat);
 		
 		game.getGameLoop().addGameComponent(behavior);
-		game.getInputLoop().register(thd);
+		game.getInputLoop().register(touchHitDetector);
 		game.getGraphicsLoop().register(meerkat);
 		behavior.enable();
 	}
