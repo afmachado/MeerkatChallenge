@@ -1,16 +1,50 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/game_view"
     tools:context="game.entities.GameActivity" >
+
+    <RelativeLayout android:id='@+id/game_header' style="@style/GameHeader"
+        			android:paddingLeft="@dimen/header_margin" android:paddingRight="@dimen/header_margin">
+
+        <ImageView
+            android:id="@+id/game_clock_image"
+            style="@style/LevelInfoPicture"
+            android:src="@drawable/clock"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/game_time"
+            style="@style/LevelInfoTargets"
+            android:text="15"
+            android:layout_marginLeft="@dimen/header_margin"
+            android:layout_toRightOf="@id/game_clock_image"
+            android:layout_centerVertical="true" />
+        
+        <ImageView
+            android:id="@+id/game_meerkat_image"
+            style="@style/LevelInfoPicture"
+            android:src="@drawable/meerkat"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+             />
+
+        <TextView
+            android:id="@+id/game_score"
+            style="@style/LevelInfoTargets"
+            android:text="20"
+            android:layout_marginRight="@dimen/header_margin"
+            android:layout_toLeftOf="@id/game_meerkat_image"
+            android:layout_centerVertical="true"
+             />
+    </RelativeLayout>
 
     <game.loops.GraphicsLoop
         android:id="@+id/canvas"
-        android:keepScreenOn="true"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_margin="0dip"
-         />
+        style="@style/GameBoard"
+        android:layout_below="@id/game_header"
+        android:keepScreenOn="true" />
 
 </RelativeLayout>

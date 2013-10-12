@@ -1,7 +1,7 @@
 package levels;
 
 import meerkatchallenge.activities.EndLevel;
-import game.entities.VisibleScore;
+import game.entities.Score;
 import game.interfaces.StopAction;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import android.content.Intent;
  */
 public class ShowLevelEnd implements StopAction {
 	private Activity activity;
-	private VisibleScore score;
+	private Score score;
 	private Level level;
 	
-	public ShowLevelEnd(Activity activity, VisibleScore score, Level level) {
+	public ShowLevelEnd(Activity activity, Score score, Level level) {
 		this.activity = activity;
 		this.score = score;
 		this.level = level;

@@ -31,7 +31,7 @@ public class MeerkatFactory {
 		Placer placer = new RandomPlacer(game.getGameBoard());
 		final Actor meerkat = new Actor(placer, new Sprite());
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
-		final int size = (int) (game.getGameBoard().getHeight() * 0.08);
+		final int size = (int) (game.getGameBoard().getWidth() * 0.12);
 		meerkat.setBitmap(meerkatPic, size);
 		
 		meerkat.setOnShowListener(new OnShowListener() {

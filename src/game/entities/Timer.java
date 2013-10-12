@@ -1,16 +1,14 @@
 package game.entities;
 
-import game.interfaces.Drawable;
 import game.interfaces.GameComponent;
 import game.interfaces.Pausable;
 import game.interfaces.StopCondition;
 import meerkatchallenge.activities.GameActivity;
 import meerkatchallenge.activities.R;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-public class VisibleTimer implements StopCondition, GameComponent, Drawable, Pausable {
+public class Timer implements StopCondition, GameComponent, Pausable, GivesUpdates {
 	boolean finished = false;
 
 	long startTime;
@@ -25,7 +23,7 @@ public class VisibleTimer implements StopCondition, GameComponent, Drawable, Pau
 	 * Stops the game after a specified time
 	 * @param gameTime The time to stop after
 	 */
-	public VisibleTimer(int gameTime, GameBoard gameBoard, GameActivity ma) {
+	public Timer(int gameTime, GameBoard gameBoard, GameActivity ma) {
 		this.timeLimit = gameTime;
 		this.gameBoard = gameBoard;
 		this.mainActivity = ma;
@@ -54,20 +52,14 @@ public class VisibleTimer implements StopCondition, GameComponent, Drawable, Pau
 			finished = true;
 		}
 	}
-
-	/**
-	 * 
-	 */
-	@Override
-	public void draw(Canvas canvas) {
+	
+	public long getTimeLeft() {
 		long timeTaken = System.currentTimeMillis() - startTime;
 		// We add 500 to the visible output 
 		// so the timer starts from e.g. 10 instead of 9
 		long timeLeft = timeLimit + 500 - timeTaken;
 		timeLeft = timeLeft / 1000;
-		int leftMargin = mainActivity.dpToPx(10);
-		int topMargin = mainActivity.dpToPx(30);
-		canvas.drawText("TIME " + Long.toString(timeLeft), leftMargin, topMargin, textPaint);
+		return timeLeft;
 	}
 	
 	/** 
@@ -87,6 +79,10 @@ public class VisibleTimer implements StopCondition, GameComponent, Drawable, Pau
 		long pausedTime = System.currentTimeMillis() - pauseTime;
 		startTime = startTime + pausedTime;
 	}
-	
+
+	@Override
+	public String getStatus() {
+		return Long.toString(getTimeLeft());
+	}
 	
 }

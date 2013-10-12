@@ -3,8 +3,9 @@ package levels;
 import game.entities.Background;
 import game.entities.Game;
 import game.entities.GameBoard;
-import game.entities.VisibleScore;
-import game.entities.VisibleTimer;
+import game.entities.Timer;
+import game.entities.Updater;
+import game.entities.Score;
 import game.loops.GameLoop;
 import game.loops.GraphicsLoop;
 import game.loops.InputLoop;
@@ -15,6 +16,7 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.view.View;
+import android.widget.TextView;
 
 public class GameFactory {
 	private GameLoop gameLoop;
@@ -51,7 +53,10 @@ public class GameFactory {
 		graphicsLoop.register(background);
 
 		// Create a score entity to keep score
-		VisibleScore score = new VisibleScore(gameBoard, gameActivity, level);
+		Score score = new Score(level);
+		TextView scoreText = (TextView) gameActivity.findViewById(R.id.game_score);
+		Updater scoreUpdater = new Updater(score,scoreText);
+		gameLoop.addGameComponent(scoreUpdater);
 
 		for (int i = 0; i < level.getPopUpMeerkats(); i++) {
 			MeerkatFactory.addMeerkat(score, meerkatPic, game, gameActivity);
@@ -61,14 +66,16 @@ public class GameFactory {
 		canvasInput.setOnTouchListener(inputLoop);
 
 		// Set a timer to stop the game after a specified time
-		VisibleTimer timer = new VisibleTimer(level.getTimeLimit() * 1000, gameBoard,
+		Timer timer = new Timer(level.getTimeLimit() * 1000, gameBoard,
 				gameActivity);
 		gameLoop.addGameComponent(timer);
 		gameLoop.registerStop(timer);
-		graphicsLoop.register(timer);
+		
+		TextView timerText = (TextView) gameActivity.findViewById(R.id.game_time);
+		Updater timerUpdater = new Updater(timer, timerText);
+		gameLoop.addGameComponent(timerUpdater);
 
 		// Register the score at the end so it's always drawn on top
-		graphicsLoop.register(score);
 
 		// Show the level end screen when the game stops
 		ShowLevelEnd showLevelEnd = new ShowLevelEnd(gameActivity, score, level);

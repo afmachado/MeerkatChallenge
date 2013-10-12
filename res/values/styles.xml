@@ -28,7 +28,7 @@
     <style name="LevelInfoTitle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#1d5b15</item>
+        <item name="android:textColor">@color/text</item>
         <item name="android:textSize">20sp</item>
         <item name="android:gravity">center</item>
     </style>
@@ -36,7 +36,7 @@
     <style name="LevelInfoDescription">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#1d5b15</item>
+        <item name="android:textColor">@color/text</item>
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
     </style>
@@ -69,7 +69,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">#ff6700</item>
+        <item name="android:textColor">@color/text</item>
     </style>
 
     <style name="LevelInfoTargetContainer">
@@ -85,7 +85,7 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:background">@drawable/button</item>
-        <item name="android:textColor">@color/button_text</item>
+        <item name="android:textColor">@color/text</item>
         <item name="android:layout_weight">1</item>
     </style>
     
@@ -93,6 +93,18 @@
         <item name="android:layout_weight">0.2</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">1dp</item>
+    </style>
+    
+    <style name="GameHeader">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">65dip</item>
+        <item name="android:background">@drawable/gradient_bg</item>
+    </style>
+    
+    <style name="GameBoard">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_weight">0.9</item>
     </style>
 
 </resources>
