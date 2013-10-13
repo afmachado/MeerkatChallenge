@@ -12,8 +12,8 @@ import game.interfaces.OnHitDetected;
 import game.interfaces.OnShowListener;
 import game.interfaces.Placer;
 import game.interfaces.Scorer;
-import meerkatchallenge.activities.GameActivity;
 import meerkatchallenge.activities.R;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.media.SoundPool;
 
@@ -24,7 +24,7 @@ import android.media.SoundPool;
  */
 public class MeerkatFactory {
 	public static void addMeerkat(final Scorer s, final Bitmap meerkatPic, 
-			final Game game, GameActivity gameActivity) {
+			final Game game, Activity activity) {
 		// The speed to pop up at
 		final int POPUP_SPEED = 150;
 		Placer placer = new RandomPlacer(game.getGameBoard());
@@ -51,7 +51,7 @@ public class MeerkatFactory {
 		game.addPausable(behavior);
 		
 		SoundPool soundPool = game.getSoundPool();
-		final int hitId = soundPool.load(gameActivity, R.raw.hit, 1);
+		final int hitId = soundPool.load(activity, R.raw.hit, 1);
 		
 		// When we're hit, add one to the score and tell the behavior we've been hit
 		OnHitDetected ohd = new OnHitDetected() {

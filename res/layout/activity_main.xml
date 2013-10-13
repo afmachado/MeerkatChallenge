@@ -19,7 +19,6 @@
         <TextView
             android:id="@+id/game_time"
             style="@style/LevelInfoTargets"
-            android:text="15"
             android:layout_marginLeft="@dimen/header_margin"
             android:layout_toRightOf="@id/game_clock_image"
             android:layout_centerVertical="true" />
@@ -35,7 +34,6 @@
         <TextView
             android:id="@+id/game_score"
             style="@style/LevelInfoTargets"
-            android:text="20"
             android:layout_marginRight="@dimen/header_margin"
             android:layout_toLeftOf="@id/game_meerkat_image"
             android:layout_centerVertical="true"
@@ -45,7 +43,13 @@
     <game.loops.GraphicsLoop
         android:id="@+id/canvas"
         style="@style/GameBoard"
-        android:layout_below="@id/game_header"
-        android:keepScreenOn="true" />
+        android:keepScreenOn="true"
+        android:visibility="gone" />
 
+    <ImageView
+		android:id="@+id/game_background_placeholder"
+		style="@style/GameBoard"
+		android:src="@drawable/background"
+		android:scaleType="fitXY"
+		 />
 </LinearLayout>

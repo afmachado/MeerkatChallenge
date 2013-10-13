@@ -7,45 +7,46 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 
 public class GameActivity extends Activity {
 	private Game game;
+	private Level level;
+	private boolean firstRun = true;
 
 	/**
-	 * Bundle contains an optional name of an activity to call back
-	 * Activity is passed the level number in the bundle
-	 * e.g. a "Start Level" overlay
+	 * Bundle contains an optional name of an activity to call back Activity is
+	 * passed the level number in the bundle e.g. a "Start Level" overlay
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		final Level challenge = (Level) getIntent().getExtras().getSerializable(
-				"level");
+
+		level = (Level) getIntent().getExtras().getSerializable("level");
 		final GameActivity ga = this;
-		
-		// When in this activity make the volume buttons control the music volume
+
+		// When in this activity make the volume buttons control the music
+		// volume
 		// (e.g. vs the ringtone volume)
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		
+
+		Intent intent = new Intent(ga, StartLevel.class);
+		intent.putExtra("level", level);
+		startActivity(intent);
+
 		// We can't initialize the graphics immediately because the layout
-	    // manager needs to run first so we call it in a second.
-		Handler h = new Handler();
-		h.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				game = new GameFactory().createGame(ga, challenge);
-				game.start();
-				Intent intent = new Intent(ga,
-						StartLevel.class);
-				intent.putExtra("level", challenge);
-				startActivity(intent);
-			}
-		}, 1000);
+		// manager needs to run first so we call it in a second.
+		// Handler h = new Handler();
+		// h.postDelayed(new Runnable() {
+		// @Override
+		// public void run() {
+		// game = new GameFactory().createGame(ga, challenge);
+		// game.start();
+		// game.pause();
+		// }
+		// }, 1000);
 	}
 
 	/**
@@ -80,18 +81,21 @@ public class GameActivity extends Activity {
 	 */
 	@Override
 	protected void onResume() {
+		if (game == null && !firstRun) {
+			game = new GameFactory().createGame(this, level);
+			game.start();
+			game.pause();
+		}
 		// game won't be initialized for the first onResume call
 		// as onResume is called when an activity first starts
-		if(game != null && game.isStarted()) {
+		if (game != null && game.isStarted()) {
 			game.unPause();
 		}
 		super.onResume();
 	}
-	
-	
+
 	/**
-	 * If the activity is stopped and restarted, 
-	 * go to the level select screen.
+	 * If the activity is stopped and restarted, go to the level select screen.
 	 */
 	@Override
 	protected void onRestart() {
@@ -106,28 +110,31 @@ public class GameActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 	}
-	
+
 	/**
-	 * Pause the game with the  menu button
+	 * Pause the game with the menu button
 	 */
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if (keyCode == KeyEvent.KEYCODE_MENU) {
-	    	if(game.isPaused()) {
-	    		game.unPause();
-	    	} else {
-	    		game.pause();
-	    	}
-	        return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
+		if (keyCode == KeyEvent.KEYCODE_MENU) {
+			if (game.isPaused()) {
+				game.unPause();
+			} else {
+				game.pause();
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
-	
+
 	/**
 	 * If this activity is paused, pause the game
 	 */
 	@Override
 	public void onPause() {
-		game.pause();
+		firstRun = false;
+		if (game != null) {
+			game.pause();
+		}
 		super.onPause();
 	}
 }
