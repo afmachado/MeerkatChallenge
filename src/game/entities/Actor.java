@@ -73,7 +73,7 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	}
 
 	/**
-	 * Detects a hit between a point and this object
+	 * Detects a hit between a point and this actor
 	 * 
 	 * @param Rect shot the shot to detect
 	 * @return

@@ -50,7 +50,7 @@ public class GameFactory {
 
 		// Load images
 		Bitmap meerkatPic = (BitmapFactory.decodeResource(
-				activity.getResources(), R.drawable.meerkat));
+				activity.getResources(), R.drawable.meerkat_hole));
 		Bitmap backgroundPic = BitmapFactory.decodeResource(
 				activity.getResources(), R.drawable.background);
 
