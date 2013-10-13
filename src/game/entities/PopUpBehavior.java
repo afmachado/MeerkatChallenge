@@ -21,7 +21,7 @@ public class PopUpBehavior implements GameComponent, Behavior, Pausable {
 	private boolean enabled = false;
 	private long pauseTime;
 
-	// The meerkat this behavior controls
+	// The Actor this behavior controls
 	Actor actor;
 
 	public PopUpBehavior(Actor actor)  {
@@ -32,7 +32,7 @@ public class PopUpBehavior implements GameComponent, Behavior, Pausable {
 
 	/**
 	 * What to do when we get hit.
-	 * Add one to the score and show it again after a delay
+	 * Hide the actor then show it again after a delay
 	 */
 	public void hit() {
 		actor.hide();
@@ -40,7 +40,7 @@ public class PopUpBehavior implements GameComponent, Behavior, Pausable {
 	}
 
 	/**
-	 * Shows the meerkat after a delay
+	 * Shows the actor after a delay
 	 */
 	public void showDelayed() {
 		long showTime = MIN_HIDE_TIME + new Random().nextInt(MAX_HIDE_TIME);
@@ -48,7 +48,7 @@ public class PopUpBehavior implements GameComponent, Behavior, Pausable {
 	}
 
 	/**
-	 * Hides the meerkat after a delay
+	 * Hides the actor after a delay
 	 */
 	private void hideDelayed() {
 		long hideTime = MIN_SHOW_TIME + new Random().nextInt(MAX_SHOW_TIME);
