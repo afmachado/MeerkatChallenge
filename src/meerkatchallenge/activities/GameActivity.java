@@ -28,25 +28,12 @@ public class GameActivity extends Activity {
 		final GameActivity ga = this;
 
 		// When in this activity make the volume buttons control the music
-		// volume
-		// (e.g. vs the ringtone volume)
+		// volume (e.g. vs the ringtone volume)
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
 		Intent intent = new Intent(ga, StartLevel.class);
 		intent.putExtra("level", level);
 		startActivity(intent);
-
-		// We can't initialize the graphics immediately because the layout
-		// manager needs to run first so we call it in a second.
-		// Handler h = new Handler();
-		// h.postDelayed(new Runnable() {
-		// @Override
-		// public void run() {
-		// game = new GameFactory().createGame(ga, challenge);
-		// game.start();
-		// game.pause();
-		// }
-		// }, 1000);
 	}
 
 	/**
@@ -81,6 +68,8 @@ public class GameActivity extends Activity {
 	 */
 	@Override
 	protected void onResume() {
+		// Draw the gameboard the second time onResume is called
+		// (After the user presses "Go" in StartLevel
 		if (game == null && !firstRun) {
 			game = new GameFactory().createGame(this, level);
 			game.start();

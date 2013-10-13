@@ -33,7 +33,7 @@ public class GameFactory {
 		
 		gameLoop.addGameComponent(graphicsLoop);
 		
-		// Intentionalyl duplicated further down
+		// Intentionally duplicated further down
 		// To be removed after SPRing this class
 		ImageView placeholderBackground = (ImageView) activity.findViewById(R.id.game_background_placeholder);
 		int width = placeholderBackground.getWidth();
