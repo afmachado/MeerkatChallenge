@@ -19,7 +19,6 @@ public class StartLevel extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_start_level);
 		
 		Bundle extras = getIntent().getExtras();
@@ -60,6 +59,7 @@ public class StartLevel extends Activity implements OnClickListener {
 	public void onBackPressed() {
 		Intent i = new Intent(StartLevel.this, LevelSelect.class);
 		startActivity(i);
+		overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 	}
 	
 }

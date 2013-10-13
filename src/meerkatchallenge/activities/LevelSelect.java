@@ -61,6 +61,7 @@ public class LevelSelect extends Activity {
 						Level level = Levels.get(Integer.parseInt(tv.getText().toString()));
 						intent.putExtra("level", level);
 						startActivity(intent);
+						overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 					}
 				});
 			}

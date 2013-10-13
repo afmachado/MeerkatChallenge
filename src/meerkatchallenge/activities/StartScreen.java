@@ -14,6 +14,7 @@ public class StartScreen extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		reference = this;
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 		setContentView(R.layout.activity_start_screen);
 		
 		ImageView goButton = (ImageView) findViewById(R.id.go_button);
@@ -21,7 +22,8 @@ public class StartScreen extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(StartScreen.this, LevelSelect.class);
-				startActivity(intent);
+				startActivity(intent); 
+				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			}
 		});	
 	}
