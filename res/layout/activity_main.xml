@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/game_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="game.entities.GameActivity" >
 
     <RelativeLayout android:id='@+id/game_header' style="@style/GameHeader"
@@ -47,4 +48,4 @@
         android:layout_below="@id/game_header"
         android:keepScreenOn="true" />
 
-</RelativeLayout>
+</LinearLayout>

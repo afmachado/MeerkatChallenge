@@ -28,10 +28,10 @@ public class Sprite implements Animatable {
 	}
 
 	/**
-	 * Sets this Meerkat's image
+	 * Sets this sprite's image
 	 * 
 	 * @param Bitmap
-	 *            bm This Meerkat's image
+	 * bm This sprite's image
 	 */
 	public void setBitmap(Bitmap bm, int size) {
 		this.bm = Bitmap.createScaledBitmap(bm, size, size, false);

@@ -97,12 +97,13 @@
     
     <style name="GameHeader">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">65dip</item>
+        <item name="android:layout_height">0dip</item>
         <item name="android:background">@drawable/gradient_bg</item>
+        <item name="android:layout_weight">0.1</item>
     </style>
     
     <style name="GameBoard">
-        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_height">0dip</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_weight">0.9</item>
     </style>

@@ -27,7 +27,6 @@ public class MeerkatFactory {
 			final Game game, GameActivity gameActivity) {
 		// The speed to pop up at
 		final int POPUP_SPEED = 150;
-		// Set up a meerkat
 		Placer placer = new RandomPlacer(game.getGameBoard());
 		final Actor meerkat = new Actor(placer, new Sprite());
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
@@ -57,8 +56,8 @@ public class MeerkatFactory {
 		// When we're hit, add one to the score and tell the behavior we've been hit
 		OnHitDetected ohd = new OnHitDetected() {
 			public void onHit() {
-				// Only react if the meerkat is visible
-				if(meerkat.isVisible()) {
+				// Only react if the meerkat is visible and the game isn't paused
+				if(meerkat.isVisible() && !game.isPaused()) {
 					s.add(1);
 					behavior.hit();
 					meerkat.setBitmap(meerkatPic, size);

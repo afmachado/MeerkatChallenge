@@ -50,7 +50,7 @@ public class GameLoop implements Pausable {
 					for (StopAction sa : stopAction) {
 						sa.onStop();
 					}
-
+					
 					return;
 				}
 			}
@@ -60,7 +60,7 @@ public class GameLoop implements Pausable {
 		}
 	};
 
-	public void registerStop(StopCondition sc) {
+	public void registerStopCondition(StopCondition sc) {
 		stopConditions.add(sc);
 	}
 

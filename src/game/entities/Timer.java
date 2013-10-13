@@ -3,9 +3,6 @@ package game.entities;
 import game.interfaces.GameComponent;
 import game.interfaces.Pausable;
 import game.interfaces.StopCondition;
-import meerkatchallenge.activities.GameActivity;
-import meerkatchallenge.activities.R;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 public class Timer implements StopCondition, GameComponent, Pausable, GivesUpdates {
@@ -16,26 +13,15 @@ public class Timer implements StopCondition, GameComponent, Pausable, GivesUpdat
 	long pauseTime;
 	GameBoard gameBoard;
 	Paint textPaint;
-
-	private GameActivity mainActivity;
 	
 	/**
 	 * Stops the game after a specified time
 	 * @param gameTime The time to stop after
 	 */
-	public Timer(int gameTime, GameBoard gameBoard, GameActivity ma) {
+	public Timer(int gameTime, GameBoard gameBoard) {
 		this.timeLimit = gameTime;
 		this.gameBoard = gameBoard;
-		this.mainActivity = ma;
 		startTime = System.currentTimeMillis();
-		setFont();
-	}
-	
-	private void setFont() {
-		textPaint = new Paint();  
-		textPaint.setColor(Color.BLACK);
-		int textSize = mainActivity.getApplicationContext().getResources().getDimensionPixelSize(R.dimen.header);
-		textPaint.setTextSize(textSize);
 	}
 	
 	@Override
@@ -84,5 +70,4 @@ public class Timer implements StopCondition, GameComponent, Pausable, GivesUpdat
 	public String getStatus() {
 		return Long.toString(getTimeLeft());
 	}
-	
 }

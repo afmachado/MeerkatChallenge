@@ -66,22 +66,22 @@ public class GameFactory {
 		canvasInput.setOnTouchListener(inputLoop);
 
 		// Set a timer to stop the game after a specified time
-		Timer timer = new Timer(level.getTimeLimit() * 1000, gameBoard,
-				gameActivity);
+		Timer timer = new Timer(level.getTimeLimit() * 1000, gameBoard);
 		gameLoop.addGameComponent(timer);
-		gameLoop.registerStop(timer);
+		gameLoop.registerStopCondition(timer);
 		
 		TextView timerText = (TextView) gameActivity.findViewById(R.id.game_time);
 		Updater timerUpdater = new Updater(timer, timerText);
 		gameLoop.addGameComponent(timerUpdater);
 
-		// Register the score at the end so it's always drawn on top
-
 		// Show the level end screen when the game stops
 		ShowLevelEnd showLevelEnd = new ShowLevelEnd(gameActivity, score, level);
 		gameLoop.addStopAction(showLevelEnd);
-		game.addPausable(gameLoop);
 		game.addPausable(timer);
+		/** The game loop should be the last thing to be unpaused
+		 * so the other entities can prepare themselves
+		 */
+		game.addPausable(gameLoop);
 		game.start();
 		return game;
 	}

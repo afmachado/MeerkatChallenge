@@ -7,6 +7,11 @@ import java.util.Random;
 
 import android.graphics.Rect;
 
+/**
+ * Places a locatable on a gameboard
+ * @author John Casson
+ *
+ */
 public class RandomPlacer implements Placer {
 	private GameBoard gameBoard;
 

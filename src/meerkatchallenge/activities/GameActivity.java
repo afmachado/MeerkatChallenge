@@ -28,19 +28,18 @@ public class GameActivity extends Activity {
 				"level");
 		final GameActivity ga = this;
 		
-		// When in this activity the volume buttons control the music volume
-		// vs the ringtone volume
+		// When in this activity make the volume buttons control the music volume
+		// (e.g. vs the ringtone volume)
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		
 		// We can't initialize the graphics immediately because the layout
-	    // manager needs to run first, thus call back in a sec.
+	    // manager needs to run first so we call it in a second.
 		Handler h = new Handler();
 		h.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				game = new GameFactory().createGame(ga, challenge);
 				game.start();
-				game.pause();
 				Intent intent = new Intent(ga,
 						StartLevel.class);
 				intent.putExtra("level", challenge);
@@ -91,11 +90,14 @@ public class GameActivity extends Activity {
 	
 	
 	/**
-	 * If the activity is stopped and restarted, reset the game.
+	 * If the activity is stopped and restarted, 
+	 * go to the level select screen.
 	 */
 	@Override
 	protected void onRestart() {
-		reset();
+		super.onRestart();
+		Intent intent = new Intent(this, LevelSelect.class);
+		startActivity(intent);
 	}
 
 	/**
@@ -106,7 +108,7 @@ public class GameActivity extends Activity {
 	}
 	
 	/**
-	 * Menu button pauses the game
+	 * Pause the game with the  menu button
 	 */
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_MENU) {
@@ -127,5 +129,5 @@ public class GameActivity extends Activity {
 	public void onPause() {
 		game.pause();
 		super.onPause();
-	}	
+	}
 }

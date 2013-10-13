@@ -52,7 +52,6 @@ public class Game {
 	}
 	
 	public void pause() {
-		gameLoop.stop();
 		for(Pausable pausable : pausables) {
 			pausable.onPause();
 		}
@@ -63,7 +62,6 @@ public class Game {
 		for(Pausable pausable : pausables) {
 			pausable.onUnPause();
 		}
-		gameLoop.start();
 		paused = false;
 	}
 	
