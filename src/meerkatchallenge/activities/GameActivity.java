@@ -1,10 +1,17 @@
 package meerkatchallenge.activities;
 
+import game.entities.Actor;
+import game.entities.Background;
 import game.entities.Game;
+import game.entities.GameBoard;
 import game.entities.Score;
+import game.entities.Timer;
+import game.entities.Updater;
+import game.loops.GameLoop;
 import game.loops.GraphicsLoop;
+import game.loops.InputLoop;
 import levels.Level;
-import levels.MeerkatChallengeFactory;
+import levels.MeerkatBuilder;
 import levels.ShowLevelEnd;
 import android.app.Activity;
 import android.content.Intent;
@@ -102,26 +109,60 @@ public class GameActivity extends Activity {
 		int height = placeholderBackground.getHeight();
 		TextView scoreText = (TextView) findViewById(R.id.game_score);
 		TextView timerText = (TextView) findViewById(R.id.game_time);
+		
+		
 		// Create a score entity to keep score
 		Score score = new Score(level);
 		ShowLevelEnd showLevelEnd = new ShowLevelEnd(this, score, level);
 		SoundPool soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);
 		int meerkatHitSoundId =  soundPool.load(this, R.raw.hit, 1);
-		game = new MeerkatChallengeFactory().createMeerkatChallenge(
-				graphicsLoop, width, height, meerkatPic, backgroundPic,
-				scoreText, timerText, level, score, meerkatHitSoundId, soundPool);
-		game.getGameLoop().addStopAction(showLevelEnd);
-		View canvasInput = (View) findViewById(R.id.canvas);
-		canvasInput.setOnTouchListener(game.getInputLoop());
+		GameBoard gameBoard = new GameBoard(width, height);
+		
+		
+		GameLoop gameLoop = new GameLoop();
+		InputLoop inputLoop = new InputLoop();
+		
+		game = new Game();
+		
+		gameLoop.addGameComponent(graphicsLoop);
+
+		// Set up background
+		Background background = new Background(width, height, backgroundPic);
+		graphicsLoop.register(background);
+		
+		Updater scoreUpdater = new Updater(score, scoreText);
+		gameLoop.addGameComponent(scoreUpdater);
+
+		for (int i = 0; i < level.getPopUpMeerkats(); i++) {
+			Actor meerkat = MeerkatBuilder.addMeerkat(score, meerkatPic, game, meerkatHitSoundId, gameBoard,
+					gameLoop, soundPool, inputLoop);
+			graphicsLoop.register(meerkat);
+		}
+
+		// Set a timer to stop the game after a specified time
+		Timer timer = new Timer(level.getTimeLimit() * 1000);
+		gameLoop.addGameComponent(timer);
+		gameLoop.registerStopCondition(timer);
+
+		
+		Updater timerUpdater = new Updater(timer, timerText);
+		gameLoop.addGameComponent(timerUpdater);
+
+		// Show the level end screen when the game stops
+		game.addPausable(timer);
+		/**
+		 * The game loop should be the last thing to be unpaused so the other
+		 * entities can prepare themselves
+		 */
+		game.addPausable(gameLoop);
+	
+		gameLoop.addStopAction(showLevelEnd);
+		graphicsLoop.setOnTouchListener(inputLoop);
 		// Hide the placeholder gameboard and show the proper gameboard
-		// TOOD: commented out because we use this above
-		// ImageView placeholderBackground = (ImageView)
-		// activity.findViewById(R.id.game_background_placeholder);
 		placeholderBackground.setVisibility(View.GONE);
 		graphicsLoop.setVisibility(View.VISIBLE);
 		game.start();
 		game.pause();
-
 	}
 
 	/**

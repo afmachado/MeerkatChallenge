@@ -2,6 +2,7 @@ package levels;
 
 import game.entities.Actor;
 import game.entities.Game;
+import game.entities.GameBoard;
 import game.entities.PopUpBehavior;
 import game.entities.PopUpper;
 import game.entities.RandomPlacer;
@@ -12,7 +13,10 @@ import game.interfaces.OnHitDetected;
 import game.interfaces.OnShowListener;
 import game.interfaces.Placer;
 import game.interfaces.Scorer;
+import game.loops.GameLoop;
+import game.loops.InputLoop;
 import android.graphics.Bitmap;
+import android.media.SoundPool;
 
 /**
  * Creates a meerkat
@@ -21,25 +25,26 @@ import android.graphics.Bitmap;
  */
 public class MeerkatBuilder {
 	public static Actor addMeerkat(final Scorer scorer, final Bitmap meerkatPic, 
-			final Game game, final int meerkatHitSoundId) {
+			final Game game, final int meerkatHitSoundId, final GameBoard gameBoard,
+			GameLoop gameLoop, final SoundPool soundPool, final InputLoop inputLoop) {
 		// The speed to pop up at
 		final int POPUP_SPEED = 150;
-		Placer placer = new RandomPlacer(game.getGameBoard());
+		Placer placer = new RandomPlacer(gameBoard);
 		final Actor meerkat = new Actor(placer, new Sprite());
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
-		final int size = (int) (game.getGameBoard().getWidth() * 0.13);
+		final int size = (int) (gameBoard.getWidth() * 0.13);
 		meerkat.setBitmap(meerkatPic, size);
 		
 		meerkat.setOnShowListener(new OnShowListener() {
 			public void onShow() {
-				game.getGameBoard().addMover(meerkat);
+				gameBoard.addMover(meerkat);
 				meerkat.registerAnimation(new PopUpper(meerkat, POPUP_SPEED));
 			}
 		});
 		
 		meerkat.setOnHideListener(new OnHideListener() {
 			public void onHide() {
-				game.getGameBoard().removeMover(meerkat);
+				gameBoard.removeMover(meerkat);
 			}
 		});
 		
@@ -55,15 +60,15 @@ public class MeerkatBuilder {
 					scorer.add(1);
 					behavior.hit();
 					meerkat.setBitmap(meerkatPic, size);
-					game.getSoundPool().play(meerkatHitSoundId, 1, 1, 1, 0, 1f);
+					soundPool.play(meerkatHitSoundId, 1, 1, 1, 0, 1f);
 				}
 			}
 		};
 		
 		TouchHitDetector touchHitDetector = new TouchHitDetector(ohd, meerkat);
 		
-		game.getGameLoop().addGameComponent(behavior);
-		game.getInputLoop().register(touchHitDetector);
+		gameLoop.addGameComponent(behavior);
+		inputLoop.register(touchHitDetector);
 		behavior.enable();
 		return meerkat;
 	}
