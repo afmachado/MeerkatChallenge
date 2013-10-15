@@ -1,14 +1,23 @@
 package meerkatchallenge.activities;
 
 import game.entities.Game;
-import levels.GameFactory;
+import game.entities.Score;
+import game.loops.GraphicsLoop;
 import levels.Level;
+import levels.MeerkatChallengeFactory;
+import levels.ShowLevelEnd;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class GameActivity extends Activity {
 	private Game game;
@@ -71,9 +80,7 @@ public class GameActivity extends Activity {
 		// Draw the gameboard the second time onResume is called
 		// (After the user presses "Go" in StartLevel
 		if (game == null && !firstRun) {
-			game = new GameFactory().createGame(this, level);
-			game.start();
-			game.pause();
+			createGame();
 		}
 		// game won't be initialized for the first onResume call
 		// as onResume is called when an activity first starts
@@ -81,6 +88,40 @@ public class GameActivity extends Activity {
 			game.unPause();
 		}
 		super.onResume();
+	}
+
+	private void createGame() {
+		// Load images
+		Bitmap meerkatPic = (BitmapFactory.decodeResource(getResources(),
+				R.drawable.meerkat_hole));
+		Bitmap backgroundPic = BitmapFactory.decodeResource(getResources(),
+				R.drawable.background);
+		GraphicsLoop graphicsLoop = (GraphicsLoop) findViewById(R.id.canvas);
+		ImageView placeholderBackground = (ImageView) findViewById(R.id.game_background_placeholder);
+		int width = placeholderBackground.getWidth();
+		int height = placeholderBackground.getHeight();
+		TextView scoreText = (TextView) findViewById(R.id.game_score);
+		TextView timerText = (TextView) findViewById(R.id.game_time);
+		// Create a score entity to keep score
+		Score score = new Score(level);
+		ShowLevelEnd showLevelEnd = new ShowLevelEnd(this, score, level);
+		SoundPool soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);
+		int meerkatHitSoundId =  soundPool.load(this, R.raw.hit, 1);
+		game = new MeerkatChallengeFactory().createMeerkatChallenge(
+				graphicsLoop, width, height, meerkatPic, backgroundPic,
+				scoreText, timerText, level, score, meerkatHitSoundId, soundPool);
+		game.getGameLoop().addStopAction(showLevelEnd);
+		View canvasInput = (View) findViewById(R.id.canvas);
+		canvasInput.setOnTouchListener(game.getInputLoop());
+		// Hide the placeholder gameboard and show the proper gameboard
+		// TOOD: commented out because we use this above
+		// ImageView placeholderBackground = (ImageView)
+		// activity.findViewById(R.id.game_background_placeholder);
+		placeholderBackground.setVisibility(View.GONE);
+		graphicsLoop.setVisibility(View.VISIBLE);
+		game.start();
+		game.pause();
+
 	}
 
 	/**

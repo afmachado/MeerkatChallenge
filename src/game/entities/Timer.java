@@ -11,16 +11,14 @@ public class Timer implements StopCondition, GameComponent, Pausable, GivesUpdat
 	long startTime;
 	long timeLimit;
 	long pauseTime;
-	GameBoard gameBoard;
 	Paint textPaint;
 	
 	/**
 	 * Stops the game after a specified time
 	 * @param gameTime The time to stop after
 	 */
-	public Timer(int gameTime, GameBoard gameBoard) {
+	public Timer(int gameTime) {
 		this.timeLimit = gameTime;
-		this.gameBoard = gameBoard;
 		startTime = System.currentTimeMillis();
 	}
 	

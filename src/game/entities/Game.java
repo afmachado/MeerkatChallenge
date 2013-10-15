@@ -2,7 +2,6 @@ package game.entities;
 
 import game.interfaces.Pausable;
 import game.loops.GameLoop;
-import game.loops.GraphicsLoop;
 import game.loops.InputLoop;
 
 import java.util.ArrayList;
@@ -12,29 +11,31 @@ import android.media.SoundPool;
 public class Game {
 	private GameLoop gameLoop;
 	private InputLoop inputLoop;
-	private GraphicsLoop graphicsLoop;
 	private GameBoard gameBoard;
 	private SoundPool soundPool;
 	public boolean paused = true;
 	public boolean started = false;
 	private ArrayList<Pausable> pausables = new ArrayList<Pausable>();
-	
-	public Game(GameLoop gameLoop, InputLoop inputLoop,
-			GraphicsLoop graphicsLoop, GameBoard gameBoard,
-			SoundPool soundPool) {
-		this.gameLoop = gameLoop;
-		this.inputLoop = inputLoop;
-		this.graphicsLoop = graphicsLoop;
-		this.gameBoard = gameBoard;
+
+
+	public void setSoundPool(SoundPool soundPool) {
 		this.soundPool = soundPool;
+	}
+
+	public void setGameBoard(GameBoard gameBoard) {
+		this.gameBoard = gameBoard;
+	}
+
+	public void setGameLoop(GameLoop gameLoop) {
+		this.gameLoop = gameLoop;
+	}
+	
+	public void setInputLoop(InputLoop inputLoop) {
+		this.inputLoop = inputLoop;
 	}
 
 	public GameBoard getGameBoard() {
 		return gameBoard;
-	}
-	
-	public GraphicsLoop getGraphicsLoop() {
-		return graphicsLoop;
 	}
 	
 	public InputLoop getInputLoop() {
@@ -46,7 +47,7 @@ public class Game {
 	}
 	
 	public void start() {
-		gameLoop.start();
+		getGameLoop().start();
 		paused = false;
 		started = true;
 	}
