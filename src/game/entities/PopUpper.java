@@ -65,7 +65,7 @@ public class PopUpper implements Animator {
 	public Bitmap getBitmap() {
 		// Ensure the original bitmap is always sent back when this animation ends
 		if(finished) {
-			animatable.unregisterAnimation(this);
+			animatable.stopAnimation(this);
 		}
 		return animBm;
 	}

@@ -75,11 +75,12 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	/**
 	 * Detects a hit between a point and this actor
 	 * 
-	 * @param Rect shot the shot to detect
+	 * @param Rect
+	 *            shot the shot to detect
 	 * @return
 	 */
 	public boolean isHit(Rect shot) {
-		if(!visible) {
+		if (!visible) {
 			return false;
 		}
 		int x = location.x;
@@ -96,7 +97,7 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	public void setOnShowListener(OnShowListener onShowListener) {
 		this.onShowListener = onShowListener;
 	}
-	
+
 	public void setOnHideListener(OnHideListener onHideListener) {
 		this.onHideListener = onHideListener;
 	}
@@ -121,13 +122,13 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	}
 
 	@Override
-	public void registerAnimation(Animator a) {
-		sprite.registerAnimation(a);
+	public void startAnimation(Animator a) {
+		sprite.startAnimation(a);
 	}
 
 	@Override
-	public void unregisterAnimation(Animator a) {
-		sprite.unregisterAnimation(a);
+	public void stopAnimation(Animator a) {
+		sprite.stopAnimation(a);
 	}
 
 	@Override

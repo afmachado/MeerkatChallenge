@@ -1,32 +1,24 @@
 package meerkatchallenge.activities;
 
-import game.entities.Actor;
-import game.entities.Background;
 import game.entities.Game;
-import game.entities.GameBoard;
 import game.entities.Score;
-import game.entities.Timer;
-import game.entities.Updater;
-import game.loops.GameLoop;
+import game.interfaces.EndLevelStarter;
 import game.loops.GraphicsLoop;
-import game.loops.InputLoop;
+import levels.GameBuilder;
+import levels.GameBuilderDirector;
 import levels.Level;
-import levels.MeerkatBuilder;
-import levels.ShowLevelEnd;
+import levels.ViewSource;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-public class GameActivity extends Activity {
+public class GameActivity extends Activity implements EndLevelStarter,
+		ViewSource {
 	private Game game;
 	private Level level;
 	private boolean firstRun = true;
@@ -98,68 +90,21 @@ public class GameActivity extends Activity {
 	}
 
 	private void createGame() {
-		// Load images
-		Bitmap meerkatPic = (BitmapFactory.decodeResource(getResources(),
-				R.drawable.meerkat_hole));
-		Bitmap backgroundPic = BitmapFactory.decodeResource(getResources(),
-				R.drawable.background);
-		GraphicsLoop graphicsLoop = (GraphicsLoop) findViewById(R.id.canvas);
+		// Set the width and height
 		ImageView placeholderBackground = (ImageView) findViewById(R.id.game_background_placeholder);
 		int width = placeholderBackground.getWidth();
 		int height = placeholderBackground.getHeight();
-		TextView scoreText = (TextView) findViewById(R.id.game_score);
-		TextView timerText = (TextView) findViewById(R.id.game_time);
-		
-		
-		// Create a score entity to keep score
-		Score score = new Score(level);
-		ShowLevelEnd showLevelEnd = new ShowLevelEnd(this, score, level);
-		SoundPool soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);
-		int meerkatHitSoundId =  soundPool.load(this, R.raw.hit, 1);
-		GameBoard gameBoard = new GameBoard(width, height);
-		
-		
-		GameLoop gameLoop = new GameLoop();
-		InputLoop inputLoop = new InputLoop();
-		
-		game = new Game();
-		
-		gameLoop.addGameComponent(graphicsLoop);
 
-		// Set up background
-		Background background = new Background(width, height, backgroundPic);
-		graphicsLoop.register(background);
-		
-		Updater scoreUpdater = new Updater(score, scoreText);
-		gameLoop.addGameComponent(scoreUpdater);
+		GameBuilder gameBuilder = new GameBuilder();
+		GameBuilderDirector gameBuilderDirector = new GameBuilderDirector(
+				gameBuilder);
+		gameBuilderDirector.construct(this, this, this, this.getResources(),
+				width, height, level);
 
-		for (int i = 0; i < level.getPopUpMeerkats(); i++) {
-			Actor meerkat = MeerkatBuilder.addMeerkat(score, meerkatPic, game, meerkatHitSoundId, gameBoard,
-					gameLoop, soundPool, inputLoop);
-			graphicsLoop.register(meerkat);
-		}
-
-		// Set a timer to stop the game after a specified time
-		Timer timer = new Timer(level.getTimeLimit() * 1000);
-		gameLoop.addGameComponent(timer);
-		gameLoop.registerStopCondition(timer);
-
-		
-		Updater timerUpdater = new Updater(timer, timerText);
-		gameLoop.addGameComponent(timerUpdater);
-
-		// Show the level end screen when the game stops
-		game.addPausable(timer);
-		/**
-		 * The game loop should be the last thing to be unpaused so the other
-		 * entities can prepare themselves
-		 */
-		game.addPausable(gameLoop);
-	
-		gameLoop.addStopAction(showLevelEnd);
-		graphicsLoop.setOnTouchListener(inputLoop);
+		game = gameBuilder.getGame();
 		// Hide the placeholder gameboard and show the proper gameboard
 		placeholderBackground.setVisibility(View.GONE);
+		GraphicsLoop graphicsLoop = (GraphicsLoop) findViewById(R.id.canvas);
 		graphicsLoop.setVisibility(View.VISIBLE);
 		game.start();
 		game.pause();
@@ -207,5 +152,13 @@ public class GameActivity extends Activity {
 			game.pause();
 		}
 		super.onPause();
+	}
+
+	@Override
+	public void startEndLevel(Score score, Level level) {
+		Intent intent = new Intent(this, EndLevel.class);
+		intent.putExtra("main.score", score.get());
+		intent.putExtra("main.level", level);
+		startActivity(intent);
 	}
 }

@@ -59,12 +59,12 @@ public class Sprite implements Animatable {
 	}
 
 	@Override
-	public void registerAnimation(Animator a) {
+	public void startAnimation(Animator a) {
 		animators.add(a);
 	}
 
 	@Override
-	public void unregisterAnimation(Animator a) {
+	public void stopAnimation(Animator a) {
 		animators.remove(a);
 	}
 
