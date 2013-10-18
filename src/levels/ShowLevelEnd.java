@@ -2,14 +2,14 @@ package levels;
 
 import game.entities.Score;
 import game.interfaces.EndLevelStarter;
-import game.interfaces.StopAction;
+import game.interfaces.OnStopListener;
 
 /**
  * Shows the level end screen
  * @author John Casson
  *
  */
-public class ShowLevelEnd implements StopAction {
+public class ShowLevelEnd implements OnStopListener {
 	private Score score;
 	private Level level;
 	EndLevelStarter endLevelStarter;

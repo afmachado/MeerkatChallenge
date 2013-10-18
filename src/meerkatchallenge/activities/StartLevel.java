@@ -41,6 +41,7 @@ public class StartLevel extends Activity implements OnClickListener {
 		final LinearLayout wholeView = (LinearLayout) findViewById(R.id.login_form);
 		final Animation fadeIn = AnimationUtils.loadAnimation(this,
 				R.anim.anim_in);
+
 		wholeView.setAnimation(fadeIn);
 	}
 	

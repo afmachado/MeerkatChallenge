@@ -2,7 +2,7 @@ package game.loops;
 
 import game.interfaces.GameComponent;
 import game.interfaces.Pausable;
-import game.interfaces.StopAction;
+import game.interfaces.OnStopListener;
 import game.interfaces.StopCondition;
 
 import java.util.ArrayList;
@@ -17,14 +17,14 @@ public class GameLoop implements Pausable {
 	private Handler frame = new Handler();
 	private ArrayList<GameComponent> components = new ArrayList<GameComponent>();
 	private ArrayList<StopCondition> stopConditions = new ArrayList<StopCondition>();
-	private ArrayList<StopAction> stopAction = new ArrayList<StopAction>();
+	private ArrayList<OnStopListener> stopListeners = new ArrayList<OnStopListener>();
 
 	public void addGameComponent(GameComponent a) {
 		components.add(a);
 	}
 
-	public void addStopAction(StopAction stopAction) {
-		this.stopAction.add(stopAction);
+	public void addStopListener(OnStopListener stopAction) {
+		this.stopListeners.add(stopAction);
 	}
 
 	public void start() {
@@ -47,7 +47,7 @@ public class GameLoop implements Pausable {
 			for (StopCondition sc : stopConditions) {
 				frame.removeCallbacks(frameUpdate);
 				if (sc.stopCondition()) {
-					for (StopAction sa : stopAction) {
+					for (OnStopListener sa : stopListeners) {
 						sa.onStop();
 					}
 					

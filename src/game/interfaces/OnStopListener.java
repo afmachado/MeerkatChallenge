@@ -1,5 +1,5 @@
 package game.interfaces;
 
-public interface StopAction {
+public interface OnStopListener {
 	public void onStop();
 }

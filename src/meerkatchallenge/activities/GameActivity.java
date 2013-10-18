@@ -142,18 +142,32 @@ public class GameActivity extends Activity implements EndLevelStarter,
 		return super.onKeyDown(keyCode, event);
 	}
 
-	/**
-	 * If this activity is paused, pause the game
-	 */
+	
 	@Override
 	public void onPause() {
+		/**
+		 * If this activity is paused, pause the game
+		 */
 		firstRun = false;
 		if (game != null) {
 			game.pause();
 		}
 		super.onPause();
 	}
+	
+	@Override
+	public void onStop() {
+		/*
+		 *  End the activity when it's not visible.
+		 *  This significantly reduces the frequency of out of memory errors.
+		 */
+		finish();
+		super.onStop();
+	}
 
+	/**
+	 * When a level ends, show the "End Level" activity
+	 */
 	@Override
 	public void startEndLevel(Score score, Level level) {
 		Intent intent = new Intent(this, EndLevel.class);

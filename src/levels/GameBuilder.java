@@ -93,7 +93,7 @@ public class GameBuilder {
 		// Show the level end screen when the game stops
 		// Contained
 		ShowLevelEnd showLevelEnd = new ShowLevelEnd(endLevelStarter, score, level);
-		gameLoop.addStopAction(showLevelEnd);
+		gameLoop.addStopListener(showLevelEnd);
 	}
 	
 	public void addSoundPool(Context context) {

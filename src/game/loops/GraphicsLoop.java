@@ -2,7 +2,6 @@ package game.loops;
 
 import game.interfaces.Drawable;
 import game.interfaces.GameComponent;
-import game.interfaces.StopAction;
 
 import java.util.ArrayList;
 
@@ -12,7 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class GraphicsLoop extends View implements GameComponent, StopAction {
+public class GraphicsLoop extends View implements GameComponent {
 	ArrayList<Drawable> drawables = new ArrayList<Drawable>();
 	BitmapDrawable background;
 	boolean running = true;
@@ -38,10 +37,5 @@ public class GraphicsLoop extends View implements GameComponent, StopAction {
 	@Override
 	public void play() {
 		invalidate();
-	}
-
-	@Override
-	public void onStop() {
-		running = false;
 	}
 }

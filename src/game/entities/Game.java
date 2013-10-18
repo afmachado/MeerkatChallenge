@@ -1,12 +1,8 @@
 package game.entities;
 
 import game.interfaces.Pausable;
-import game.loops.GameLoop;
-import game.loops.InputLoop;
 
 import java.util.ArrayList;
-
-import android.media.SoundPool;
 
 public class Game {
 	public boolean paused = true;

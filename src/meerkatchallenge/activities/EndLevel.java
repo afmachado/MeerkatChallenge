@@ -78,8 +78,9 @@ public class EndLevel extends Activity {
 				Button next = (Button) findViewById(R.id.level_end_continue_button);
 				next.setOnClickListener(new OnClickListener() { 
 					public void onClick(View v) {
-						Intent intent = new Intent(EndLevel.this, LevelSelect.class);
+						Intent intent = new Intent(EndLevel.this, LevelSelect.class); 
 						startActivity(intent);
+						overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 					}
 				});
 			}
