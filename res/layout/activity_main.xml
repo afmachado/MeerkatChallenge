@@ -6,50 +6,38 @@
     android:orientation="vertical"
     tools:context="game.entities.GameActivity" >
 
-    <RelativeLayout android:id='@+id/game_header' style="@style/GameHeader"
-        			android:paddingLeft="@dimen/header_margin" android:paddingRight="@dimen/header_margin">
-
+    <RelativeLayout android:id='@+id/game_header' style="@style/GameHeader">
         <ImageView
             android:id="@+id/game_clock_image"
-            style="@style/LevelInfoPicture"
-            android:src="@drawable/clock"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" />
+            android:contentDescription="@string/clock_description"
+            style="@style/GameClockImage" />
 
         <TextView
             android:id="@+id/game_time"
-            style="@style/LevelInfoTargets"
-            android:layout_marginLeft="@dimen/header_margin"
-            android:layout_toRightOf="@id/game_clock_image"
-            android:layout_centerVertical="true" />
+            style="@style/GameTime" />
         
         <ImageView
             android:id="@+id/game_meerkat_image"
-            style="@style/LevelInfoPicture"
-            android:src="@drawable/meerkat"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-             />
+            android:contentDescription="@string/meerkat_description"
+            style="@style/GameMeerkatImage" />
 
         <TextView
             android:id="@+id/game_score"
-            style="@style/LevelInfoTargets"
-            android:layout_marginRight="@dimen/header_margin"
-            android:layout_toLeftOf="@id/game_meerkat_image"
-            android:layout_centerVertical="true"
-             />
+            style="@style/GameMeerkatCount" />
     </RelativeLayout>
 
+    <!-- When the game starts the currently invisible GameBoard 
+        is made visible and the placeholder background is hidden. -->
     <game.loops.GraphicsLoop
         android:id="@+id/canvas"
+        android:contentDescription="@string/game_description"
         style="@style/GameBoard"
-        android:keepScreenOn="true"
         android:visibility="gone" />
 
     <ImageView
 		android:id="@+id/game_background_placeholder"
+		android:contentDescription="@string/placeholder_description"
 		style="@style/GameBoard"
 		android:src="@drawable/background"
-		android:scaleType="fitXY"
-		 />
+		android:scaleType="fitXY" />
 </LinearLayout>

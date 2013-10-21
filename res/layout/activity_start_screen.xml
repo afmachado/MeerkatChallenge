@@ -16,13 +16,12 @@
         android:layout_width="fill_parent"
         android:layout_height="0sp"
         android:layout_weight="6"
-        android:contentDescription="@string/start_screen_description"
         android:scaleType="centerCrop"
         android:src="@drawable/start_screen" />
 
     <ImageView
         android:id="@+id/go_button"
-        android:contentDescription="@string/go_button"
+        android:contentDescription="@string/go_description"
         android:layout_width="fill_parent"
         android:scaleType="centerCrop"
         android:layout_height="0sp"

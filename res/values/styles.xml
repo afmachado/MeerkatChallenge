@@ -17,18 +17,5 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-        
-    <style name="GameHeader">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">0dip</item>
-        <item name="android:background">@drawable/gradient_bg</item>
-        <item name="android:layout_weight">0.1</item>
-    </style>
-    
-    <style name="GameBoard">
-        <item name="android:layout_height">0dip</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_weight">0.9</item>
-    </style>
 
 </resources>
