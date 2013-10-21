@@ -25,7 +25,7 @@ public class GameActivity extends Activity implements EndLevelStarter,
 
 	/**
 	 * Bundle contains an optional name of an activity to call back. Activity is
-	 * passed the level number in the bundle e.g. a "Start Level" overlay
+	 * passed the level number in the bundle e.g. a "Start Level" overlay.
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
