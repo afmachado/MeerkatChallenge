@@ -5,27 +5,15 @@
     
     <ImageView
         android:id="@+id/title"
-        android:contentDescription="@string/title_image"
-        android:layout_width="fill_parent"
-        android:layout_height="0sp"
-        android:layout_weight="1"
-        android:scaleType="centerCrop"
-        android:src="@drawable/title" />
+        android:contentDescription="@string/title_image" />
 
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="0sp"
-        android:layout_weight="6"
-        android:scaleType="centerCrop"
-        android:src="@drawable/start_screen" />
+        android:contentDescription="@string/title_image_description"
+        style="@style/StartScreenImage" />
 
     <ImageView
         android:id="@+id/go_button"
         android:contentDescription="@string/go_description"
-        android:layout_width="fill_parent"
-        android:scaleType="centerCrop"
-        android:layout_height="0sp"
-        android:layout_weight="1"
-		android:src="@drawable/go_button" />
+        style="@style/StartScreenStartButton" />
 
 </LinearLayout>

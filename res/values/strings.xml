@@ -15,4 +15,5 @@
     <string name="game_description">Main game board</string>
     <string name="meerkat_description">Meerkat</string>
     <string name="clock_description">Clock</string>
+    <string name="title_image_description">Title Image</string>
 </resources>
