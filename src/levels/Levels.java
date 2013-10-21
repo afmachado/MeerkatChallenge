@@ -15,7 +15,6 @@ public final class Levels {
 		levels.put(5, new Level(5, 5, 26, 15, "The Challenge", "Now they're angry.")); // 1.7/sec
 		
 		// Second Tier: Intermediate
-//		levels.put(6, new Level(6, 7, 20, 10, "The NEXT level", "Knock 'em down.")); // 2/sec
 		levels.put(6, new Level(6, 7, 20, 1, "The NEXT level", "Knock 'em down.")); // 2/sec
 		levels.put(7, new Level(7, 6, 32, 15, "Up to Speed", "Ready for more?")); // 2.2/sec // Gets difficult here with 1 finger
 		levels.put(8, new Level(8, 7, 60, 30, "Endurance", "We'll step it up a notch.")); // 2/sec
