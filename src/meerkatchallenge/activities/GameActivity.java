@@ -30,7 +30,7 @@ public class GameActivity extends Activity implements EndLevelStarter,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_game);
 
 		level = (Level) getIntent().getExtras().getSerializable("level");
 		final GameActivity ga = this;

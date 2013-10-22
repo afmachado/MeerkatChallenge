@@ -4,11 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.6"
-        android:orientation="horizontal" >
+    <LinearLayout style="@style/LevelInfoContainer">
 
         <LinearLayout style="@style/LevelInfoSidePadding" />
 
@@ -41,7 +37,8 @@
                         android:id="@+id/meerkat_image"
                         style="@style/LevelInfoPicture"
                         android:paddingTop="2dp"
-                        android:src="@drawable/meerkat" />
+                        android:src="@drawable/meerkat"
+                        android:contentDescription="@string/meerkat_description" />
 
                     <TextView
                         android:id="@+id/level_end_meerkat_count"
