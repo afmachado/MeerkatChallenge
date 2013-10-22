@@ -46,7 +46,6 @@ public class LevelSelect extends Activity {
 			if (Integer.parseInt(tv.getText().toString()) > currentLevel) {
 				tv.setText(lockedLevel);
 			}
-			tv.setOnClickListener(null);
 		}
 
 		// Makes the available levels clickable
@@ -58,10 +57,12 @@ public class LevelSelect extends Activity {
 					public void onClick(View v) {
 						Intent intent = new Intent(reference,
 								GameActivity.class);
-						Level level = Levels.get(Integer.parseInt(tv.getText().toString()));
+						Level level = Levels.get(Integer.parseInt(tv.getText()
+								.toString()));
 						intent.putExtra("level", level);
 						startActivity(intent);
-						overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+						overridePendingTransition(R.anim.push_left_in,
+								R.anim.push_left_out);
 					}
 				});
 			}

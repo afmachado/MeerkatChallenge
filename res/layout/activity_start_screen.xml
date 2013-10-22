@@ -5,7 +5,8 @@
     
     <ImageView
         android:id="@+id/title"
-        android:contentDescription="@string/title_image" />
+        android:contentDescription="@string/title_image"
+        style="@style/StartScreenTitleImage" />
 
     <ImageView
         android:contentDescription="@string/title_image_description"
