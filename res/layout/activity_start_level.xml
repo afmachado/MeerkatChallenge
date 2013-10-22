@@ -3,14 +3,8 @@
     android:layout_height="fill_parent" android:orientation="vertical"
     android:id="@+id/login_form">
 
-	<LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="0dip"
-	    android:layout_weight="0.6"
-	    android:orientation="horizontal" >
-		
+	<LinearLayout style="@style/LevelInfoContainer">
 	    <LinearLayout style="@style/LevelInfoSidePadding"/>
-	    
 	    <LinearLayout
 	        android:id="@+id/level_info"
 	        style="@style/LevelInfoBackground" >
