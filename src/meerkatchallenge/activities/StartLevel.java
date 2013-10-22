@@ -61,5 +61,4 @@ public class StartLevel extends VolumeControlActivity implements OnClickListener
 		startActivity(i);
 		overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 	}
-	
 }

@@ -165,8 +165,8 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 	@Override
 	public void startEndLevel(Score score, Level level) {
 		Intent intent = new Intent(this, EndLevel.class);
-		intent.putExtra("main.score", score.get());
-		intent.putExtra("main.level", level);
+		intent.putExtra("score", score.get());
+		intent.putExtra("level", level);
 		startActivity(intent);
 	}
 }

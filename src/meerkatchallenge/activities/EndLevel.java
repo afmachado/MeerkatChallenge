@@ -26,8 +26,8 @@ public class EndLevel extends VolumeControlActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_end_level);
 
-		int score = getIntent().getExtras().getInt("main.score");
-		level = (Level) getIntent().getExtras().getSerializable("main.level");
+		int score = getIntent().getExtras().getInt("score");
+		level = (Level) getIntent().getExtras().getSerializable("level");
 
 		String title, description;
 		
