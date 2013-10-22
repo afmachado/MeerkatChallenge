@@ -2,7 +2,6 @@ package meerkatchallenge.activities;
 
 import levels.Level;
 import levels.Preferences;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +17,7 @@ import android.widget.TextView;
 /**
  * Shows the "End level" screen that bounces in
  */
-public class EndLevel extends Activity {
+public class EndLevel extends VolumeControlActivity {
 	// Delay before enabling the button in ms
 	final static int ENABLED_BUTTON_DELAY = 700;
 	Level level;

@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class LevelSelect extends Activity {
+public class LevelSelect extends VolumeControlActivity {
 	int[] textViews = { R.id.level1, R.id.level2, R.id.level3, R.id.level4,
 			R.id.level5, R.id.level6, R.id.level7, R.id.level8, R.id.level9,
 			R.id.level10, R.id.level11, R.id.level12, R.id.level13,

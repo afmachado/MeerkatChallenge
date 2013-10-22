@@ -1,7 +1,6 @@
 package meerkatchallenge.activities;
 
 import levels.Level;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 /**
  * Shows the "Start level" screen that bounces in
  */
-public class StartLevel extends Activity implements OnClickListener {	
+public class StartLevel extends VolumeControlActivity implements OnClickListener {	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

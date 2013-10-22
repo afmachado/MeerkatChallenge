@@ -8,16 +8,14 @@ import levels.GameBuilder;
 import levels.GameBuilderDirector;
 import levels.Level;
 import levels.ViewSource;
-import android.app.Activity;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-public class GameActivity extends Activity implements EndLevelStarter,
+public class GameActivity extends VolumeControlActivity implements EndLevelStarter,
 		ViewSource {
 	private Game game;
 	private Level level;
@@ -34,10 +32,6 @@ public class GameActivity extends Activity implements EndLevelStarter,
 
 		level = (Level) getIntent().getExtras().getSerializable("level");
 		final GameActivity ga = this;
-
-		// When in this activity make the volume buttons control the music
-		// volume (e.g. vs the ringtone volume)
-		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
 		Intent intent = new Intent(ga, StartLevel.class);
 		intent.putExtra("level", level);
