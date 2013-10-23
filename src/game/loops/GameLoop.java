@@ -1,9 +1,9 @@
 package game.loops;
 
-import game.interfaces.GameComponent;
-import game.interfaces.Pausable;
-import game.interfaces.OnStopListener;
-import game.interfaces.StopCondition;
+import game.interfaces.Stoppable;
+import game.interfaces.status.GameComponent;
+import game.interfaces.status.OnStopListener;
+import game.interfaces.status.Pausable;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class GameLoop implements Pausable {
 
 	private Handler frame = new Handler();
 	private ArrayList<GameComponent> components = new ArrayList<GameComponent>();
-	private ArrayList<StopCondition> stopConditions = new ArrayList<StopCondition>();
+	private ArrayList<Stoppable> stoppables = new ArrayList<Stoppable>();
 	private ArrayList<OnStopListener> stopListeners = new ArrayList<OnStopListener>();
 
 	public void addGameComponent(GameComponent a) {
@@ -44,7 +44,7 @@ public class GameLoop implements Pausable {
 				}
 			}
 
-			for (StopCondition sc : stopConditions) {
+			for (Stoppable sc : stoppables) {
 				frame.removeCallbacks(frameUpdate);
 				if (sc.stopCondition()) {
 					for (OnStopListener sa : stopListeners) {
@@ -60,8 +60,13 @@ public class GameLoop implements Pausable {
 		}
 	};
 
-	public void registerStopCondition(StopCondition sc) {
-		stopConditions.add(sc);
+	/**
+	 * Registers a stoppable to be stopped
+	 * when the game loop stops
+	 * @param sc Stoppable to be stopped
+	 */
+	public void registerStoppable(Stoppable sc) {
+		stoppables.add(sc);
 	}
 
 	public void stop() {

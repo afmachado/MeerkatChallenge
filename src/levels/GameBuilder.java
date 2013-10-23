@@ -1,22 +1,22 @@
 package levels;
 
-import game.entities.Actor;
-import game.entities.Background;
-import game.entities.Game;
-import game.entities.GameBoard;
-import game.entities.PopUpBehavior;
-import game.entities.PopUpper;
-import game.entities.RandomPlacer;
-import game.entities.Score;
-import game.entities.Sprite;
-import game.entities.Timer;
-import game.entities.TouchHitDetector;
-import game.entities.Updater;
+import game.Background;
+import game.Game;
+import game.GameBoard;
+import game.Score;
+import game.Timer;
+import game.Updater;
+import game.actor.Actor;
+import game.actor.PopUpBehavior;
+import game.actor.PopUpper;
+import game.actor.RandomPlacer;
+import game.actor.Sprite;
+import game.actor.TouchHitDetector;
+import game.actor.interfaces.OnHideListener;
+import game.actor.interfaces.OnHitDetected;
+import game.actor.interfaces.OnShowListener;
 import game.interfaces.EndLevelStarter;
-import game.interfaces.OnHideListener;
-import game.interfaces.OnHitDetected;
-import game.interfaces.OnShowListener;
-import game.interfaces.Placer;
+import game.interfaces.visual.Placer;
 import game.loops.GameLoop;
 import game.loops.GraphicsLoop;
 import game.loops.InputLoop;
@@ -83,7 +83,7 @@ public class GameBuilder {
 		// Set a timer to stop the game after a specified time
 		Timer timer = new Timer(level.getTimeLimit() * 1000);
 		gameLoop.addGameComponent(timer);
-		gameLoop.registerStopCondition(timer);
+		gameLoop.registerStoppable(timer);
 		game.addPausable(timer);
 		Updater timerUpdater = new Updater(timer, timerText);
 		gameLoop.addGameComponent(timerUpdater);
@@ -154,7 +154,6 @@ public class GameBuilder {
 		
 		gameLoop.addGameComponent(behavior);
 		inputLoop.register(touchHitDetector);
-		behavior.enable();
 		return meerkat;
 	}
 	

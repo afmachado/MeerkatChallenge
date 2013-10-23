@@ -1,8 +1,8 @@
 package levels;
 
-import game.entities.Score;
+import game.Score;
 import game.interfaces.EndLevelStarter;
-import game.interfaces.OnStopListener;
+import game.interfaces.status.OnStopListener;
 
 /**
  * Shows the level end screen

@@ -1,6 +1,6 @@
 package game.loops;
 
-import game.interfaces.InputReceiver;
+import game.interfaces.status.ReceivesInput;
 
 import java.util.ArrayList;
 
@@ -10,15 +10,15 @@ import android.view.View.OnTouchListener;
 
 public class InputLoop implements OnTouchListener {
 
-	ArrayList<InputReceiver> listeners = new ArrayList<InputReceiver>();
+	ArrayList<ReceivesInput> listeners = new ArrayList<ReceivesInput>();
 
-	public void register(InputReceiver listener) {
+	public void register(ReceivesInput listener) {
 		listeners.add(listener);
 	}
 
 	@Override
 	public boolean onTouch(View v, MotionEvent ev) {
-		for (InputReceiver l : listeners) {
+		for (ReceivesInput l : listeners) {
 			l.onInput(v, ev);
 		}
 		return true;

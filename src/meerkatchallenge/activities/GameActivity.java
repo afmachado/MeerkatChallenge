@@ -1,7 +1,7 @@
 package meerkatchallenge.activities;
 
-import game.entities.Game;
-import game.entities.Score;
+import game.Game;
+import game.Score;
 import game.interfaces.EndLevelStarter;
 import game.loops.GraphicsLoop;
 import levels.GameBuilder;

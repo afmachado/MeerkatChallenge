@@ -28,7 +28,7 @@
 
     <!-- When the game starts the currently invisible GameBoard 
         is made visible and the placeholder background is hidden. -->
-    <game.loops.GraphicsLoop
+    <game.core.loops.GraphicsLoop
         android:id="@+id/canvas"
         android:contentDescription="@string/game_description"
         style="@style/GameBoard"

@@ -1,7 +1,7 @@
 package game.loops;
 
-import game.interfaces.Drawable;
-import game.interfaces.GameComponent;
+import game.interfaces.status.GameComponent;
+import game.interfaces.visual.Drawable;
 
 import java.util.ArrayList;
 
