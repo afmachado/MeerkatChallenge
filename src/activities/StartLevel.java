@@ -1,6 +1,7 @@
-package meerkatchallenge.activities;
+package activities;
 
 import levels.Level;
+import meerkatchallenge.activities.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

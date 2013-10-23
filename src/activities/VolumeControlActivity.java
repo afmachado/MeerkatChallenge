@@ -1,4 +1,4 @@
-package meerkatchallenge.activities;
+package activities;
 
 import android.app.Activity;
 import android.media.AudioManager;

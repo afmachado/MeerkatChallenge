@@ -1,4 +1,4 @@
-package meerkatchallenge.activities;
+package activities;
 
 import game.Game;
 import game.Score;
@@ -8,6 +8,7 @@ import levels.GameBuilder;
 import levels.GameBuilderDirector;
 import levels.Level;
 import levels.ViewSource;
+import meerkatchallenge.activities.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
