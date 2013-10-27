@@ -6,7 +6,7 @@ import game.GameBoard;
 import game.Score;
 import game.ShowLevelEnd;
 import game.Timer;
-import game.Updater;
+import game.UpdateTextView;
 import game.actor.Actor;
 import game.actor.PopUpBehavior;
 import game.actor.PopUpper;
@@ -75,7 +75,7 @@ public class GameBuilder {
 	 */
 	public void addScore(TextView scoreText) {
 		score = new Score(level);
-		Updater scoreUpdater = new Updater(score, scoreText);
+		UpdateTextView scoreUpdater = new UpdateTextView(score, scoreText);
 		gameLoop.addGameComponent(scoreUpdater);
 	}
 
@@ -90,7 +90,7 @@ public class GameBuilder {
 		gameLoop.addGameComponent(timer);
 		gameLoop.registerStoppable(timer);
 		game.addPausable(timer);
-		Updater timerUpdater = new Updater(timer, timerText);
+		UpdateTextView timerUpdater = new UpdateTextView(timer, timerText);
 		gameLoop.addGameComponent(timerUpdater);
 	}
 

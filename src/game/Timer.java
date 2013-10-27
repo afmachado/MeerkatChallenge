@@ -1,12 +1,17 @@
 package game;
 
-import game.interfaces.Stoppable;
+import game.interfaces.Stopper;
 import game.interfaces.status.GameComponent;
-import game.interfaces.status.GivesUpdates;
+import game.interfaces.status.Updater;
 import game.interfaces.status.Pausable;
 import android.graphics.Paint;
 
-public class Timer implements Stoppable, GameComponent, Pausable, GivesUpdates {
+/**
+ * Times the game
+ * @author John Casson
+ *
+ */
+public class Timer implements Stopper, GameComponent, Pausable, Updater {
 	boolean finished = false;
 
 	long startTime;
@@ -23,13 +28,20 @@ public class Timer implements Stoppable, GameComponent, Pausable, GivesUpdates {
 		startTime = System.currentTimeMillis();
 	}
 	
+	/**
+	 * If the game is finished, return true
+	 * to let other components know the game
+	 * needs to stop. 
+	 */
 	@Override
-	public boolean stopCondition() {
+	public boolean needToStop() {
 		return finished;
 	}
 	
-	// Calculate the current game time and check whether the play time
-	// has exceeded the game time
+	/**
+	 *  Calculate the current game time and check whether the play time
+	 *  has exceeded the game time
+	 */
 	@Override
 	public void play() throws Exception {
 		long timePlayed = System.currentTimeMillis() - startTime;
@@ -38,6 +50,10 @@ public class Timer implements Stoppable, GameComponent, Pausable, GivesUpdates {
 		}
 	}
 	
+	/**
+	 * Calculate the time left before the game ends
+	 * @return
+	 */
 	public long getTimeLeft() {
 		long timeTaken = System.currentTimeMillis() - startTime;
 		// We add 500 to the visible output 
@@ -49,6 +65,7 @@ public class Timer implements Stoppable, GameComponent, Pausable, GivesUpdates {
 	
 	/** 
 	 * When the game is paused, store the time of the pause 
+	 * so we can recalculate the game time on unpause. 
 	 */
 	@Override
 	public void onPause() {
@@ -57,7 +74,7 @@ public class Timer implements Stoppable, GameComponent, Pausable, GivesUpdates {
 
 	/**
 	 *  When we're unpaused, update the start time to reflect the
-	 *  time spent paused
+	 *  time spent paused.
 	 */
 	@Override
 	public void onUnPause() {
@@ -65,8 +82,11 @@ public class Timer implements Stoppable, GameComponent, Pausable, GivesUpdates {
 		startTime = startTime + pausedTime;
 	}
 
+	/**
+	 * Return a string representation of the game time
+	 */
 	@Override
-	public String getStatus() {
+	public String getUpdate() {
 		return Long.toString(getTimeLeft());
 	}
 }

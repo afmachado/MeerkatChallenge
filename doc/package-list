@@ -1,0 +1,11 @@
+activities
+game
+game.actor
+game.actor.interfaces
+game.interfaces
+game.interfaces.status
+game.interfaces.visual
+game.loops
+gamebuilder
+levels
+meerkatchallenge.activities

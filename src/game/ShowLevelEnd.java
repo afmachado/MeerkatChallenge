@@ -20,6 +20,10 @@ public class ShowLevelEnd implements OnStopListener {
 		this.level = level;
 	}
 	
+	/**
+	 * Start the end level process when we receive
+	 * an onStop message.
+	 */
 	@Override
 	public void onStop() {
 		endLevelStarter.startEndLevel(score, level);

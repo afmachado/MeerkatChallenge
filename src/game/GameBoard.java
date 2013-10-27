@@ -7,6 +7,12 @@ import java.util.ArrayList;
 
 import android.graphics.Rect;
 
+/**
+ * A board to store the game's size and to manage the location
+ * of actors interacting with the game.
+ * @author John Casson
+ *
+ */
 public class GameBoard {
 	private ArrayList<Actor> actors = new ArrayList<Actor>();
 
@@ -18,23 +24,44 @@ public class GameBoard {
 		this.height = height;
 	}
 
+	/**
+	 * Gets the width
+	 * @return
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Sets the width
+	 * @param width
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	/**
+	 * Gets the height
+	 * @return
+	 */
 	public int getHeight() {
 		return height;
 	}
-
+	
+	/**
+	 * Sets the height
+	 * @param height
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
-	// To be called when a mover is added to the game board
+	
+	/**
+	 * Registers an actor that wants to interact with
+	 * the game. Each actor can only be added once.
+	 * @param actor
+	 */
 	synchronized public void addActor(Actor actor) {
 		if (hasActor(actor)) {
 			throw new RuntimeException("Actor already registered with the game board");
@@ -42,6 +69,12 @@ public class GameBoard {
 		actors.add(actor);
 	}
 
+	/**
+	 * Is the passed actor already registered
+	 * on the gameboard?
+	 * @param actor
+	 * @return
+	 */
 	public boolean hasActor(Actor actor) {
 		if (actors.contains(actor)) {
 			return true;
@@ -50,10 +83,18 @@ public class GameBoard {
 		}
 	}
 
+	/**
+	 * Remove an actor from this gameboard
+	 * @param actor
+	 */
 	synchronized public void removeActor(Actor actor) {
 		actors.remove(actor);
 	}
 	
+	/**
+	 * Gets all actors registered with this gameboard.
+	 * @return
+	 */
 	synchronized public ArrayList<Actor> getActors() {
 		return actors;
 	}
