@@ -34,28 +34,28 @@ public class GameBoard {
 		this.height = height;
 	}
 
-	public void reset() {
-		actors = new ArrayList<Actor>();
-	}
-
 	// To be called when a mover is added to the game board
-	synchronized public void addMover(Actor m) {
-		if (hasMover(m)) {
-			throw new RuntimeException("Mover already registered with the game board");
+	synchronized public void addActor(Actor actor) {
+		if (hasActor(actor)) {
+			throw new RuntimeException("Actor already registered with the game board");
 		}
-		actors.add(m);
+		actors.add(actor);
 	}
 
-	public boolean hasMover(Actor m) {
-		if (actors.contains(m)) {
+	public boolean hasActor(Actor actor) {
+		if (actors.contains(actor)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	synchronized public void removeMover(Actor m) {
-		actors.remove(m);
+	synchronized public void removeActor(Actor actor) {
+		actors.remove(actor);
+	}
+	
+	synchronized public ArrayList<Actor> getActors() {
+		return actors;
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class GameBoard {
 	 */
 	synchronized public boolean doesOverlap(Rect rectangle) {
 		for (Actor a : actors) {
-			if(a.isHit(rectangle)) {
+			if(a.isOverlapping(rectangle)) {
 				return true;
 			}
 		}

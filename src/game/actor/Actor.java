@@ -73,13 +73,13 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	}
 
 	/**
-	 * Detects a hit between a point and this actor
+	 * Detects whether the passed Rect overlaps
+	 * with this actor
 	 * 
-	 * @param Rect
-	 *            shot the shot to detect
+	 * @param shot the Rect that could overlap
 	 * @return
 	 */
-	public boolean isHit(Rect shot) {
+	public boolean isOverlapping(Rect shot) {
 		if (!visible) {
 			return false;
 		}

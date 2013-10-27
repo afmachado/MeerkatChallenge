@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Level implements Serializable {
 	/**
-	 * 
+	 * A level in the game
 	 */
 	private static final long serialVersionUID = 32551L;
-	private int popUpMeerkats;
+	private int meerkats;
 	private int targetScore;
 	private int timeLimit;
 	private String title;
@@ -15,7 +15,7 @@ public class Level implements Serializable {
 	private int number;
 	
 	public Level (int number, int popUpMeerkats, int targetScore, int timeLimit, String title, String description) {
-		this.setPopUpMeerkats(popUpMeerkats);
+		this.setMeerkats(popUpMeerkats);
 		this.setTargetScore(targetScore);
 		this.setTimeLimit(timeLimit);
 		this.setTitle(title);
@@ -23,12 +23,12 @@ public class Level implements Serializable {
 		this.setNumber(number);
 	}
 
-	public int getPopUpMeerkats() {
-		return popUpMeerkats;
+	public int getMeerkats() {
+		return meerkats;
 	}
 
-	public void setPopUpMeerkats(int popUpMeerkats) {
-		this.popUpMeerkats = popUpMeerkats;
+	public void setMeerkats(int meerkats) {
+		this.meerkats = meerkats;
 	}
 
 	public int getTargetScore() {

@@ -32,7 +32,7 @@ public class TouchHitDetector implements ReceivesInput  {
 			float y = ev.getY(actionIndex);
 			// Define a "hit area" that's wider than the point given
 			Rect hitArea = new Rect((int) x - 5, (int) y - 5, (int) x + 5, (int) y + 5);
-			if (hittable.isHit(hitArea)) {
+			if (hittable.isOverlapping(hitArea)) {
 				callback.onHit();
 			}
 			break;
