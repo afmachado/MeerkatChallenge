@@ -4,14 +4,13 @@ import game.Game;
 import game.Score;
 import game.interfaces.EndLevelStarter;
 import game.loops.GraphicsLoop;
-import levels.GameBuilder;
-import levels.GameBuilderDirector;
+import gamebuilder.GameBuilder;
+import gamebuilder.GameBuilderDirector;
+import gamebuilder.ViewSource;
 import levels.Level;
-import levels.ViewSource;
 import meerkatchallenge.activities.R;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,33 +36,6 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 		Intent intent = new Intent(ga, StartLevel.class);
 		intent.putExtra("level", level);
 		startActivity(intent);
-	}
-
-	/**
-	 * Resets the game
-	 */
-	public void reset() {
-		Intent intent = new Intent(this, StartLevel.class);
-		finish();
-		// Hide the default animation
-		overridePendingTransition(0, 0);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivity(intent);
-	}
-
-	/**
-	 * Convert from pixels to density independent pixels
-	 * 
-	 * @param dp
-	 *            Density dependent pixel value to convert
-	 * @return int The size in density independent pixels
-	 */
-	public int dpToPx(int dp) {
-		DisplayMetrics displayMetrics = getApplicationContext().getResources()
-				.getDisplayMetrics();
-		int px = Math.round(dp
-				* (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-		return px;
 	}
 
 	/**

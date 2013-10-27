@@ -1,9 +1,10 @@
-package levels;
+package gamebuilder;
 
 import game.Background;
 import game.Game;
 import game.GameBoard;
 import game.Score;
+import game.ShowLevelEnd;
 import game.Timer;
 import game.Updater;
 import game.actor.Actor;
@@ -20,6 +21,7 @@ import game.interfaces.visual.Placer;
 import game.loops.GameLoop;
 import game.loops.GraphicsLoop;
 import game.loops.InputLoop;
+import levels.Level;
 import meerkatchallenge.activities.R;
 import android.content.Context;
 import android.graphics.Bitmap;

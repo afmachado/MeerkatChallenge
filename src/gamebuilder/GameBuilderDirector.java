@@ -1,7 +1,8 @@
-package levels;
+package gamebuilder;
 
 import game.interfaces.EndLevelStarter;
 import game.loops.GraphicsLoop;
+import levels.Level;
 import meerkatchallenge.activities.R;
 import android.content.Context;
 import android.content.res.Resources;

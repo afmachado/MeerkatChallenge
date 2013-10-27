@@ -1,11 +1,11 @@
-package levels;
+package game;
 
-import game.Score;
+import levels.Level;
 import game.interfaces.EndLevelStarter;
 import game.interfaces.status.OnStopListener;
 
 /**
- * Shows the level end screen
+ * Starts the process for ending a level
  * @author John Casson
  *
  */
