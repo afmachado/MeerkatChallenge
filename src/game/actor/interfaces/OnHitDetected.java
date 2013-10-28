@@ -1,6 +1,14 @@
 package game.actor.interfaces;
 
+/**
+ * Implemented by classes that want to be notified
+ * when an object is hit
+ * @author John Casson
+ *
+ */
 public interface OnHitDetected {
-	// What to do when a hit is detected
+	/**
+	 * Called when a hit is detected
+	 */
 	public void onHit();
 }

@@ -57,16 +57,12 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	 *             If this actor is already visible
 	 */
 	public void show() {
-		if (visible) {
-			throw new RuntimeException("Can't show a visible actor");
-		}
-
 		placer.place(this);
 		visible = true;
 		onShowListener.onShow();
 	}
 
-	public void hide() {
+	public void hide() {		
 		visible = false;
 		setLocation(-1, -1);
 		onHideListener.onHide();

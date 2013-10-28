@@ -1,8 +1,25 @@
 package game.actor.interfaces;
 
+
+/**
+ * Implemented by classes that can be shown
+ * @author hqs71687
+ *
+ */
 public interface Showable {
-	// Can you see this showable?
+	/**
+	 * Is this object visible
+	 * @return
+	 */
 	public boolean isVisible();
-	public void show() throws Exception;
-	public void hide() throws Exception;
+	/**
+	 * Show the object
+	 * @throws Exception
+	 */
+	public void show();
+	/**
+	 * Hide the object
+	 * @throws Exception
+	 */
+	public void hide();
 }
