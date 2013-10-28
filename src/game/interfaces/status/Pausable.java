@@ -7,6 +7,12 @@ package game.interfaces.status;
  *
  */
 public interface Pausable {
+	/**
+	 * When the game is paused
+	 */
 	public void onPause();
+	/**
+	 * When the game is unpaused
+	 */
 	public void onUnPause();
 }

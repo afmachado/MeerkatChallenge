@@ -2,9 +2,13 @@ package game.interfaces;
 
 /**
  * Objects of this type can stop a game.
- * @author hqs71687
+ * @author John Casson
  *
  */
 public interface Stopper {
+	/**
+	 * Returns true when the game should stop.
+	 * @return
+	 */
 	public boolean needToStop();
 }

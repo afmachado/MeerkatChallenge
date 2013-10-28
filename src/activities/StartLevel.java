@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * Shows the "Start level" screen that bounces in
+ * Shows the "Start level" screen that bounces in over the game
  */
 public class StartLevel extends VolumeControlActivity implements OnClickListener {	
 	@Override

@@ -6,5 +6,9 @@ package game.interfaces.status;
  *
  */
 public interface Updater {
+	/**
+	 * Gets the current status of the class
+	 * @return
+	 */
 	public String getUpdate();
 }

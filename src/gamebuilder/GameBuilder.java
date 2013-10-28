@@ -29,6 +29,11 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.widget.TextView;
 
+/**
+ * Builds the game
+ * @author John Casson
+ *
+ */
 public class GameBuilder {
 	private GameLoop gameLoop;
 	private InputLoop inputLoop;
@@ -50,7 +55,12 @@ public class GameBuilder {
 		this.level = level;
 	}
 
-	public void setSize(int width, int height) {
+	/**
+	 * Sets the game board size.
+	 * @param width
+	 * @param height
+	 */
+	public void setGameBoardSize(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}
@@ -79,11 +89,20 @@ public class GameBuilder {
 		gameLoop.addGameComponent(scoreUpdater);
 	}
 
+	/**
+	 * Creates the game background
+	 * @param backgroundPic
+	 * @param graphicsLoop
+	 */
 	public void makeBackground(Bitmap backgroundPic, GraphicsLoop graphicsLoop) {
 		Background background = new Background(width, height, backgroundPic);
 		graphicsLoop.register(background);
 	}
-
+	
+	/**
+	 * Creates a count down timer
+	 * @param timerText The textview to update with the time
+	 */
 	public void makeTimer(TextView timerText) {
 		// Set a timer to stop the game after a specified time
 		Timer timer = new Timer(level.getTimeLimit() * 1000);
@@ -94,6 +113,10 @@ public class GameBuilder {
 		gameLoop.addGameComponent(timerUpdater);
 	}
 
+	/**
+	 * Shows the level end screen when the level finishes
+	 * @param endLevelStarter
+	 */
 	public void addShowLevelEnd(EndLevelStarter endLevelStarter) {
 		// Show the level end screen when the game stops
 		// Contained
@@ -102,12 +125,20 @@ public class GameBuilder {
 		gameLoop.addStopListener(showLevelEnd);
 	}
 
+	/**
+	 * Adds a sound pool so the game can play sound
+	 * @param context
+	 */
 	public void addSoundPool(Context context) {
 		// Contained
 		soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);
 		meerkatHitSoundId = soundPool.load(context, R.raw.hit, 1);
 	}
 
+	/**
+	 * Adds meerkats to the game
+	 * @param meerkatPic
+	 */
 	public void addMeerkats(Bitmap meerkatPic) {
 		// Draw Meerkats
 		GameBoard gameBoard = new GameBoard(width, height);
@@ -117,9 +148,16 @@ public class GameBuilder {
 		}
 	}
 
+	/**
+	 * Adds an individual meerkat to the game
+	 * @param meerkatPic
+	 * @param gameBoard
+	 * @return
+	 */
 	private Actor addMeerkat(final Bitmap meerkatPic, final GameBoard gameBoard) {
 		// The speed to pop up at
 		final int POPUP_SPEED = 150;
+		final int HIT_MARGIN = 5;
 		Placer placer = new RandomPlacer(gameBoard);
 		final Actor meerkat = new Actor(placer, new Sprite());
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
@@ -148,13 +186,22 @@ public class GameBuilder {
 		OnHitDetected ohd = getMeerkatHitDetected(meerkat, behavior,
 				meerkatPic, size);
 
-		TouchHitDetector touchHitDetector = new TouchHitDetector(ohd, meerkat);
+		TouchHitDetector touchHitDetector = new TouchHitDetector(ohd, meerkat, HIT_MARGIN);
 
 		gameLoop.addGameComponent(behavior);
 		inputLoop.register(touchHitDetector);
 		return meerkat;
 	}
 
+	/**
+	 * Returns an OnHitDetected object that decides
+	 * what action to take when a meerkat is hit.
+	 * @param meerkat
+	 * @param behavior
+	 * @param meerkatPic
+	 * @param size
+	 * @return
+	 */
 	public OnHitDetected getMeerkatHitDetected(final Actor meerkat,
 			final PopUpBehavior behavior, final Bitmap meerkatPic,
 			final int size) {

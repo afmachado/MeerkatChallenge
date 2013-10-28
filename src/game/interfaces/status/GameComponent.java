@@ -6,5 +6,10 @@ package game.interfaces.status;
  *
  */
 public interface GameComponent {
-	public void play() throws Exception;
+	/**
+	 * Actions the GameComponent takes for
+	 * each iteration of the game loop.
+	 * @throws Exception
+	 */
+	public void play();
 }

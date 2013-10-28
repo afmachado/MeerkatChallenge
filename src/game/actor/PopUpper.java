@@ -11,48 +11,72 @@ import android.graphics.Matrix;
  * @author John Casson
  */
 public class PopUpper implements Animator {
-	// The original bitmap (never changes)
+	/** 
+	 * The original bitmap (never changes)
+	 */
 	private Bitmap originalBm;
-	// The animated bitmap (changes with each frame)
+	/** 
+	 * The animated bitmap (changes with each frame)
+	 */
 	private Bitmap animBm;
+	/**
+	 * The matrix used to draw the bitmap
+	 */
 	private Matrix matrix = new Matrix();
+	/**
+	 * The animation's start time
+	 */
 	private long startTime;
+	/**
+	 * The entity to animate
+	 */
 	private Animatable animatable;
-	// Pop up speed in milliseconds
-	private int popUpSpeed;
-	// indicates this animation is ready to fire.
+	/**
+	 * The time in which to complete a pop up animation
+	 */
+	private int popUpTime;
+	/**
+	 * Indicates that the animation is ready to go
+	 */
 	private boolean ready = false;
+	/**
+	 * Indicates the animation is finished
+	 */
 	private boolean finished = false;
 
 	public PopUpper(Animatable animatable, int popUpSpeed) {
 		this.animatable = animatable;
 		this.originalBm = animatable.getBitmap();
-		this.popUpSpeed = popUpSpeed;
+		this.popUpTime = popUpSpeed;
 		startTime = System.currentTimeMillis();
 		ready = true;
 	}
 
+	/**
+	 * Animates the passed animatable
+	 */
 	public synchronized void animate() {
 		// don't start animating till the constructor has completed
 		if(!ready) {
 			return;
 		}
 		matrix = animatable.getMatrix();
-		// Calculate the "slice" height of animatable to show
 		long now = System.currentTimeMillis();
 		float difference = now - startTime; // time in ms between starting pop
 											// up and now
 		// Popping up takes popUpSpeed milliseconds. Get the percent of time between
 		// the start time and popUpSpeed seconds later
-		float popUpPercent = difference / popUpSpeed ;
-		popUpPercent += 0.01; // Ensure there's always some height
+		float popUpPercent = difference / popUpTime ;
+		popUpPercent += 0.01; // Ensure there's always something to be drawn
 
+		// If the animation is finished
 		if (popUpPercent >= 1) {
 			animBm = originalBm;
 			finished = true;
 			return;
 		}
 		
+		// Calculates which "slice" of the original bitmap to show
 		int slice = (int) (originalBm.getHeight() - (originalBm.getHeight() * popUpPercent));
 		animBm = Bitmap.createBitmap(originalBm, 0, 0, originalBm.getWidth(),
 				originalBm.getHeight() - slice);
@@ -61,6 +85,9 @@ public class PopUpper implements Animator {
 		matrix.postTranslate(0, slice);
 	}
 
+	/**
+	 * Returns the bitmap as it's drawn
+	 */
 	@Override
 	public Bitmap getBitmap() {
 		// Ensure the original bitmap is always sent back when this animation ends
@@ -70,6 +97,9 @@ public class PopUpper implements Animator {
 		return animBm;
 	}
 
+	/**
+	 * Returns the matrix to transform the bitmap during drawing
+	 */
 	@Override
 	public Matrix getMatrix() {
 		return matrix;

@@ -43,7 +43,7 @@ public class Timer implements Stopper, GameComponent, Pausable, Updater {
 	 *  has exceeded the game time
 	 */
 	@Override
-	public void play() throws Exception {
+	public void play() {
 		long timePlayed = System.currentTimeMillis() - startTime;
 		if(timePlayed > timeLimit) {
 			finished = true;

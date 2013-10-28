@@ -7,8 +7,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
-public class StartScreen extends VolumeControlActivity {
-	StartScreen reference;
+/**
+ * Shows the title screen
+ * @author John Casson
+ *
+ */
+public class TitleScreen extends VolumeControlActivity {
+	TitleScreen reference;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +26,16 @@ public class StartScreen extends VolumeControlActivity {
 		goButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(StartScreen.this, LevelSelect.class);
+				Intent intent = new Intent(TitleScreen.this, LevelSelect.class);
 				startActivity(intent); 
 				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 			}
 		});	
 	}
 	
-	// Disables the back button
+	/**
+	 * Disables the back button
+	 */
 	@Override
 	public void onBackPressed() {
 	}

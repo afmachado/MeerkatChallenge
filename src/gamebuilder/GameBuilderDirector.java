@@ -10,6 +10,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.TextView;
 
+/**
+ * Directs the game builder process
+ * @author John Casson
+ *
+ */
 public class GameBuilderDirector {
 	GameBuilder gameBuilder;
 
@@ -17,13 +22,23 @@ public class GameBuilderDirector {
 		this.gameBuilder = gameBuilder;
 	}
 
+	/**
+	 * Creates the game.
+	 * @param viewSource
+	 * @param endLevelStarter
+	 * @param context
+	 * @param resources
+	 * @param width
+	 * @param height
+	 * @param level
+	 */
 	public void construct(ViewSource viewSource,
 			EndLevelStarter endLevelStarter, Context context,
 			Resources resources, int width, int height,
 			Level level) {
 		
 		gameBuilder.setLevel(level);
-		gameBuilder.setSize(width, height);
+		gameBuilder.setGameBoardSize(width, height);
 		GraphicsLoop graphicsLoop = (GraphicsLoop) viewSource
 				.findViewById(R.id.canvas);
 		gameBuilder.makeLoops(graphicsLoop);

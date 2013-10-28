@@ -8,5 +8,10 @@ import game.Score;
  * level procedure 
  */
 public interface EndLevelStarter {
+	/**
+	 * Start the end level procedure
+	 * @param score
+	 * @param level
+	 */
 	void startEndLevel(Score score, Level level);
 }

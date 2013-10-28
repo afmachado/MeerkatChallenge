@@ -3,6 +3,11 @@ package levels;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Manages the MeerkatChallenge levels
+ * @author John Casson
+ *
+ */
 public final class Levels {	
 	static Map<Integer, Level> levels = new LinkedHashMap<Integer, Level>();
 	
@@ -39,6 +44,11 @@ public final class Levels {
 		levels.put(99, new Level(99, 5, 210, 60, "DEBUG", "Test mode"));
 	}
 	
+	/**
+	 * Return the level with the passed number
+	 * @param number
+	 * @return
+	 */
 	public static Level get(int number) {
 		return levels.get(number);
 	}

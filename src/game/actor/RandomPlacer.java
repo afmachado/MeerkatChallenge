@@ -20,6 +20,9 @@ public class RandomPlacer implements Placer {
 		this.gameBoard = gameBoard;
 	}
 
+	/**
+	 * Places an animatable on the Gameboard
+	 */
 	@Override
 	public void place(Locatable locatable) {
 		Random r = new Random();

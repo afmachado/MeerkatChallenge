@@ -7,16 +7,31 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * Detects whether a hittable has been hit
+ * @author hqs71687
+ *
+ */
 public class TouchHitDetector implements ReceivesInput  {
 	private OnHitDetected callback;
 	private Hittable hittable;
-	public TouchHitDetector(OnHitDetected hitDetected, Hittable hittable) {
-		this.callback = hitDetected;
+	private int hitMargin;
+	
+	/**
+	 * Detects whether the hittable has been hit. If it has, we call back onHitDetected.
+	 * @param onHitDetected
+	 * @param hittable
+	 * @param hitMargin Margin to be added to the hit area
+	 */
+	public TouchHitDetector(OnHitDetected onHitDetected, Hittable hittable, int hitMargin) {
+		this.callback = onHitDetected;
 		this.hittable = hittable;
+		this.hitMargin = hitMargin;
 	}
 	
 	/**
-	 * On user input, detect whether this Meerkat has been hit
+	 * On user input, detect whether the hittable has been hit and if it has 
+	 * call back the callback.
 	 */
 	@Override
 	public void onInput(View v, MotionEvent ev) {	
@@ -31,7 +46,7 @@ public class TouchHitDetector implements ReceivesInput  {
 			float x = ev.getX(actionIndex);
 			float y = ev.getY(actionIndex);
 			// Define a "hit area" that's wider than the point given
-			Rect hitArea = new Rect((int) x - 5, (int) y - 5, (int) x + 5, (int) y + 5);
+			Rect hitArea = new Rect((int) x - hitMargin, (int) y - hitMargin, (int) x + hitMargin, (int) y + hitMargin);
 			if (hittable.isOverlapping(hitArea)) {
 				callback.onHit();
 			}

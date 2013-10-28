@@ -89,6 +89,9 @@ public class EndLevel extends VolumeControlActivity {
 		h.postDelayed(r, ENABLED_BUTTON_DELAY);
 	}
 	
+	/**
+	 * When the back button is pressed, go to the level select screen
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {

@@ -5,23 +5,50 @@ import game.interfaces.status.Pausable;
 
 import java.util.Random;
 
+/**
+ * Makes an Actor pop up, then hide itself after a short time
+ * @author John Casson
+ *
+ */
 public class PopUpBehavior implements GameComponent, Pausable {
-	// Minimum and maximum times (ms) for the meerkat to be on screen
+	/**
+	 * Minimum time (ms) for the Actor to be shown
+	 */
 	final int MIN_SHOW_TIME = 1000;
+	/**
+	 * Maximum time (ms) for the Actor to be shown
+	 */
 	final int MAX_SHOW_TIME = 4000;
 
-	// Minimum and maximum times (ms) for the meerkat to stay hidden
+	/**
+	 * Minimum time (ms) for the Actor to be hidden
+	 */
 	final int MIN_HIDE_TIME = 500;
+	/**
+	 * Maximum time (ms) for the Actor to be shown
+	 */
 	final int MAX_HIDE_TIME = 2000;
 
+	/**
+	 * The time at which the Actor should be hidden
+	 */
 	private long nextHideTime = 0;
+	/**
+	 * The time at which the Actor should be shown
+	 */
 	private long nextShowTime = 0;
 
 	private long pauseTime;
 
-	// The Actor this behavior controls
+	/**
+	 * The actor controlled by this behavior
+	 */
 	Actor actor;
 
+	/**
+	 * Creates a new PopUpBehavior that controls the passed Actor.
+	 * Sets the next show time to be at least a second after creation.
+	 */
 	public PopUpBehavior(Actor actor) {
 		this.actor = actor;
 		// Set the actors to start showing at least a second after being enabled
@@ -30,7 +57,7 @@ public class PopUpBehavior implements GameComponent, Pausable {
 	}
 
 	/**
-	 * What to do when we get hit. Hide the actor then show it again after a
+	 * When the actor is hit, hide the actor then show it again after a
 	 * delay
 	 */
 	public void hit() {
@@ -54,7 +81,9 @@ public class PopUpBehavior implements GameComponent, Pausable {
 		nextHideTime = System.currentTimeMillis() + hideTime;
 	}
 
-	// Shows and hides the actor
+	/**
+	 * Repeatedly shows and hides the Actor
+	 */
 	@Override
 	public void play() {
 		long now = System.currentTimeMillis();
@@ -69,11 +98,19 @@ public class PopUpBehavior implements GameComponent, Pausable {
 		}
 	}
 
+	/**
+	 * Pauses the behavior by saving the pause time.
+	 */
 	@Override
 	public void onPause() {
 		pauseTime = System.currentTimeMillis();
 	}
-
+	
+	
+	/**
+	 * Unpauses the behavior by updating the next show and next hide times
+	 * to reflect the time we spent paused.
+	 */
 	@Override
 	public void onUnPause() {
 		long pausedTime = System.currentTimeMillis() - pauseTime;

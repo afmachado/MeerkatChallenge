@@ -7,5 +7,8 @@ package game.interfaces.status;
  *
  */
 public interface OnStopListener {
+	/**
+	 * What to do when the game is stopped
+	 */
 	public void onStop();
 }

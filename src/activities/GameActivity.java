@@ -15,6 +15,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+/**
+ * The game itself
+ * @author John Casson
+ *
+ */
 public class GameActivity extends VolumeControlActivity implements EndLevelStarter,
 		ViewSource {
 	private Game game;
@@ -22,8 +27,7 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 	private boolean firstRun = true;
 
 	/**
-	 * Bundle contains an optional name of an activity to call back. Activity is
-	 * passed the level number in the bundle e.g. a "Start Level" overlay.
+	 * Calls the StartLevel activity to show the level start screen
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,9 +35,9 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 		setContentView(R.layout.activity_game);
 
 		level = (Level) getIntent().getExtras().getSerializable("level");
-		final GameActivity ga = this;
+		GameActivity gameActivity = this;
 
-		Intent intent = new Intent(ga, StartLevel.class);
+		Intent intent = new Intent(gameActivity, StartLevel.class);
 		intent.putExtra("level", level);
 		startActivity(intent);
 	}
@@ -56,6 +60,9 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 		super.onResume();
 	}
 
+	/**
+	 * Creates the game
+	 */
 	private void createGame() {
 		// Set the width and height
 		ImageView placeholderBackground = (ImageView) findViewById(R.id.game_background_placeholder);
@@ -88,7 +95,7 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 	}
 
 	/**
-	 * Stop the back button from doing anything
+	 * Disable the back button
 	 */
 	@Override
 	public void onBackPressed() {
@@ -109,12 +116,11 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 		return super.onKeyDown(keyCode, event);
 	}
 
-	
+	/**
+	 * If this activity is paused, pause the game
+	 */
 	@Override
 	public void onPause() {
-		/**
-		 * If this activity is paused, pause the game
-		 */
 		firstRun = false;
 		if (game != null) {
 			game.pause();
@@ -122,12 +128,13 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 		super.onPause();
 	}
 	
+	
+	/**
+	 *  Explicitly end the activity when it's not visible.
+	 *  This significantly reduces the frequency of out of memory errors.
+	 */
 	@Override
 	public void onStop() {
-		/*
-		 *  End the activity when it's not visible.
-		 *  This significantly reduces the frequency of out of memory errors.
-		 */
 		finish();
 		super.onStop();
 	}

@@ -19,8 +19,11 @@ public class UpdateTextView implements GameComponent {
 		this.updater = updater;
 	}
 	
+	/**
+	 * Each time we're called, update the textview
+	 */
 	@Override
-	public void play() throws Exception {
+	public void play() {
 		String text = updater.getUpdate();
 		timerText.setText(text);
 	}

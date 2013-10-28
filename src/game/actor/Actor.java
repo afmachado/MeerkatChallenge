@@ -16,8 +16,8 @@ import android.graphics.Point;
 import android.graphics.Rect;
 
 /**
- * Responsible for having and setting a location, showing and hiding and being
- * hit.
+ * Responsible for having and setting a location, being shown and hidden and
+ * being hit.
  * 
  * @author John Casson
  * 
@@ -32,19 +32,35 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	private OnHideListener onHideListener;
 	private Sprite sprite;
 
+	/**
+	 * Creates a new actor that is placed with the injected placer and draws
+	 * itself with the passed sprite.
+	 * 
+	 * @param placer
+	 * @param sprite
+	 */
 	public Actor(Placer placer, Sprite sprite) {
 		this.placer = placer;
 		this.sprite = sprite;
 	}
 
+	/**
+	 * Sets the location of the actor
+	 */
 	public void setLocation(int x, int y) {
 		this.location = new Point(x, y);
 	}
 
+	/**
+	 * Gets the bounds of this actor as a rectangle
+	 */
 	public Rect getBounds() {
 		return this.bounds;
 	}
 
+	/**
+	 * Is the actor visible?
+	 */
 	@Override
 	public boolean isVisible() {
 		return this.visible;
@@ -52,9 +68,6 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 
 	/**
 	 * Shows this actor on the gameboard.
-	 * 
-	 * @throws Exception
-	 *             If this actor is already visible
 	 */
 	public void show() {
 		placer.place(this);
@@ -62,17 +75,20 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 		onShowListener.onShow();
 	}
 
-	public void hide() {		
+	/**
+	 * Hides the actor
+	 */
+	public void hide() {
 		visible = false;
 		setLocation(-1, -1);
 		onHideListener.onHide();
 	}
 
 	/**
-	 * Detects whether the passed Rect overlaps
-	 * with this actor
+	 * Detects whether the passed Rect overlaps with this actor
 	 * 
-	 * @param shot the Rect that could overlap
+	 * @param shot
+	 *            the Rect that could overlap
 	 * @return
 	 */
 	public boolean isOverlapping(Rect shot) {
@@ -90,10 +106,20 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 		return false;
 	}
 
+	/**
+	 * Sets a listener to be called when the actor is shown
+	 * 
+	 * @param onShowListener
+	 */
 	public void setOnShowListener(OnShowListener onShowListener) {
 		this.onShowListener = onShowListener;
 	}
 
+	/**
+	 * Sets a listener to be called when the actor is hidden
+	 * 
+	 * @param onShowListener
+	 */
 	public void setOnHideListener(OnHideListener onHideListener) {
 		this.onHideListener = onHideListener;
 	}
@@ -101,14 +127,17 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	/**
 	 * Sets this Actor's image
 	 * 
-	 * @param Bitmap
-	 *            bm This Actor's image
+	 * @param bitmap The image to use
+	 * @param size The actor's size
 	 */
-	public void setBitmap(Bitmap bm, int size) {
-		this.sprite.setBitmap(bm, size);
+	public void setBitmap(Bitmap bitmap, int size) {
+		this.sprite.setBitmap(bitmap, size);
 		this.bounds = new Rect(0, 0, size, size);
 	}
 
+	/**
+	 * Draws the actor onto the passed canvas
+	 */
 	@Override
 	public void draw(Canvas canvas) {
 		// If we're visible, draw the actor
@@ -117,21 +146,33 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 		}
 	}
 
+	/**
+	 * Begins an animation on this actor's sprite
+	 */
 	@Override
 	public void startAnimation(Animator a) {
 		sprite.startAnimation(a);
 	}
 
+	/**
+	 * Stops an animation on this actor's sprite
+	 */
 	@Override
 	public void stopAnimation(Animator a) {
 		sprite.stopAnimation(a);
 	}
 
+	/**
+	 * Returns the bitmap used for this actor
+	 */
 	@Override
 	public Bitmap getBitmap() {
 		return sprite.getBitmap();
 	}
 
+	/**
+	 * Returns the matrix used to draw the actor
+	 */
 	@Override
 	public Matrix getMatrix() {
 		return sprite.getMatrix();

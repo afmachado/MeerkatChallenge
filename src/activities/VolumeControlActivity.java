@@ -5,7 +5,8 @@ import android.media.AudioManager;
 import android.os.Bundle;
 
 /**
- * An activity that controls the STREAM_MUSIC volume by default
+ * An activity that makes the volume controls affect only 
+ * the STREAM_MUSIC volume.
  * @author John Casson
  *
  */

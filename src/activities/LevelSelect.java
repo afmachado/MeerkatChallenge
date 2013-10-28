@@ -12,6 +12,11 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * The level select screen
+ * @author John Casson
+ *
+ */
 public class LevelSelect extends VolumeControlActivity {
 	int[] textViews = { R.id.level1, R.id.level2, R.id.level3, R.id.level4,
 			R.id.level5, R.id.level6, R.id.level7, R.id.level8, R.id.level9,
@@ -19,6 +24,11 @@ public class LevelSelect extends VolumeControlActivity {
 			R.id.level14, R.id.level15, R.id.level16, R.id.level17,
 			R.id.level18, R.id.level19, R.id.level20, };
 
+	/**
+	 * Draws the level select screen, dynamically populating
+	 * the level numbers with either a number if the level is 
+	 * playable or "-" if the level hasn't been reached yet.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,8 +49,7 @@ public class LevelSelect extends VolumeControlActivity {
 		}
 
 		// Display levels not yet completed by "-" (not including the current
-		// level)
-		// and stop them being selected
+		// level) and stop them being selected
 		for (int i : textViews) {
 			TextView tv = (TextView) findViewById(i);
 			// TODO: this code shouldn't rely on the text in the textview
@@ -71,10 +80,12 @@ public class LevelSelect extends VolumeControlActivity {
 
 	}
 
-	// Always go back to the start screen
+	/**
+	 * When the back button is pressed, go back to the start screen
+	 */
 	@Override
 	public void onBackPressed() {
-		Intent i = new Intent(LevelSelect.this, StartScreen.class);
+		Intent i = new Intent(LevelSelect.this, TitleScreen.class);
 		startActivity(i);
 	}
 }
