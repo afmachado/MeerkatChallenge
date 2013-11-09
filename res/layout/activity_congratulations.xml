@@ -7,22 +7,30 @@
     tools:context=".Congratulations" >
 
     <ImageView
+        android:id="@+id/congratulations_background"
         style="@style/CongratulationsBackgroundImage"
         android:contentDescription="@string/title_image_description" />
+    
+    <ImageView
+        style="@style/CongratulationsBanner"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/congratulations_description" />
 
     <ImageView
         android:id="@+id/balloon_1"
-        style="@style/CongratulationsBalloon"
+        style="@style/CongratulationsBalloonGreen"
         android:contentDescription="@string/balloon_description" />
 
     <ImageView
         android:id="@+id/balloon_2"
-        style="@style/CongratulationsBalloon"
+        style="@style/CongratulationsBalloonRed"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@string/balloon_description" />
 
     <ImageView
         android:id="@+id/balloon_3"
-        style="@style/CongratulationsBalloon"
+        style="@style/CongratulationsBalloonGreen"
+        android:layout_alignParentRight="true"
         android:contentDescription="@string/balloon_description" />
 
 </RelativeLayout>

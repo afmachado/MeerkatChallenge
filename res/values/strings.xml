@@ -18,4 +18,5 @@
     <string name="clock_description">Clock</string>
     <string name="title_image_description">Title Image</string>
     <string name="balloon_description">Balloon</string>
+    <string name="congratulations_description">Congratulations you won!</string>
 </resources>

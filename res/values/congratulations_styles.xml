@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="CongratulationsBalloon">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">123dp</item>
+        <item name="android:layout_alignBottom">@id/congratulations_background</item>
+    </style>
+    
+    <style name="CongratulationsBalloonGreen" parent="CongratulationsBalloon">
         <item name="android:src">@drawable/green_balloon</item>
+    </style>
+    
+    <style name="CongratulationsBalloonRed" parent="CongratulationsBalloon">
+        <item name="android:src">@drawable/red_balloon</item>
     </style>
     
     <style name="CongratulationsBackgroundImage">
@@ -11,5 +19,12 @@
       	<item name="android:layout_height">fill_parent</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:src">@drawable/start_screen</item>
+    </style>
+    
+    <style name="CongratulationsBanner">
+        <item name="android:layout_width">fill_parent</item>
+      	<item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">fitStart</item>
+        <item name="android:src">@drawable/congratulations_banner</item>
     </style>
 </resources>
