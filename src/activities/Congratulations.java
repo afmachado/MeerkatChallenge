@@ -15,13 +15,19 @@ public class Congratulations extends Activity {
 		setContentView(R.layout.activity_congratulations);
 		
 		ImageView balloon1 = (ImageView) findViewById(R.id.balloon_1);
-		balloon1.startAnimation(getFlyUpBounce());
+		new DelayedAnimation(balloon1, getFlyUpBounce(), 600).execute();
 		
 		ImageView balloon2 = (ImageView) findViewById(R.id.balloon_2);
-		new DelayedAnimation(balloon2, getFlyUpBounce(), 500).execute();
+		new DelayedAnimation(balloon2, getFlyUpBounce(), 650).execute();
 		
 		ImageView balloon3 = (ImageView) findViewById(R.id.balloon_3);
-		new DelayedAnimation(balloon3, getFlyUpBounce(), 750).execute();
+		new DelayedAnimation(balloon3, getFlyUpBounce(), 100).execute();
+		
+		ImageView balloon4 = (ImageView) findViewById(R.id.balloon_4);
+		new DelayedAnimation(balloon4, getFlyUpBounce(), 650).execute();
+		
+		ImageView balloon5 = (ImageView) findViewById(R.id.balloon_5);
+		new DelayedAnimation(balloon5, getFlyUpBounce(), 600).execute();
 	}
 	
 	/**
@@ -33,7 +39,7 @@ public class Congratulations extends Activity {
 		Animation flyUp = AnimationUtils.loadAnimation(this, R.anim.float_up);
 		Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 		AnimationSet flyUpBounce = new AnimationSet(false);
-		flyUpBounce.addAnimation(fadeIn);
+//		flyUpBounce.addAnimation(fadeIn);
 		flyUpBounce.addAnimation(flyUp);
 		flyUpBounce.addAnimation(bounce);
 		return flyUpBounce;

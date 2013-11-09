@@ -5,29 +5,31 @@
     android:layout_height="fill_parent"
     android:background="@android:color/white"
     tools:context=".Congratulations" >
-
     <ImageView
         android:id="@+id/congratulations_background"
         style="@style/CongratulationsBackgroundImage"
         android:contentDescription="@string/title_image_description" />
-
-    <ImageView
-        android:id="@+id/balloon_1"
-        style="@style/CongratulationsBalloonGreen"
-        android:layout_marginLeft="@dimen/balloon_margin"
-        android:contentDescription="@string/balloon_description" />
-
-    <ImageView
-        android:id="@+id/balloon_2"
-        style="@style/CongratulationsBalloonRed"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/balloon_description" />
-
-    <ImageView
-        android:id="@+id/balloon_3"
-        style="@style/CongratulationsBalloonYellow"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/balloon_margin"
-        android:contentDescription="@string/balloon_description" />
-
+    <LinearLayout style="@style/CongratulationsBalloonContainer" >
+        <ImageView
+            android:id="@+id/balloon_1"
+            style="@style/CongratulationsBalloonGreen"
+            android:contentDescription="@string/balloon_description" />
+        <ImageView
+            android:id="@+id/balloon_2"
+            style="@style/CongratulationsBalloonRed"
+            android:contentDescription="@string/balloon_description" />
+        <ImageView
+            android:id="@+id/balloon_3"
+            style="@style/CongratulationsBalloonYellow"
+            android:contentDescription="@string/balloon_description" />
+        <ImageView
+            android:id="@+id/balloon_4"
+            style="@style/CongratulationsBalloonRed"
+            android:layout_marginLeft="@dimen/balloon_margin"
+            android:contentDescription="@string/balloon_description" />
+        <ImageView
+            android:id="@+id/balloon_5"
+            style="@style/CongratulationsBalloonGreen"
+            android:contentDescription="@string/balloon_description" />
+    </LinearLayout>
 </RelativeLayout>
