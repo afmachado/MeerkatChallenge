@@ -2,7 +2,11 @@ package activities;
 
 import meerkatchallenge.activities.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -28,6 +32,32 @@ public class Congratulations extends Activity {
 		
 		ImageView balloon5 = (ImageView) findViewById(R.id.balloon_5);
 		new DelayedAnimation(balloon5, getFlyUpBounce(), 600).execute();
+		
+		// Enable the onclicklistener after a delay
+		delayedEnable();
+	}
+	
+	/**
+	 * Enables the onClickListener after a delay
+	 */
+	public void delayedEnable() {
+		// Delay before enabling the on click listener in ms
+		final int ENABLED_DELAY = 2000;
+		Handler h = new Handler();
+		Runnable r = new Runnable() {
+			@Override
+			public void run() {
+				View background = findViewById(R.id.congratulations_container);
+				background.setOnClickListener(new OnClickListener() { 
+					public void onClick(View v) {
+						Intent intent = new Intent(Congratulations.this, TitleScreen.class); 
+						startActivity(intent);
+					}
+				});
+			}
+		};
+
+		h.postDelayed(r, ENABLED_DELAY);
 	}
 	
 	/**
@@ -37,12 +67,18 @@ public class Congratulations extends Activity {
 	private AnimationSet getFlyUpBounce() {
 		Animation bounce = AnimationUtils.loadAnimation(this, R.anim.balloon_bounce);
 		Animation flyUp = AnimationUtils.loadAnimation(this, R.anim.float_up);
-		Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 		AnimationSet flyUpBounce = new AnimationSet(false);
-//		flyUpBounce.addAnimation(fadeIn);
 		flyUpBounce.addAnimation(flyUp);
 		flyUpBounce.addAnimation(bounce);
 		return flyUpBounce;
 	}
-
+	
+	/**
+	 * When the back button is pressed, go back to the start screen
+	 */
+	@Override
+	public void onBackPressed() {
+		Intent i = new Intent(Congratulations.this, TitleScreen.class);
+		startActivity(i);
+	}
 }
