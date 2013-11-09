@@ -18,10 +18,10 @@ public class Congratulations extends Activity {
 		balloon1.startAnimation(getFlyUpBounce());
 		
 		ImageView balloon2 = (ImageView) findViewById(R.id.balloon_2);
-		new DelayedAnimation(balloon2, getFlyUpBounce(), 1000).execute();
+		new DelayedAnimation(balloon2, getFlyUpBounce(), 500).execute();
 		
 		ImageView balloon3 = (ImageView) findViewById(R.id.balloon_3);
-		new DelayedAnimation(balloon3, getFlyUpBounce(), 1500).execute();
+		new DelayedAnimation(balloon3, getFlyUpBounce(), 750).execute();
 	}
 	
 	/**
