@@ -6,5 +6,10 @@
         <item name="android:src">@drawable/green_balloon</item>
     </style>
     
-    
+    <style name="CongratulationsBackgroundImage">
+        <item name="android:layout_width">fill_parent</item>
+      	<item name="android:layout_height">fill_parent</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/start_screen</item>
+    </style>
 </resources>

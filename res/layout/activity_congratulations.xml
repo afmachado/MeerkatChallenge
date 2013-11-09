@@ -7,7 +7,7 @@
     tools:context=".Congratulations" >
 
     <ImageView
-        style="@style/congratulations_background"
+        style="@style/CongratulationsBackgroundImage"
         android:contentDescription="@string/title_image_description" />
 
     <ImageView
