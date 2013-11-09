@@ -31,7 +31,9 @@ public class Congratulations extends Activity {
 	private AnimationSet getFlyUpBounce() {
 		Animation bounce = AnimationUtils.loadAnimation(this, R.anim.balloon_bounce);
 		Animation flyUp = AnimationUtils.loadAnimation(this, R.anim.float_up);
+		Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 		AnimationSet flyUpBounce = new AnimationSet(false);
+		flyUpBounce.addAnimation(fadeIn);
 		flyUpBounce.addAnimation(flyUp);
 		flyUpBounce.addAnimation(bounce);
 		return flyUpBounce;

@@ -8,10 +8,10 @@
         android:toYDelta="8%p" />
     
     <translate
-        android:duration="400"
-        android:fromXDelta="5%p"
+        android:duration="600"
+        android:fromXDelta="-3%p"
         android:repeatCount="infinite"
         android:repeatMode="reverse"
-        android:toXDelta="8%p" />
+        android:toXDelta="3%p" />
     
 </set>

@@ -4,4 +4,5 @@
     <dimen name="LevelMargin">20dp</dimen>
     <dimen name="level_header">18sp</dimen>
     <dimen name="header_margin">10dp</dimen>
+    <dimen name="balloon_margin">10dp</dimen>
 </resources>

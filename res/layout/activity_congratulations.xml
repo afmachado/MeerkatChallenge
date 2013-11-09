@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/congratulations_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@android:color/white"
     tools:context=".Congratulations" >
 
@@ -10,15 +10,11 @@
         android:id="@+id/congratulations_background"
         style="@style/CongratulationsBackgroundImage"
         android:contentDescription="@string/title_image_description" />
-    
-    <ImageView
-        style="@style/CongratulationsBanner"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/congratulations_description" />
 
     <ImageView
         android:id="@+id/balloon_1"
         style="@style/CongratulationsBalloonGreen"
+        android:layout_marginLeft="@dimen/balloon_margin"
         android:contentDescription="@string/balloon_description" />
 
     <ImageView
@@ -29,8 +25,9 @@
 
     <ImageView
         android:id="@+id/balloon_3"
-        style="@style/CongratulationsBalloonGreen"
+        style="@style/CongratulationsBalloonYellow"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/balloon_margin"
         android:contentDescription="@string/balloon_description" />
 
 </RelativeLayout>
