@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
 /**
@@ -34,14 +35,18 @@ public class GameActivity extends VolumeControlActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-
 		level = (Level) getIntent().getExtras().getSerializable("level");
 		GameActivity gameActivity = this;
-
+		ImageView pauseButton = (ImageView) findViewById(R.id.game_pause_image);
+		pauseButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				pause();
+			}
+		});	
 		Intent intent = new Intent(gameActivity, StartLevel.class);
 		intent.putExtra("level", level);
 		startActivity(intent);
-
 	}
 
 	/**
@@ -109,9 +114,7 @@ public class GameActivity extends VolumeControlActivity implements
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_MENU) {
 			if (!game.isPaused()) {
-				game.pause();
-				Intent intent = new Intent(this, Pause.class);
-				startActivity(intent);
+				pause();
 			} else {
 				game.unPause();
 			}
@@ -152,6 +155,15 @@ public class GameActivity extends VolumeControlActivity implements
 		Intent intent = new Intent(this, EndLevel.class);
 		intent.putExtra("score", score.get());
 		intent.putExtra("level", level);
+		startActivity(intent);
+	}
+	
+	/**
+	 * Pauses the game and shows the game paused screen
+	 */
+	private void pause() {
+		game.pause();
+		Intent intent = new Intent(this, Pause.class);
 		startActivity(intent);
 	}
 }

@@ -11,16 +11,17 @@
             android:id="@+id/game_clock_image"
             android:contentDescription="@string/clock_description"
             style="@style/GameClockImage" />
-
         <TextView
             android:id="@+id/game_time"
             style="@style/GameTime" />
-        
+        <ImageView
+            android:id="@+id/game_pause_image"
+            android:contentDescription="@string/pause_description"
+            style="@style/GamePauseImage" />
         <ImageView
             android:id="@+id/game_meerkat_image"
             android:contentDescription="@string/meerkat_description"
             style="@style/GameMeerkatImage" />
-
         <TextView
             android:id="@+id/game_score"
             style="@style/GameMeerkatCount" />
