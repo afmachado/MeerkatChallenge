@@ -61,7 +61,6 @@ public class GameBuilderDirector {
 
 		Bitmap meerkatPic = (BitmapFactory.decodeResource(resources,
 				R.drawable.meerkat_hole));
-		gameBuilder.addMeerkats(meerkatPic);
-		
+		gameBuilder.addMeerkats(meerkatPic);		
 	}
 }

@@ -17,11 +17,12 @@ import android.widget.ImageView;
 
 /**
  * The game itself
+ * 
  * @author John Casson
- *
+ * 
  */
-public class GameActivity extends VolumeControlActivity implements EndLevelStarter,
-		ViewSource {
+public class GameActivity extends VolumeControlActivity implements
+		EndLevelStarter, ViewSource {
 	private Game game;
 	private Level level;
 	private boolean firstRun = true;
@@ -40,6 +41,7 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 		Intent intent = new Intent(gameActivity, StartLevel.class);
 		intent.putExtra("level", level);
 		startActivity(intent);
+
 	}
 
 	/**
@@ -106,10 +108,12 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 	 */
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_MENU) {
-			if (game.isPaused()) {
-				game.unPause();
-			} else {
+			if (!game.isPaused()) {
 				game.pause();
+				Intent intent = new Intent(this, Pause.class);
+				startActivity(intent);
+			} else {
+				game.unPause();
 			}
 			return true;
 		}
@@ -123,16 +127,16 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 	public void onPause() {
 		firstRun = false;
 		if (game != null) {
-			game.pause();
+			if (!game.isPaused()) {
+				game.pause();
+			}
 		}
 		super.onPause();
 	}
-	
-	
+
 	/**
-	 *  Explicitly end the activity when it's not visible.
-	 *  This significantly reduces the frequency of out of memory errors
-	 *  in the rest of the game.
+	 * Explicitly end the activity when it's not visible. This significantly
+	 * reduces the frequency of out of memory errors in the rest of the game.
 	 */
 	@Override
 	public void onStop() {
