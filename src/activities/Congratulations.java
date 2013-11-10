@@ -81,4 +81,14 @@ public class Congratulations extends Activity {
 		Intent i = new Intent(Congratulations.this, TitleScreen.class);
 		startActivity(i);
 	}
+	
+	/**
+	 *  Explicitly end the activity when it's not visible.
+	 *  This significantly reduces the frequency of out of memory errors.
+	 */
+	@Override
+	public void onStop() {
+		finish();
+		super.onStop();
+	}
 }

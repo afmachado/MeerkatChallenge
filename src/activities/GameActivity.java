@@ -131,7 +131,8 @@ public class GameActivity extends VolumeControlActivity implements EndLevelStart
 	
 	/**
 	 *  Explicitly end the activity when it's not visible.
-	 *  This significantly reduces the frequency of out of memory errors.
+	 *  This significantly reduces the frequency of out of memory errors
+	 *  in the rest of the game.
 	 */
 	@Override
 	public void onStop() {
