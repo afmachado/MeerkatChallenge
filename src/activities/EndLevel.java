@@ -22,6 +22,7 @@ public class EndLevel extends VolumeControlActivity {
 	// Delay before enabling the button in ms
 	final static int ENABLED_BUTTON_DELAY = 700;
 	Level level;
+	Class nextAction = LevelSelect.class;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,9 +33,10 @@ public class EndLevel extends VolumeControlActivity {
 
 		String title, description;
 		
-		if (score >= level.getTargetScore()) {
-			// Update's the user's progress
-			if(level.getNumber() != 20) {
+		if (score >= level.getTargetScore()) {			
+			if(level.getNumber() == 20) {
+				nextAction = Congratulations.class;
+			} else {
 				// Only update progress if the user hasn't completed this level
 				if(level.getNumber() >= Preferences.getLevel(this)) { 
 					Preferences.setLevel(this, level.getNumber() + 1);
@@ -57,7 +59,7 @@ public class EndLevel extends VolumeControlActivity {
 		
 		/* Enable the button after a delay
 		 * This stops the player hitting a button when they 
-		 * were aiming at a meerkat that's suddenly been replaced
+		 * were aiming at an actor that's suddenly been replaced
 		 * by a button */
 		delayedEnable();
 		
@@ -78,7 +80,7 @@ public class EndLevel extends VolumeControlActivity {
 				Button next = (Button) findViewById(R.id.level_end_continue_button);
 				next.setOnClickListener(new OnClickListener() { 
 					public void onClick(View v) {
-						Intent intent = new Intent(EndLevel.this, LevelSelect.class); 
+						Intent intent = new Intent(EndLevel.this, nextAction); 
 						startActivity(intent);
 						overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 					}

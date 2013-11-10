@@ -30,7 +30,8 @@ public class Score implements Updater, Scorer {
 	 * @return The score
 	 */
 	public int get() {
-		return this.score;
+		return 300;
+//		return this.score;
 	}
 
 	/**
