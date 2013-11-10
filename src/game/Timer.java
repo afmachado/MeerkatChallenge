@@ -25,7 +25,6 @@ public class Timer implements Stopper, GameComponent, Pausable, Updater {
 	 */
 	public Timer(int gameTime) {
 		this.timeLimit = gameTime;
-		this.timeLimit = 2;
 		startTime = System.currentTimeMillis();
 	}
 	
