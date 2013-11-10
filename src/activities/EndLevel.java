@@ -27,12 +27,9 @@ public class EndLevel extends VolumeControlActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_end_level);
-
 		int score = getIntent().getExtras().getInt("score");
 		level = (Level) getIntent().getExtras().getSerializable("level");
-
-		String title, description;
-		
+		String title;
 		if (score >= level.getTargetScore()) {			
 			if(level.getNumber() == 20) {
 				nextAction = Congratulations.class;
@@ -41,28 +38,22 @@ public class EndLevel extends VolumeControlActivity {
 				if(level.getNumber() >= Preferences.getLevel(this)) { 
 					Preferences.setLevel(this, level.getNumber() + 1);
 				}
-			}
-			
-			title = "Congratulations!";
-			description = "You did it!";
+			}	
+			title = "You did it!";
 		} else {
-			title = "Oh No!";
-			description = "You didn't make it :(";
+			title = "You didn't make it :(";
 		}
-
-		TextView titleView = (TextView) findViewById(R.id.level_end_title);
+		TextView titleView = (TextView) findViewById(R.id.level_info_end_title);
 		titleView.setText(title);
-		TextView descriptionView = (TextView) findViewById(R.id.level_end_description);
-		descriptionView.setText(description);
+		TextView descriptionView = (TextView) findViewById(R.id.level_info_end_description);
+		descriptionView.setText("Level "+ level.getNumber());
 		TextView meerkatCountView = (TextView) findViewById(R.id.level_end_meerkat_count);
 		meerkatCountView.setText(Integer.toString(score) + "/" + level.getTargetScore());
-		
 		/* Enable the button after a delay
 		 * This stops the player hitting a button when they 
 		 * were aiming at an actor that's suddenly been replaced
 		 * by a button */
 		delayedEnable();
-		
 		final LinearLayout wholeView = (LinearLayout) findViewById(R.id.level_end_container);
 		final Animation fadeIn = AnimationUtils.loadAnimation(this,
 				R.anim.anim_in);

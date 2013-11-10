@@ -17,7 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
 /**
- * The game itself
+ * The game activity.
  * 
  * @author John Casson
  * 
