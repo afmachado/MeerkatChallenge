@@ -29,7 +29,7 @@ public class EndLevel extends VolumeControlActivity {
 		setContentView(R.layout.activity_end_level);
 		int score = getIntent().getExtras().getInt("score");
 		level = (Level) getIntent().getExtras().getSerializable("level");
-		String title;
+		String description;
 		if (score >= level.getTargetScore()) {			
 			if(level.getNumber() == 20) {
 				nextAction = Congratulations.class;
@@ -39,14 +39,15 @@ public class EndLevel extends VolumeControlActivity {
 					Preferences.setLevel(this, level.getNumber() + 1);
 				}
 			}	
-			title = "You did it!";
+			description = "You did it!";
 		} else {
-			title = "You didn't make it :(";
+			description = "You didn't make it :(";
 		}
 		TextView titleView = (TextView) findViewById(R.id.level_info_end_title);
-		titleView.setText(title);
+		String title = "Level "+ level.getNumber() + ": " + level.getTitle();
+		titleView.setText(description);
 		TextView descriptionView = (TextView) findViewById(R.id.level_info_end_description);
-		descriptionView.setText("Level "+ level.getNumber());
+		descriptionView.setText(title);
 		TextView meerkatCountView = (TextView) findViewById(R.id.level_end_meerkat_count);
 		meerkatCountView.setText(Integer.toString(score) + "/" + level.getTargetScore());
 		/* Enable the button after a delay
