@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="meerkatchallenge.activities"
+    package="eu.johncasson.meerkatchallenge"
     android:versionCode="1"
     android:versionName="1.0" >
     <uses-sdk
@@ -12,14 +12,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme" >
         <activity
-            android:name="activities.GameActivity"
+            android:name="eu.johncasson.meerkatchallenge.activities.GameActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="activities.TitleScreen"
+            android:name="eu.johncasson.meerkatchallenge.activities.TitleScreen"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -31,28 +31,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="activities.LevelSelect"
+            android:name="eu.johncasson.meerkatchallenge.activities.LevelSelect"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="activities.StartLevel"
+            android:name="eu.johncasson.meerkatchallenge.activities.StartLevel"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="activities.EndLevel"
+            android:name="eu.johncasson.meerkatchallenge.activities.EndLevel"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="activities.Pause"
+            android:name="eu.johncasson.meerkatchallenge.activities.Pause"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="activities.Congratulations"
+            android:name="eu.johncasson.meerkatchallenge.eu.johncasson.meerkatchallenge.activities.Congratulations"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
