@@ -25,4 +25,15 @@ public class Pause extends VolumeControlActivity implements OnClickListener {
 	public void onClick(View arg0) {
 		finish();
 	}
+	
+	/**
+	 * Explicitly end the activity when it's not visible. This 
+	 * stops the pause screen being shown on top of the level select
+	 * screen after the screen has been powered off.
+	 */
+	@Override
+	public void onStop() {
+		finish();
+		super.onStop();
+	}
 }
