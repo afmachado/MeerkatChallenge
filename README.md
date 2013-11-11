@@ -4,5 +4,5 @@ John Casson <JCasson@gmail.com>
 
 Rachel Gardner
 
-Android game for MeerkatChallenge
+MeerkatChallenge Android Game.
 
