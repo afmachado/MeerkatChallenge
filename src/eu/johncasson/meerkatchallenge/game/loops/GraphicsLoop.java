@@ -20,7 +20,6 @@ import android.view.View;
  */
 public class GraphicsLoop extends View implements GameComponent {
 	ArrayList<Drawable> drawables = new ArrayList<Drawable>();
-	BitmapDrawable background;
 	boolean running = true;
 	
 	public GraphicsLoop(Context context, AttributeSet aSet) {
