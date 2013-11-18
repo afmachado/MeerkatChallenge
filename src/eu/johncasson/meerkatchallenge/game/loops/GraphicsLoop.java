@@ -1,15 +1,13 @@
 package eu.johncasson.meerkatchallenge.game.loops;
 
-import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
-import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
-
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.View;
+import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
+import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
 
 /**
  * Maintains a list of the current drawables to be drawn,
