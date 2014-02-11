@@ -25,8 +25,8 @@ import android.graphics.Rect;
 public class Actor implements Locatable, Showable, Hittable, Drawable,
 		Animatable {
 	private Point location;
-	protected Rect bounds;
-	protected boolean visible = false;
+	private Rect bounds;
+	private boolean visible = false;
 	private Placer placer;
 	private OnShowListener onShowListener;
 	private OnHideListener onHideListener;
