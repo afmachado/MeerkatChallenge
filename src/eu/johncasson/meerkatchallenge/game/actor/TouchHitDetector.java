@@ -9,7 +9,7 @@ import android.view.View;
 
 /**
  * Detects whether a hittable has been hit
- * @author hqs71687
+ * @author John Casson
  *
  */
 public class TouchHitDetector implements ReceivesInput  {

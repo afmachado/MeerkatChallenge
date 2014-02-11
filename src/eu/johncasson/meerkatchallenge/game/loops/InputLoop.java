@@ -10,7 +10,7 @@ import android.view.View.OnTouchListener;
 
 /**
  * Receives and processes user input
- * @author hqs71687
+ * @author John Casson
  *
  */
 public class InputLoop implements OnTouchListener {

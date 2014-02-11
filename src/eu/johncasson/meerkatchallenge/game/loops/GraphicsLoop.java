@@ -13,7 +13,7 @@ import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
  * Maintains a list of the current drawables to be drawn,
  * the background to draw them on and draws them each time
  * the play() method is called.
- * @author hqs71687
+ * @author John Casson
  *
  */
 public class GraphicsLoop extends View implements GameComponent {

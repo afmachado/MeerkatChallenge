@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 /**
  * Manages the game's preferences
- * @author hqs71687
+ * @author John Casson
  *
  */
 public class Preferences {

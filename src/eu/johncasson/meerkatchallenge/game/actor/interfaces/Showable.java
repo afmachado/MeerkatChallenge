@@ -3,7 +3,7 @@ package eu.johncasson.meerkatchallenge.game.actor.interfaces;
 
 /**
  * Implemented by classes that can be shown
- * @author hqs71687
+ * @author John Casson
  *
  */
 public interface Showable {
