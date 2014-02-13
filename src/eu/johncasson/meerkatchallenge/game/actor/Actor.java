@@ -152,12 +152,12 @@ public class Actor implements Hittable, Drawable, GameComponent {
 		behavior.play(runTime);
 	}
 
-	public void popUp() {
+	private void popUp() {
 		sprite.startAnimation(new PopUpper(sprite, POPUP_SPEED));
 	}
 	
 	/**
-	 * Places an animatable on the Gameboard
+	 * Places this on the Gameboard
 	 */
 	private void place() {
 		Random r = new Random();
