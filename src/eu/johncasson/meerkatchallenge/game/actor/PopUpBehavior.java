@@ -2,7 +2,6 @@ package eu.johncasson.meerkatchallenge.game.actor;
 
 import java.util.Random;
 
-import android.util.Log;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
 
 /**
@@ -72,7 +71,6 @@ class PopUpBehavior implements GameComponent {
 	 */
 	private void showDelayed() {
 		nextShowTime = playTime + MIN_HIDE_TIME + new Random().nextInt(MAX_HIDE_TIME);
-		Log.e("JC", "Next play time is " + playTime + "Next show time is " + nextShowTime);
 	}
 
 	/**

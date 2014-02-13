@@ -1,8 +1,6 @@
 package eu.johncasson.meerkatchallenge.game;
 
-import java.util.ArrayList;
-
-import eu.johncasson.meerkatchallenge.game.interfaces.status.Pausable;
+import eu.johncasson.meerkatchallenge.game.loops.GameLoop;
 import eu.johncasson.meerkatchallenge.levels.Level;
 
 /**
@@ -15,12 +13,12 @@ public class Game {
 	public boolean started = false;
 	private final Score score;
 	private final Level level;
+	private final GameLoop gameLoop;
 	
-	private ArrayList<Pausable> pausables = new ArrayList<Pausable>();
-	
-	public Game(Score score, Level level) {
+	public Game(Score score, Level level, GameLoop gameLoop) {
 		this.score = score;
 		this.level = level;
+		this.gameLoop = gameLoop;
 	}
 
 	/**
@@ -35,20 +33,14 @@ public class Game {
 	 * Pauses the game
 	 */
 	public void pause() {
-		for(Pausable pausable : pausables) {
-			pausable.onPause();
-		}
-		paused = true;
+		gameLoop.onPause();
 	}
 	
 	/**
 	 * Unpauses the game
 	 */
 	public void unPause() {
-		for(Pausable pausable : pausables) {
-			pausable.onUnPause();
-		}
-		paused = false;
+		gameLoop.onUnPause();
 	}
 	
 	/**
@@ -57,14 +49,6 @@ public class Game {
 	 */
 	public boolean isPaused() {
 		return paused;
-	}
-
-	/**
-	 * Registers a pausable component with the game
-	 * @param pausable
-	 */
-	public void addPausable(Pausable pausable) {
-		pausables.add(pausable);
 	}
 	
 	/**

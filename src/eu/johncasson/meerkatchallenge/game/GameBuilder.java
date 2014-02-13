@@ -212,15 +212,10 @@ public class GameBuilder {
 	 * Completes the game building process
 	 */
 	public Game getGame() {
-		/**
-		 * The game loop should be the last thing to be unpaused so the other
-		 * entities can prepare themselves for pausing first
-		 */
-		game.addPausable(gameLoop);
 		return game;
 	}
 
 	public void addGame() {
-		this.game = new Game(score, level);
+		this.game = new Game(score, level, gameLoop);
 	}
 }
