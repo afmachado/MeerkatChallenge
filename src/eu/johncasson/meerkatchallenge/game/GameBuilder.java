@@ -1,4 +1,4 @@
-package eu.johncasson.meerkatchallenge.gamebuilder;
+package eu.johncasson.meerkatchallenge.game;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,13 +6,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
-import eu.johncasson.meerkatchallenge.game.Background;
-import eu.johncasson.meerkatchallenge.game.Game;
-import eu.johncasson.meerkatchallenge.game.GameBoard;
-import eu.johncasson.meerkatchallenge.game.Score;
-import eu.johncasson.meerkatchallenge.game.ShowLevelEnd;
-import eu.johncasson.meerkatchallenge.game.Timer;
-import eu.johncasson.meerkatchallenge.game.UpdateTextView;
+import eu.johncasson.meerkatchallenge.activities.GameActivity;
 import eu.johncasson.meerkatchallenge.game.actor.Actor;
 import eu.johncasson.meerkatchallenge.game.actor.PopUpBehavior;
 import eu.johncasson.meerkatchallenge.game.actor.PopUpper;
@@ -21,7 +15,8 @@ import eu.johncasson.meerkatchallenge.game.actor.TouchHitDetector;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHideListener;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHitDetected;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnShowListener;
-import eu.johncasson.meerkatchallenge.game.interfaces.EndLevelStarter;
+import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
+import eu.johncasson.meerkatchallenge.game.interfaces.status.OnStopListener;
 import eu.johncasson.meerkatchallenge.game.interfaces.visual.Placer;
 import eu.johncasson.meerkatchallenge.game.loops.GameLoop;
 import eu.johncasson.meerkatchallenge.game.loops.GraphicsLoop;
@@ -73,7 +68,6 @@ public class GameBuilder {
 	public void makeLoops(GraphicsLoop graphicsLoop) {
 		gameLoop = new GameLoop();
 		inputLoop = new InputLoop();
-		game = new Game();
 		this.graphicsLoop = graphicsLoop;
 		graphicsLoop.setOnTouchListener(inputLoop);
 		gameLoop.addGameComponent(graphicsLoop);
@@ -82,10 +76,14 @@ public class GameBuilder {
 	/**
 	 * Creates a score entity to keep score
 	 */
-	public void addScore(TextView scoreText) {
+	public void addScore(final TextView scoreText) {
 		score = new Score(level);
-		UpdateTextView scoreUpdater = new UpdateTextView(score, scoreText);
-		gameLoop.addGameComponent(scoreUpdater);
+		gameLoop.addGameComponent(new GameComponent() {	
+			@Override
+			public void play() {
+				scoreText.setText(score.toString());
+			}
+		});
 	}
 
 	/**
@@ -102,26 +100,32 @@ public class GameBuilder {
 	 * Creates a count down timer
 	 * @param timerText The textview to update with the time
 	 */
-	public void makeTimer(TextView timerText) {
+	public void makeTimer(final TextView timerText) {
 		// Set a timer to stop the game after a specified time
-		Timer timer = new Timer(level.getTimeLimit() * 1000);
+		final Timer timer = new Timer(level.getTimeLimit() * 1000);
 		gameLoop.addGameComponent(timer);
 		gameLoop.registerStoppable(timer);
 		game.addPausable(timer);
-		UpdateTextView timerUpdater = new UpdateTextView(timer, timerText);
-		gameLoop.addGameComponent(timerUpdater);
+		gameLoop.addGameComponent(new GameComponent() {	
+			@Override
+			public void play() {
+				timerText.setText(timer.toString());
+			}
+		});
 	}
 
 	/**
 	 * Shows the level end screen when the level finishes
 	 * @param endLevelStarter
 	 */
-	public void addShowLevelEnd(EndLevelStarter endLevelStarter) {
+	public void addLevelEnd(final GameActivity gameActivity) {
 		// Show the level end screen when the game stops
-		// Contained
-		ShowLevelEnd showLevelEnd = new ShowLevelEnd(endLevelStarter, score,
-				level);
-		gameLoop.addStopListener(showLevelEnd);
+		gameLoop.addStopListener(new OnStopListener() {
+			@Override
+			public void onStop() {
+				gameActivity.endLevel();
+			}
+		});
 	}
 
 	/**
@@ -228,5 +232,9 @@ public class GameBuilder {
 		 */
 		game.addPausable(gameLoop);
 		return game;
+	}
+
+	public void addGame() {
+		this.game = new Game(score, level);
 	}
 }

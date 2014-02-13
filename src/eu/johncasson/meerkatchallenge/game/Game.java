@@ -1,8 +1,9 @@
 package eu.johncasson.meerkatchallenge.game;
 
-import eu.johncasson.meerkatchallenge.game.interfaces.status.Pausable;
-
 import java.util.ArrayList;
+
+import eu.johncasson.meerkatchallenge.game.interfaces.status.Pausable;
+import eu.johncasson.meerkatchallenge.levels.Level;
 
 /**
  * Maintains the basic game state (started, paused, pausable components)
@@ -12,7 +13,15 @@ import java.util.ArrayList;
 public class Game {
 	public boolean paused = true;
 	public boolean started = false;
+	private final Score score;
+	private final Level level;
+	
 	private ArrayList<Pausable> pausables = new ArrayList<Pausable>();
+	
+	public Game(Score score, Level level) {
+		this.score = score;
+		this.level = level;
+	}
 
 	/**
 	 * Starts the game
@@ -64,5 +73,21 @@ public class Game {
 	 */
 	public boolean isStarted() {
 		return started;
+	}
+
+	/**
+	 * Gets the game's score as an integer
+	 * @return integer representing the game's score
+	 */
+	public int getScore() {
+		return score.get();
+	}
+
+	/**
+	 * Gets the current level
+	 * @return
+	 */
+	public Level getLevel() {
+		return level;
 	}
 }

@@ -10,7 +10,7 @@ import android.graphics.Canvas;
  * @author John Casson
  *
  */
-public class Background implements Drawable {
+class Background implements Drawable {
 	private Bitmap bm;
 
 	/**

@@ -1,17 +1,16 @@
 package eu.johncasson.meerkatchallenge.game;
 
+import android.graphics.Paint;
 import eu.johncasson.meerkatchallenge.game.interfaces.Stopper;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.Pausable;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.Updater;
-import android.graphics.Paint;
 
 /**
  * Times the game
  * @author John Casson
  *
  */
-public class Timer implements Stopper, GameComponent, Pausable, Updater {
+class Timer implements Stopper, GameComponent, Pausable {
 	boolean finished = false;
 
 	long startTime;
@@ -85,8 +84,8 @@ public class Timer implements Stopper, GameComponent, Pausable, Updater {
 	/**
 	 * Return a string representation of the game time
 	 */
-	@Override
-	public String getUpdate() {
+	@Override 
+	public String toString() {
 		return Long.toString(getTimeLeft());
 	}
 }

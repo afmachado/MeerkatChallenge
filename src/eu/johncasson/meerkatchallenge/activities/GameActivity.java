@@ -8,12 +8,9 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import eu.johncasson.meerkatchallenge.R;
 import eu.johncasson.meerkatchallenge.game.Game;
-import eu.johncasson.meerkatchallenge.game.Score;
-import eu.johncasson.meerkatchallenge.game.interfaces.EndLevelStarter;
+import eu.johncasson.meerkatchallenge.game.GameBuilder;
+import eu.johncasson.meerkatchallenge.game.GameBuilderDirector;
 import eu.johncasson.meerkatchallenge.game.loops.GraphicsLoop;
-import eu.johncasson.meerkatchallenge.gamebuilder.GameBuilder;
-import eu.johncasson.meerkatchallenge.gamebuilder.GameBuilderDirector;
-import eu.johncasson.meerkatchallenge.gamebuilder.ViewSource;
 import eu.johncasson.meerkatchallenge.levels.Level;
 
 /**
@@ -22,8 +19,7 @@ import eu.johncasson.meerkatchallenge.levels.Level;
  * @author John Casson
  * 
  */
-public class GameActivity extends VolumeControlActivity implements
-		EndLevelStarter, ViewSource {
+public class GameActivity extends VolumeControlActivity {
 	private Game game;
 	private Level level;
 	private boolean firstRun = true;
@@ -79,7 +75,7 @@ public class GameActivity extends VolumeControlActivity implements
 		GameBuilder gameBuilder = new GameBuilder();
 		GameBuilderDirector gameBuilderDirector = new GameBuilderDirector(
 				gameBuilder);
-		gameBuilderDirector.construct(this, this, this, this.getResources(),
+		gameBuilderDirector.construct(this, this, this.getResources(),
 				width, height, level);
 
 		game = gameBuilder.getGame();
@@ -150,10 +146,11 @@ public class GameActivity extends VolumeControlActivity implements
 	/**
 	 * When a level ends, show the "End Level" activity
 	 */
-	@Override
-	public void startEndLevel(Score score, Level level) {
+	public void endLevel() {
+		int score = game.getScore();
+		Level level = game.getLevel();
 		Intent intent = new Intent(this, EndLevel.class);
-		intent.putExtra("score", score.get());
+		intent.putExtra("score", score);
 		intent.putExtra("level", level);
 		startActivity(intent);
 	}

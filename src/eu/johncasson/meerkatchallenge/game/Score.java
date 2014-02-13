@@ -1,7 +1,5 @@
 package eu.johncasson.meerkatchallenge.game;
 
-import eu.johncasson.meerkatchallenge.game.interfaces.status.Scorer;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.Updater;
 import eu.johncasson.meerkatchallenge.levels.Level;
 
 /**
@@ -9,7 +7,7 @@ import eu.johncasson.meerkatchallenge.levels.Level;
  * @author John Casson
  *
  */
-public class Score implements Updater, Scorer {
+class Score {
 	private int score = 0;
 	private Level level;
 	
@@ -38,7 +36,7 @@ public class Score implements Updater, Scorer {
 	 * @return A text representation of the current score
 	 */
 	@Override
-	public String getUpdate() {
+	public String toString() {
 		int neededToWin = level.getTargetScore() - score;
 		String scoreText;
 		// If the target hasn't been met show the number needed to meet the target
