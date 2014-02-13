@@ -1,13 +1,11 @@
 package eu.johncasson.meerkatchallenge.game.loops;
 
-import eu.johncasson.meerkatchallenge.game.interfaces.Stopper;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.OnStopListener;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.Pausable;
-
 import java.util.ArrayList;
 
 import android.os.Handler;
+import eu.johncasson.meerkatchallenge.game.interfaces.Stopper;
+import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
+import eu.johncasson.meerkatchallenge.game.interfaces.status.OnStopListener;
 
 /**
  * The main loop for a game. Iterates through components, calling them each
@@ -18,7 +16,7 @@ import android.os.Handler;
  * @author John Casson
  * 
  */
-public class GameLoop implements Pausable {
+public class GameLoop {
 	// Divide the rate by 1000 to calculate how many times per second the
 	// gameloop will iterate.
 	private static final int GAME_RATE = 20; // 50 calls per second
@@ -93,16 +91,14 @@ public class GameLoop implements Pausable {
 	/**
 	 * Stop processing when the gameloop is paused
 	 */
-	@Override
-	public void onPause() {
+	public void pause() {
 		frame.removeCallbacks(gameLoop);
 	}
 
 	/**
 	 * When the game loop is unpaused, continue running
 	 */
-	@Override
-	public void onUnPause() {
+	public void unPause() {
 		lastLoopTime = System.currentTimeMillis();
 		gameLoop.run();
 	}

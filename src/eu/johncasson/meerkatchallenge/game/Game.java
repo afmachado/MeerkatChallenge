@@ -33,14 +33,14 @@ public class Game {
 	 * Pauses the game
 	 */
 	public void pause() {
-		gameLoop.onPause();
+		gameLoop.pause();
 	}
 	
 	/**
 	 * Unpauses the game
 	 */
 	public void unPause() {
-		gameLoop.onUnPause();
+		gameLoop.unPause();
 	}
 	
 	/**
