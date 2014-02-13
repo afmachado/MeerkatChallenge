@@ -8,7 +8,6 @@ import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
 import eu.johncasson.meerkatchallenge.activities.GameActivity;
 import eu.johncasson.meerkatchallenge.game.actor.Actor;
-import eu.johncasson.meerkatchallenge.game.actor.RandomPlacer;
 import eu.johncasson.meerkatchallenge.game.actor.TouchHitDetector;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHideListener;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHitDetected;
@@ -156,8 +155,7 @@ public class GameBuilder {
 	 */
 	private Actor addMeerkat(final Bitmap meerkatPic, final GameBoard gameBoard) {
 		final int HIT_MARGIN = 5;
-		RandomPlacer placer = new RandomPlacer(gameBoard);
-		final Actor meerkat = new Actor(placer);
+		final Actor meerkat = new Actor(gameBoard);
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
 		final int size = (int) (gameBoard.getWidth() * 0.13);
 		meerkat.setBitmap(meerkatPic, size);
@@ -196,7 +194,7 @@ public class GameBuilder {
 	 * @param size
 	 * @return
 	 */
-	public OnHitDetected getMeerkatHitDetected(final Actor meerkat,
+	private OnHitDetected getMeerkatHitDetected(final Actor meerkat,
 			final Bitmap meerkatPic,
 			final int size) {
 		return new OnHitDetected() {

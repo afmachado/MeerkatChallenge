@@ -1,10 +1,13 @@
 package eu.johncasson.meerkatchallenge.game.actor;
 
+import java.util.Random;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
+import eu.johncasson.meerkatchallenge.game.GameBoard;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.Hittable;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHideListener;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnShowListener;
@@ -25,11 +28,12 @@ public class Actor implements Hittable, Drawable,
 	private Point location;
 	private Rect bounds;
 	private boolean visible = false;
-	private RandomPlacer placer;
 	private OnShowListener onShowListener;
 	private OnHideListener onHideListener;
 	private Sprite sprite;
+	private GameBoard gameBoard;
 	final private PopUpBehavior behavior;
+	
 
 	/**
 	 * Creates a new actor that is placed with the injected placer and draws
@@ -38,8 +42,8 @@ public class Actor implements Hittable, Drawable,
 	 * @param placer
 	 * @param sprite
 	 */
-	public Actor(RandomPlacer placer) {
-		this.placer = placer;
+	public Actor(GameBoard gameBoard) {
+		this.gameBoard = gameBoard;
 		this.sprite = new Sprite();
 		this.behavior = new PopUpBehavior(this);
 	}
@@ -69,7 +73,7 @@ public class Actor implements Hittable, Drawable,
 	 * Shows this actor on the gameboard.
 	 */
 	protected void show() {
-		placer.place(this);
+		this.place();
 		visible = true;
 		onShowListener.onShow();
 	}
@@ -185,5 +189,28 @@ public class Actor implements Hittable, Drawable,
 
 	public void popUp() {
 		sprite.startAnimation(new PopUpper(sprite, POPUP_SPEED));
+	}
+	
+	/**
+	 * Places an animatable on the Gameboard
+	 */
+	private void place() {
+		Random r = new Random();
+		int x = 0;
+		int y = 0;
+
+		int maxX = gameBoard.getWidth() - getBounds().width();
+		int maxY = gameBoard.getHeight() - getBounds().height();
+		
+		int count = 0;
+		do {
+			x = r.nextInt(maxX);
+			y = r.nextInt(maxY);
+			count++;
+			if (count > 100) {
+				throw new RuntimeException("Can't place locatable");
+			}
+		} while (gameBoard.doesOverlap(new Rect(x, y, x + getBounds().width(), y + getBounds().height())));
+		setLocation(x, y);
 	}
 }
