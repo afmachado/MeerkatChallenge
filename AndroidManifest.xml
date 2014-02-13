@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="eu.johncasson.meerkatchallenge.activities.LevelSelect"
+            android:name="eu.johncasson.meerkatchallenge.levels.LevelSelect"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
