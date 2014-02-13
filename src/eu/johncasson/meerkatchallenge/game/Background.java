@@ -19,7 +19,7 @@ class Background implements Drawable {
 	 * @param height in pixels
 	 * @param bm the background image
 	 */
-	public Background(int width, int height, Bitmap bm) {
+	protected Background(int width, int height, Bitmap bm) {
 		// Scale the background to the game board size
 		BitmapFactory.Options options = new BitmapFactory.Options(); 
 		options.inPurgeable = true;
