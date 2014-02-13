@@ -76,7 +76,7 @@ public class GameBuilder {
 		score = new Score(level);
 		gameLoop.addGameComponent(new GameComponent() {	
 			@Override
-			public void play() {
+			public void play(long runTime) {
 				scoreText.setText(score.toString());
 			}
 		});
@@ -101,10 +101,9 @@ public class GameBuilder {
 		final Timer timer = new Timer(level.getTimeLimit() * 1000);
 		gameLoop.addGameComponent(timer);
 		gameLoop.registerStoppable(timer);
-		game.addPausable(timer);
 		gameLoop.addGameComponent(new GameComponent() {	
 			@Override
-			public void play() {
+			public void play(long runTime) {
 				timerText.setText(timer.toString());
 			}
 		});
@@ -172,8 +171,6 @@ public class GameBuilder {
 				gameBoard.removeActor(meerkat);
 			}
 		});
-
-		game.addPausable(meerkat);
 		gameLoop.addGameComponent(meerkat);
 		
 		// When we're hit, add one to the score and tell the behavior we've been

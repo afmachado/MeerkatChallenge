@@ -51,7 +51,7 @@ public class GraphicsLoop extends View implements GameComponent {
 	 * onDraw() method to be called.
 	 */
 	@Override
-	public void play() {
+	public void play(long runTime) {
 		invalidate();
 	}
 }

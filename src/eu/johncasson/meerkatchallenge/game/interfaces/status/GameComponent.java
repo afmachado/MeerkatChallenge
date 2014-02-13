@@ -9,7 +9,8 @@ public interface GameComponent {
 	/**
 	 * Actions the GameComponent takes for
 	 * each iteration of the game loop.
+	 * @param playTime Time the game has been running in ms
 	 * @throws Exception
 	 */
-	public void play();
+	public void play(long playTime);
 }

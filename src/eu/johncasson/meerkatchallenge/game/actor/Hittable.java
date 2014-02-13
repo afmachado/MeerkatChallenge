@@ -1,4 +1,4 @@
-package eu.johncasson.meerkatchallenge.game.actor.interfaces;
+package eu.johncasson.meerkatchallenge.game.actor;
 
 import android.graphics.Rect;
 
@@ -7,7 +7,7 @@ import android.graphics.Rect;
  * @author John Casson
  *
  */
-public interface Hittable {
+interface Hittable {
 	/**
 	 * Does the passed rect overlap this entity?
 	 * @param rectangle

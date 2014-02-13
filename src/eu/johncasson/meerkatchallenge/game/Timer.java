@@ -3,28 +3,25 @@ package eu.johncasson.meerkatchallenge.game;
 import android.graphics.Paint;
 import eu.johncasson.meerkatchallenge.game.interfaces.Stopper;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.Pausable;
 
 /**
  * Times the game
  * @author John Casson
  *
  */
-class Timer implements Stopper, GameComponent, Pausable {
+class Timer implements Stopper, GameComponent {
 	boolean finished = false;
 
-	long startTime;
 	long timeLimit;
-	long pauseTime;
 	Paint textPaint;
+	long playTime;
 	
 	/**
 	 * Stops the game after a specified time
 	 * @param gameTime The time to stop after
 	 */
-	public Timer(int gameTime) {
+	protected Timer(int gameTime) {
 		this.timeLimit = gameTime;
-		startTime = System.currentTimeMillis();
 	}
 	
 	/**
@@ -42,9 +39,10 @@ class Timer implements Stopper, GameComponent, Pausable {
 	 *  has exceeded the game time
 	 */
 	@Override
-	public void play() {
-		long timePlayed = System.currentTimeMillis() - startTime;
-		if(timePlayed > timeLimit) {
+	public void play(long runTime) {
+		playTime = runTime;
+
+		if(playTime > timeLimit) {
 			finished = true;
 		}
 	}
@@ -53,32 +51,12 @@ class Timer implements Stopper, GameComponent, Pausable {
 	 * Calculate the time left before the game ends
 	 * @return
 	 */
-	public long getTimeLeft() {
-		long timeTaken = System.currentTimeMillis() - startTime;
+	private long getTimeLeft() {
 		// We add 500 to the visible output 
 		// so the timer starts from e.g. 10 instead of 9
-		long timeLeft = timeLimit + 500 - timeTaken;
+		long timeLeft = timeLimit + 500 - playTime;
 		timeLeft = timeLeft / 1000;
 		return timeLeft;
-	}
-	
-	/** 
-	 * When the game is paused, store the time of the pause 
-	 * so we can recalculate the game time on unpause. 
-	 */
-	@Override
-	public void onPause() {
-		pauseTime = System.currentTimeMillis();
-	}
-
-	/**
-	 *  When we're unpaused, update the start time to reflect the
-	 *  time spent paused.
-	 */
-	@Override
-	public void onUnPause() {
-		long pausedTime = System.currentTimeMillis() - pauseTime;
-		startTime = startTime + pausedTime;
 	}
 
 	/**

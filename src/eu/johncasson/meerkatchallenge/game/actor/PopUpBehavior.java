@@ -1,16 +1,16 @@
 package eu.johncasson.meerkatchallenge.game.actor;
 
-import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.Pausable;
-
 import java.util.Random;
+
+import android.util.Log;
+import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
 
 /**
  * Makes an Actor pop up, then hide itself after a short time
  * @author John Casson
  *
  */
-class PopUpBehavior implements GameComponent, Pausable {
+class PopUpBehavior implements GameComponent {
 	/**
 	 * Minimum time (ms) for the Actor to be shown
 	 */
@@ -37,8 +37,11 @@ class PopUpBehavior implements GameComponent, Pausable {
 	 * The time at which the Actor should be shown
 	 */
 	private long nextShowTime = 0;
-
-	private long pauseTime;
+	
+	/**
+	 * Copy of the current play time
+	 */
+	private long playTime;
 
 	/**
 	 * The actor controlled by this behavior
@@ -52,8 +55,7 @@ class PopUpBehavior implements GameComponent, Pausable {
 	public PopUpBehavior(Actor actor) {
 		this.actor = actor;
 		// Set the actors to start showing at least a second after being enabled
-		this.nextShowTime = System.currentTimeMillis()
-				+ new Random().nextInt(500) + 1000;
+		this.nextShowTime = new Random().nextInt(500) + 1000;
 	}
 
 	/**
@@ -68,53 +70,32 @@ class PopUpBehavior implements GameComponent, Pausable {
 	/**
 	 * Shows the actor after a delay
 	 */
-	public void showDelayed() {
-		long showTime = MIN_HIDE_TIME + new Random().nextInt(MAX_HIDE_TIME);
-		nextShowTime = System.currentTimeMillis() + showTime;
+	private void showDelayed() {
+		nextShowTime = playTime + MIN_HIDE_TIME + new Random().nextInt(MAX_HIDE_TIME);
+		Log.e("JC", "Next play time is " + playTime + "Next show time is " + nextShowTime);
 	}
 
 	/**
 	 * Hides the actor after a delay
 	 */
 	private void hideDelayed() {
-		long hideTime = MIN_SHOW_TIME + new Random().nextInt(MAX_SHOW_TIME);
-		nextHideTime = System.currentTimeMillis() + hideTime;
+		nextHideTime = playTime + MIN_SHOW_TIME + new Random().nextInt(MAX_SHOW_TIME);
 	}
 
 	/**
 	 * Repeatedly shows and hides the Actor
 	 */
 	@Override
-	public void play() {
-		long now = System.currentTimeMillis();
-		if (actor.isVisible() && now > nextHideTime) {
+	public void play(long playTime) {
+		this.playTime = playTime;
+		if (actor.isVisible() && playTime > nextHideTime) {
 			actor.hide();
 			showDelayed();
 		}
 
-		if ((!actor.isVisible()) && now > nextShowTime) {
+		if ((!actor.isVisible()) && playTime > nextShowTime) {
 			actor.show();
 			hideDelayed();
 		}
 	}
-
-	/**
-	 * Pauses the behavior by saving the pause time.
-	 */
-	@Override
-	public void onPause() {
-		pauseTime = System.currentTimeMillis();
-	}
-	
-	/**
-	 * Unpauses the behavior by updating the next show and next hide times
-	 * to reflect the time we spent paused.
-	 */
-	@Override
-	public void onUnPause() {
-		long pausedTime = System.currentTimeMillis() - pauseTime;
-		nextShowTime = nextShowTime + pausedTime;
-		nextHideTime = nextHideTime + pausedTime;
-	}
-
 }

@@ -8,11 +8,9 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
 import eu.johncasson.meerkatchallenge.game.GameBoard;
-import eu.johncasson.meerkatchallenge.game.actor.interfaces.Hittable;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHideListener;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnShowListener;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.Pausable;
 import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
 
 /**
@@ -22,8 +20,7 @@ import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
  * @author John Casson
  * 
  */
-public class Actor implements Hittable, Drawable,
-		Pausable, GameComponent {
+public class Actor implements Hittable, Drawable, GameComponent {
 	final int POPUP_SPEED = 150;
 	private Point location;
 	private Rect bounds;
@@ -33,7 +30,6 @@ public class Actor implements Hittable, Drawable,
 	private Sprite sprite;
 	private GameBoard gameBoard;
 	final private PopUpBehavior behavior;
-	
 
 	/**
 	 * Creates a new actor that is placed with the injected placer and draws
@@ -173,18 +169,8 @@ public class Actor implements Hittable, Drawable,
 	}
 
 	@Override
-	public void onPause() {
-		behavior.onPause();
-	}
-
-	@Override
-	public void onUnPause() {
-		behavior.onUnPause();
-	}
-
-	@Override
-	public void play() {
-		behavior.play();
+	public void play(long runTime) {
+		behavior.play(runTime);
 	}
 
 	public void popUp() {

@@ -27,6 +27,10 @@ public class GameLoop implements Pausable {
 	private ArrayList<GameComponent> components = new ArrayList<GameComponent>();
 	private ArrayList<Stopper> stoppables = new ArrayList<Stopper>();
 	private ArrayList<OnStopListener> stopListeners = new ArrayList<OnStopListener>();
+	// Seconds the game has been running
+	private long runTime;
+	// Absolute time of the last loop  
+	private long lastLoopTime;
 
 	/**
 	 * Adds a game component to be called each time the game loop runs
@@ -47,21 +51,17 @@ public class GameLoop implements Pausable {
 	}
 
 	/**
-	 * Starts the game loop
-	 */
-	public void start() {
-		frame.removeCallbacks(gameLoop);
-		gameLoop.run();
-	}
-
-	/**
 	 * What to do each time the game loop runs
 	 */
 	public Runnable gameLoop = new Runnable() {
 		@Override
 		synchronized public void run() {
+			final long currentTime = System.currentTimeMillis(); 
+			runTime += currentTime - lastLoopTime;
+			lastLoopTime = currentTime;
+			
 			for (GameComponent gameComponent : components) {
-				gameComponent.play();
+				gameComponent.play(runTime);
 			}
 
 			for (Stopper sc : stoppables) {
@@ -103,6 +103,7 @@ public class GameLoop implements Pausable {
 	 */
 	@Override
 	public void onUnPause() {
+		lastLoopTime = System.currentTimeMillis();
 		gameLoop.run();
 	}
 }
