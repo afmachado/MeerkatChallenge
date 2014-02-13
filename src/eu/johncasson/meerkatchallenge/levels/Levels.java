@@ -8,7 +8,7 @@ import java.util.Map;
  * @author John Casson
  *
  */
-public final class Levels {	
+class Levels {	
 	static Map<Integer, Level> levels = new LinkedHashMap<Integer, Level>();
 	
 	static {

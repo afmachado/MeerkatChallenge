@@ -11,8 +11,10 @@ import eu.johncasson.meerkatchallenge.game.Game;
 import eu.johncasson.meerkatchallenge.game.GameBuilder;
 import eu.johncasson.meerkatchallenge.game.GameBuilderDirector;
 import eu.johncasson.meerkatchallenge.game.loops.GraphicsLoop;
+import eu.johncasson.meerkatchallenge.levels.EndLevel;
 import eu.johncasson.meerkatchallenge.levels.Level;
 import eu.johncasson.meerkatchallenge.levels.LevelSelect;
+import eu.johncasson.meerkatchallenge.levels.StartLevel;
 
 /**
  * The game activity.

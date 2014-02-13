@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
  * @author John Casson
  *
  */
-public class Preferences {
+class Preferences {
 	final static String PREFS_NAME = "MeerkatChallenge";
 
 	/**

@@ -1,4 +1,4 @@
-package eu.johncasson.meerkatchallenge.activities;
+package eu.johncasson.meerkatchallenge.levels;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,9 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
-import eu.johncasson.meerkatchallenge.levels.Level;
-import eu.johncasson.meerkatchallenge.levels.LevelSelect;
-import eu.johncasson.meerkatchallenge.levels.Preferences;
+import eu.johncasson.meerkatchallenge.activities.Congratulations;
+import eu.johncasson.meerkatchallenge.activities.VolumeControlActivity;
 
 /**
  * Shows the "End level" screen that bounces in

@@ -1,4 +1,4 @@
-package eu.johncasson.meerkatchallenge.activities;
+package eu.johncasson.meerkatchallenge.levels;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
-import eu.johncasson.meerkatchallenge.levels.Level;
-import eu.johncasson.meerkatchallenge.levels.LevelSelect;
+import eu.johncasson.meerkatchallenge.activities.VolumeControlActivity;
 
 /**
  * Shows the "Start level" screen that bounces in over the game

@@ -37,12 +37,12 @@
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="eu.johncasson.meerkatchallenge.activities.StartLevel"
+            android:name="eu.johncasson.meerkatchallenge.levels.StartLevel"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="eu.johncasson.meerkatchallenge.activities.EndLevel"
+            android:name="eu.johncasson.meerkatchallenge.levels.EndLevel"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
