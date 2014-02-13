@@ -91,13 +91,6 @@ public class GameLoop implements Pausable {
 	}
 
 	/**
-	 * Stops the game loop
-	 */
-	public void stop() {
-		frame.removeCallbacks(gameLoop);
-	}
-
-	/**
 	 * Stop processing when the gameloop is paused
 	 */
 	@Override

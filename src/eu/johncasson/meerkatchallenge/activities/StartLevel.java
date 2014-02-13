@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
 import eu.johncasson.meerkatchallenge.levels.Level;
+import eu.johncasson.meerkatchallenge.levels.LevelSelect;
 
 /**
  * Shows the "Start level" screen that bounces in over the game

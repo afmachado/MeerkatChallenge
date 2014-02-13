@@ -12,6 +12,7 @@ import eu.johncasson.meerkatchallenge.game.GameBuilder;
 import eu.johncasson.meerkatchallenge.game.GameBuilderDirector;
 import eu.johncasson.meerkatchallenge.game.loops.GraphicsLoop;
 import eu.johncasson.meerkatchallenge.levels.Level;
+import eu.johncasson.meerkatchallenge.levels.LevelSelect;
 
 /**
  * The game activity.
