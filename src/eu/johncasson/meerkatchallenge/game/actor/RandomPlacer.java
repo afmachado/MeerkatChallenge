@@ -1,19 +1,16 @@
 package eu.johncasson.meerkatchallenge.game.actor;
 
-import eu.johncasson.meerkatchallenge.game.GameBoard;
-import eu.johncasson.meerkatchallenge.game.actor.interfaces.Locatable;
-import eu.johncasson.meerkatchallenge.game.interfaces.visual.Placer;
-
 import java.util.Random;
 
 import android.graphics.Rect;
+import eu.johncasson.meerkatchallenge.game.GameBoard;
 
 /**
- * Places a locatable on a gameboard
+ * Places an actor on a gameboard
  * @author John Casson
  *
  */
-public class RandomPlacer implements Placer {
+public class RandomPlacer {
 	private GameBoard gameBoard;
 
 	public RandomPlacer(GameBoard gameBoard) {
@@ -23,14 +20,13 @@ public class RandomPlacer implements Placer {
 	/**
 	 * Places an animatable on the Gameboard
 	 */
-	@Override
-	public void place(Locatable locatable) {
+	public void place(Actor actor) {
 		Random r = new Random();
 		int x = 0;
 		int y = 0;
 
-		int maxX = gameBoard.getWidth() - locatable.getBounds().width();
-		int maxY = gameBoard.getHeight() - locatable.getBounds().height();
+		int maxX = gameBoard.getWidth() - actor.getBounds().width();
+		int maxY = gameBoard.getHeight() - actor.getBounds().height();
 		
 		int count = 0;
 		do {
@@ -40,7 +36,7 @@ public class RandomPlacer implements Placer {
 			if (count > 100) {
 				throw new RuntimeException("Can't place locatable");
 			}
-		} while (gameBoard.doesOverlap(new Rect(x, y, x + locatable.getBounds().width(), y + locatable.getBounds().height())));
-		locatable.setLocation(x, y);
+		} while (gameBoard.doesOverlap(new Rect(x, y, x + actor.getBounds().width(), y + actor.getBounds().height())));
+		actor.setLocation(x, y);
 	}
 }

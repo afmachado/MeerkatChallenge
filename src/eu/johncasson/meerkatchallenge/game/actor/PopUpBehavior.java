@@ -10,7 +10,7 @@ import java.util.Random;
  * @author John Casson
  *
  */
-public class PopUpBehavior implements GameComponent, Pausable {
+class PopUpBehavior implements GameComponent, Pausable {
 	/**
 	 * Minimum time (ms) for the Actor to be shown
 	 */
@@ -105,7 +105,6 @@ public class PopUpBehavior implements GameComponent, Pausable {
 	public void onPause() {
 		pauseTime = System.currentTimeMillis();
 	}
-	
 	
 	/**
 	 * Unpauses the behavior by updating the next show and next hide times

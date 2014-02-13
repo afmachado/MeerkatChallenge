@@ -1,16 +1,15 @@
 package eu.johncasson.meerkatchallenge.game.actor;
 
-import eu.johncasson.meerkatchallenge.game.actor.interfaces.Animatable;
-import eu.johncasson.meerkatchallenge.game.interfaces.visual.Animator;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import eu.johncasson.meerkatchallenge.game.interfaces.visual.Animator;
 
 /**
- * Pops up an animatable object
+ * Pops up a sprite
  * 
  * @author John Casson
  */
-public class PopUpper implements Animator {
+class PopUpper implements Animator {
 	/** 
 	 * The original bitmap (never changes)
 	 */
@@ -28,9 +27,9 @@ public class PopUpper implements Animator {
 	 */
 	private long startTime;
 	/**
-	 * The entity to animate
+	 * To be animated
 	 */
-	private Animatable animatable;
+	private Sprite sprite;
 	/**
 	 * The time in which to complete a pop up animation
 	 */
@@ -44,23 +43,23 @@ public class PopUpper implements Animator {
 	 */
 	private boolean finished = false;
 
-	public PopUpper(Animatable animatable, int popUpSpeed) {
-		this.animatable = animatable;
-		this.originalBm = animatable.getBitmap();
+	protected PopUpper(Sprite sprite, int popUpSpeed) {
+		this.sprite = sprite;
+		this.originalBm = sprite.getBitmap();
 		this.popUpTime = popUpSpeed;
 		startTime = System.currentTimeMillis();
 		ready = true;
 	}
 
 	/**
-	 * Animates the passed animatable
+	 * Animates the sprite
 	 */
 	public synchronized void animate() {
 		// don't start animating till the constructor has completed
 		if(!ready) {
 			return;
 		}
-		matrix = animatable.getMatrix();
+		matrix = sprite.getMatrix();
 		long now = System.currentTimeMillis();
 		float difference = now - startTime; // time in ms between starting pop
 											// up and now
@@ -92,7 +91,7 @@ public class PopUpper implements Animator {
 	public Bitmap getBitmap() {
 		// Ensure the original bitmap is always sent back when this animation ends
 		if(finished) {
-			animatable.stopAnimation(this);
+			sprite.stopAnimation(this);
 		}
 		return animBm;
 	}

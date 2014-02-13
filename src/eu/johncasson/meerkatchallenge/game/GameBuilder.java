@@ -8,8 +8,6 @@ import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
 import eu.johncasson.meerkatchallenge.activities.GameActivity;
 import eu.johncasson.meerkatchallenge.game.actor.Actor;
-import eu.johncasson.meerkatchallenge.game.actor.PopUpBehavior;
-import eu.johncasson.meerkatchallenge.game.actor.PopUpper;
 import eu.johncasson.meerkatchallenge.game.actor.RandomPlacer;
 import eu.johncasson.meerkatchallenge.game.actor.TouchHitDetector;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHideListener;
@@ -17,7 +15,6 @@ import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHitDetected;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnShowListener;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.OnStopListener;
-import eu.johncasson.meerkatchallenge.game.interfaces.visual.Placer;
 import eu.johncasson.meerkatchallenge.game.loops.GameLoop;
 import eu.johncasson.meerkatchallenge.game.loops.GraphicsLoop;
 import eu.johncasson.meerkatchallenge.game.loops.InputLoop;
@@ -158,10 +155,8 @@ public class GameBuilder {
 	 * @return
 	 */
 	private Actor addMeerkat(final Bitmap meerkatPic, final GameBoard gameBoard) {
-		// The speed to pop up at
-		final int POPUP_SPEED = 150;
 		final int HIT_MARGIN = 5;
-		Placer placer = new RandomPlacer(gameBoard);
+		RandomPlacer placer = new RandomPlacer(gameBoard);
 		final Actor meerkat = new Actor(placer);
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
 		final int size = (int) (gameBoard.getWidth() * 0.13);
@@ -170,7 +165,7 @@ public class GameBuilder {
 		meerkat.setOnShowListener(new OnShowListener() {
 			public void onShow() {
 				gameBoard.addActor(meerkat);
-				meerkat.startAnimation(new PopUpper(meerkat, POPUP_SPEED));
+				meerkat.popUp();
 			}
 		});
 
@@ -180,18 +175,14 @@ public class GameBuilder {
 			}
 		});
 
-		// Add a pop up behavior for this meerkat
-		final PopUpBehavior behavior = new PopUpBehavior(meerkat);
-		game.addPausable(behavior);
-
+		game.addPausable(meerkat);
+		gameLoop.addGameComponent(meerkat);
+		
 		// When we're hit, add one to the score and tell the behavior we've been
 		// hit
-		OnHitDetected ohd = getMeerkatHitDetected(meerkat, behavior,
-				meerkatPic, size);
-
+		OnHitDetected ohd = getMeerkatHitDetected(meerkat, meerkatPic, size);
 		TouchHitDetector touchHitDetector = new TouchHitDetector(ohd, meerkat, HIT_MARGIN);
 
-		gameLoop.addGameComponent(behavior);
 		inputLoop.register(touchHitDetector);
 		return meerkat;
 	}
@@ -206,7 +197,7 @@ public class GameBuilder {
 	 * @return
 	 */
 	public OnHitDetected getMeerkatHitDetected(final Actor meerkat,
-			final PopUpBehavior behavior, final Bitmap meerkatPic,
+			final Bitmap meerkatPic,
 			final int size) {
 		return new OnHitDetected() {
 			public void onHit() {
@@ -214,7 +205,7 @@ public class GameBuilder {
 				// paused
 				if (meerkat.isVisible() && !game.isPaused()) {
 					score.add(1);
-					behavior.hit();
+					meerkat.hit();
 					meerkat.setBitmap(meerkatPic, size);
 					soundPool.play(meerkatHitSoundId, 1, 1, 1, 0, 1f);
 				}
