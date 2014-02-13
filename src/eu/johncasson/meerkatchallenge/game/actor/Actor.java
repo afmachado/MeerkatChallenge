@@ -8,8 +8,6 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
 import eu.johncasson.meerkatchallenge.game.GameBoard;
-import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHideListener;
-import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnShowListener;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
 import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
 
@@ -25,8 +23,6 @@ public class Actor implements Hittable, Drawable, GameComponent {
 	private Point location;
 	private Rect bounds;
 	private boolean visible = false;
-	private OnShowListener onShowListener;
-	private OnHideListener onHideListener;
 	private Sprite sprite;
 	private GameBoard gameBoard;
 	final private PopUpBehavior behavior;
@@ -71,7 +67,8 @@ public class Actor implements Hittable, Drawable, GameComponent {
 	protected void show() {
 		this.place();
 		visible = true;
-		onShowListener.onShow();
+		gameBoard.addActor(this);
+		popUp();
 	}
 
 	/**
@@ -80,7 +77,7 @@ public class Actor implements Hittable, Drawable, GameComponent {
 	protected void hide() {
 		visible = false;
 		setLocation(-1, -1);
-		onHideListener.onHide();
+		gameBoard.removeActor(this);
 	}
 
 	/**
@@ -103,24 +100,6 @@ public class Actor implements Hittable, Drawable, GameComponent {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Sets a listener to be called when the actor is shown
-	 * 
-	 * @param onShowListener
-	 */
-	public void setOnShowListener(OnShowListener onShowListener) {
-		this.onShowListener = onShowListener;
-	}
-
-	/**
-	 * Sets a listener to be called when the actor is hidden
-	 * 
-	 * @param onShowListener
-	 */
-	public void setOnHideListener(OnHideListener onHideListener) {
-		this.onHideListener = onHideListener;
 	}
 
 	/**

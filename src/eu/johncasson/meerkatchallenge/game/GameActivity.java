@@ -1,4 +1,4 @@
-package eu.johncasson.meerkatchallenge.activities;
+package eu.johncasson.meerkatchallenge.game;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import eu.johncasson.meerkatchallenge.R;
-import eu.johncasson.meerkatchallenge.game.Game;
-import eu.johncasson.meerkatchallenge.game.GameBuilder;
-import eu.johncasson.meerkatchallenge.game.GameBuilderDirector;
+import eu.johncasson.meerkatchallenge.activities.Pause;
+import eu.johncasson.meerkatchallenge.activities.VolumeControlActivity;
 import eu.johncasson.meerkatchallenge.game.loops.GraphicsLoop;
 import eu.johncasson.meerkatchallenge.levels.EndLevel;
 import eu.johncasson.meerkatchallenge.levels.Level;
@@ -53,13 +52,12 @@ public class GameActivity extends VolumeControlActivity {
 	 */
 	@Override
 	protected void onResume() {
-		// Draw the gameboard the second time onResume is called
-		// (After the user presses "Go" in StartLevel
+		// game won't be initialized for the first onResume call
+		// as onResume is called when an activity first starts
 		if (game == null && !firstRun) {
 			createGame();
 		}
-		// game won't be initialized for the first onResume call
-		// as onResume is called when an activity first starts
+		
 		if (game != null && game.isStarted()) {
 			game.unPause();
 		}

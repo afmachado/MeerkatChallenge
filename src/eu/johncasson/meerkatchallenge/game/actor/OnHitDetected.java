@@ -1,4 +1,4 @@
-package eu.johncasson.meerkatchallenge.game.actor.interfaces;
+package eu.johncasson.meerkatchallenge.game.actor;
 
 /**
  * Implemented by classes that want to be notified

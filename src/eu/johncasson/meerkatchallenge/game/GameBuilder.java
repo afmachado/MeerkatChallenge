@@ -6,12 +6,9 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
-import eu.johncasson.meerkatchallenge.activities.GameActivity;
 import eu.johncasson.meerkatchallenge.game.actor.Actor;
+import eu.johncasson.meerkatchallenge.game.actor.OnHitDetected;
 import eu.johncasson.meerkatchallenge.game.actor.TouchHitDetector;
-import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHideListener;
-import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHitDetected;
-import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnShowListener;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.OnStopListener;
 import eu.johncasson.meerkatchallenge.game.loops.GameLoop;
@@ -128,7 +125,6 @@ public class GameBuilder {
 	 * @param context
 	 */
 	public void addSoundPool(Context context) {
-		// Contained
 		soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);
 		meerkatHitSoundId = soundPool.load(context, R.raw.hit, 1);
 	}
@@ -138,7 +134,6 @@ public class GameBuilder {
 	 * @param meerkatPic
 	 */
 	public void addMeerkats(Bitmap meerkatPic) {
-		// Draw Meerkats
 		GameBoard gameBoard = new GameBoard(width, height);
 		for (int i = 0; i < level.getMeerkats(); i++) {
 			Actor meerkat = addMeerkat(meerkatPic, gameBoard);
@@ -159,18 +154,6 @@ public class GameBuilder {
 		final int size = (int) (gameBoard.getWidth() * 0.13);
 		meerkat.setBitmap(meerkatPic, size);
 
-		meerkat.setOnShowListener(new OnShowListener() {
-			public void onShow() {
-				gameBoard.addActor(meerkat);
-				meerkat.popUp();
-			}
-		});
-
-		meerkat.setOnHideListener(new OnHideListener() {
-			public void onHide() {
-				gameBoard.removeActor(meerkat);
-			}
-		});
 		gameLoop.addGameComponent(meerkat);
 		
 		// When we're hit, add one to the score and tell the behavior we've been

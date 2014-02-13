@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
-import eu.johncasson.meerkatchallenge.activities.GameActivity;
 import eu.johncasson.meerkatchallenge.game.loops.GraphicsLoop;
 import eu.johncasson.meerkatchallenge.levels.Level;
 

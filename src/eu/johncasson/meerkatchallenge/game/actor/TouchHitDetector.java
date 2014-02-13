@@ -1,6 +1,5 @@
 package eu.johncasson.meerkatchallenge.game.actor;
 
-import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHitDetected;
 import eu.johncasson.meerkatchallenge.game.interfaces.status.ReceivesInput;
 import android.graphics.Rect;
 import android.view.MotionEvent;

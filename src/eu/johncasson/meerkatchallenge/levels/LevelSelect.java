@@ -8,9 +8,9 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
-import eu.johncasson.meerkatchallenge.activities.GameActivity;
 import eu.johncasson.meerkatchallenge.activities.TitleScreen;
 import eu.johncasson.meerkatchallenge.activities.VolumeControlActivity;
+import eu.johncasson.meerkatchallenge.game.GameActivity;
 
 /**
  * The level select screen
