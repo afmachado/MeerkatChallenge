@@ -17,7 +17,6 @@ import eu.johncasson.meerkatchallenge.game.actor.Actor;
 import eu.johncasson.meerkatchallenge.game.actor.PopUpBehavior;
 import eu.johncasson.meerkatchallenge.game.actor.PopUpper;
 import eu.johncasson.meerkatchallenge.game.actor.RandomPlacer;
-import eu.johncasson.meerkatchallenge.game.actor.Sprite;
 import eu.johncasson.meerkatchallenge.game.actor.TouchHitDetector;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHideListener;
 import eu.johncasson.meerkatchallenge.game.actor.interfaces.OnHitDetected;
@@ -159,7 +158,7 @@ public class GameBuilder {
 		final int POPUP_SPEED = 150;
 		final int HIT_MARGIN = 5;
 		Placer placer = new RandomPlacer(gameBoard);
-		final Actor meerkat = new Actor(placer, new Sprite());
+		final Actor meerkat = new Actor(placer);
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
 		final int size = (int) (gameBoard.getWidth() * 0.13);
 		meerkat.setBitmap(meerkatPic, size);

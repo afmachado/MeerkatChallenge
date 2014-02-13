@@ -39,9 +39,9 @@ public class Actor implements Locatable, Showable, Hittable, Drawable,
 	 * @param placer
 	 * @param sprite
 	 */
-	public Actor(Placer placer, Sprite sprite) {
+	public Actor(Placer placer) {
 		this.placer = placer;
-		this.sprite = sprite;
+		this.sprite = new Sprite();
 	}
 
 	/**

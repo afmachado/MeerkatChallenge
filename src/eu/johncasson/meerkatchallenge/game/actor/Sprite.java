@@ -16,7 +16,7 @@ import android.graphics.Matrix;
  * @author John Casson
  * 
  */
-public class Sprite implements Animatable {
+class Sprite implements Animatable {
 	private Bitmap bm;
 	/**
 	 * CopyOnWriteArrayList used to avoid concurrent access + read / write
