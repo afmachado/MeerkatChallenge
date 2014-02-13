@@ -65,7 +65,7 @@ public class EndLevel extends VolumeControlActivity {
 	/**
 	 * Enables the buttons after a delay
 	 */
-	public void delayedEnable() {
+	private void delayedEnable() {
 		Handler h = new Handler();
 		Runnable r = new Runnable() {
 			@Override

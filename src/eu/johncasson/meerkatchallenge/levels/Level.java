@@ -37,7 +37,7 @@ public class Level implements Serializable {
 	 * Sets the number of meerkats in the level
 	 * @param meerkats
 	 */
-	public void setMeerkats(int meerkats) {
+	private void setMeerkats(int meerkats) {
 		this.meerkats = meerkats;
 	}
 
@@ -54,7 +54,7 @@ public class Level implements Serializable {
 	 * Sets the target score
 	 * @param targetScore
 	 */
-	public void setTargetScore(int targetScore) {
+	private void setTargetScore(int targetScore) {
 		this.targetScore = targetScore;
 	}
 
@@ -70,7 +70,7 @@ public class Level implements Serializable {
 	 * Sets the time limit
 	 * @param timeLimit
 	 */
-	public void setTimeLimit(int timeLimit) {
+	private void setTimeLimit(int timeLimit) {
 		this.timeLimit = timeLimit;
 	}
 
@@ -86,7 +86,7 @@ public class Level implements Serializable {
 	 * Sets the title
 	 * @param title
 	 */
-	public void setTitle(String title) {
+	private void setTitle(String title) {
 		this.title = title;
 	}
 
@@ -102,7 +102,7 @@ public class Level implements Serializable {
 	 * Sets the description
 	 * @param description
 	 */
-	public void setDescription(String description) {
+	private void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -118,7 +118,7 @@ public class Level implements Serializable {
 	 * Sets the level number
 	 * @param number
 	 */
-	public void setNumber(int number) {
+	private void setNumber(int number) {
 		this.number = number;
 	}
 }
