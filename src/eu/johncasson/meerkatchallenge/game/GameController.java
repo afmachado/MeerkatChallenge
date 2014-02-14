@@ -8,14 +8,14 @@ import eu.johncasson.meerkatchallenge.levels.Level;
  * @author John Casson
  *
  */
-public class Game {
+public class GameController {
 	public boolean paused = true;
 	public boolean started = false;
 	private final Score score;
 	private final Level level;
 	private final GameLoop gameLoop;
 	
-	public Game(Score score, Level level, GameLoop gameLoop) {
+	public GameController(Score score, Level level, GameLoop gameLoop) {
 		this.score = score;
 		this.level = level;
 		this.gameLoop = gameLoop;

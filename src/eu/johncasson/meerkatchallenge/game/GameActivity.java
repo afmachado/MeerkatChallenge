@@ -22,7 +22,7 @@ import eu.johncasson.meerkatchallenge.levels.StartLevel;
  * 
  */
 public class GameActivity extends VolumeControlActivity {
-	private Game game;
+	private GameController game;
 	private Level level;
 	private boolean firstRun = true;
 
@@ -73,13 +73,9 @@ public class GameActivity extends VolumeControlActivity {
 		int width = placeholderBackground.getWidth();
 		int height = placeholderBackground.getHeight();
 
-		GameBuilder gameBuilder = new GameBuilder();
-		GameBuilderDirector gameBuilderDirector = new GameBuilderDirector(
-				gameBuilder);
-		gameBuilderDirector.construct(this, this, this.getResources(),
-				width, height, level);
-
-		game = gameBuilder.getGame();
+		GameBuilderDirector gameBuilderDirector = new GameBuilderDirector(this, this, 
+				this.getResources(),width, height, level);
+		game = gameBuilderDirector.getGame();
 		// Hide the placeholder gameboard and show the proper gameboard
 		placeholderBackground.setVisibility(View.GONE);
 		GraphicsLoop graphicsLoop = (GraphicsLoop) findViewById(R.id.canvas);

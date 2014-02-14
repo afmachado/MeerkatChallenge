@@ -15,40 +15,33 @@ import eu.johncasson.meerkatchallenge.levels.Level;
  *
  */
 public class GameBuilderDirector {
-	GameBuilder gameBuilder;
-
-	public GameBuilderDirector(GameBuilder gameBuilder) {
-		this.gameBuilder = gameBuilder;
-	}
+	private final GameBuilder gameBuilder;
 
 	/**
-	 * Creates the game.
-	 * @param viewSource
-	 * @param endLevelStarter
-	 * @param context
-	 * @param resources
-	 * @param width
-	 * @param height
-	 * @param level
+	 * Builds the game
+	 * @param gameActivity Provides access to the Android views
+	 * @param context Provides a sound pool
+	 * @param resources Provides access to images
+	 * @param width The game's width
+	 * @param height The game's height
+	 * @param level The level to play
 	 */
-	public void construct(GameActivity gameActivity, Context context,
+	public GameBuilderDirector(GameActivity gameActivity, Context context,
 			Resources resources, int width, int height,
 			Level level) {
-		
-		gameBuilder.setLevel(level);
-		gameBuilder.setGameBoardSize(width, height);
+		this.gameBuilder = new GameBuilder();
 		GraphicsLoop graphicsLoop = (GraphicsLoop) gameActivity
 				.findViewById(R.id.canvas);
 		gameBuilder.makeLoops(graphicsLoop);
-
+		gameBuilder.setLevel(level);
+		Bitmap backgroundPic = BitmapFactory.decodeResource(resources,
+				R.drawable.background);
+		gameBuilder.addGameBoard(width, height, backgroundPic);
+		
 		TextView scoreText = (TextView) gameActivity
 				.findViewById(R.id.game_score);
 		gameBuilder.addScore(scoreText);
 		gameBuilder.addGame();
-
-		Bitmap backgroundPic = BitmapFactory.decodeResource(resources,
-				R.drawable.background);
-		gameBuilder.makeBackground(backgroundPic, graphicsLoop);
 
 		gameBuilder.addLevelEnd(gameActivity);
 
@@ -60,6 +53,15 @@ public class GameBuilderDirector {
 
 		Bitmap meerkatPic = (BitmapFactory.decodeResource(resources,
 				R.drawable.meerkat_hole));
+		gameBuilder.addLogic(meerkatPic);
 		gameBuilder.addMeerkats(meerkatPic);
+	}
+	
+	/**
+	 * Returns the game
+	 * @return
+	 */
+	protected GameController getGame() {
+		return gameBuilder.getGame();
 	}
 }
