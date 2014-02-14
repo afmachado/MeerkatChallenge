@@ -42,7 +42,7 @@ class PopUpper implements Animator {
 	 */
 	private boolean finished = false;
 
-	protected PopUpper(Sprite sprite, int popUpSpeed) {
+	PopUpper(Sprite sprite, int popUpSpeed) {
 		this.sprite = sprite;
 		this.originalBm = sprite.getBitmap();
 		this.popUpTime = popUpSpeed;

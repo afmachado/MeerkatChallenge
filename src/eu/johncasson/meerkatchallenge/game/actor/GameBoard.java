@@ -70,7 +70,7 @@ public class GameBoard {
 	/**
 	 * Places an actor on the Gameboard
 	 */
-	synchronized protected void place(Actor a) {
+	synchronized void place(Actor a) {
 		Random r = new Random();
 		int x = 0;
 		int y = 0;
@@ -91,7 +91,7 @@ public class GameBoard {
 		addActor(a);
 	}
 	
-	synchronized protected void remove(Actor a) {
+	synchronized void remove(Actor a) {
 		actors.remove(a);
 	}
 }

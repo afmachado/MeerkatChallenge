@@ -37,7 +37,7 @@ final class GameLogic implements OnTouchListener {
 	 * Adds an actor to the game logic
 	 * @param Actor
 	 */
-	protected void addActor(Actor a) {
+	void addActor(Actor a) {
 		actors.add(a);
 	}
 

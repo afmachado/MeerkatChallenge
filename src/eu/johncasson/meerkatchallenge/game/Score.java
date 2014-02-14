@@ -11,7 +11,7 @@ class Score {
 	private int score = 0;
 	private Level level;
 	
-	protected Score(Level level) {
+	Score(Level level) {
 		this.level = level;
 	}
 
@@ -19,7 +19,7 @@ class Score {
 	 * Adds to the score
 	 * @param toAdd The value to add
 	 */
-	synchronized protected void add(int toAdd) {
+	synchronized void add(int toAdd) {
 		score = score + toAdd;
 	}
 	
@@ -27,7 +27,7 @@ class Score {
 	 * Gets the current score
 	 * @return The score
 	 */
-	protected int get() {
+	int get() {
 		return this.score;
 	}
 

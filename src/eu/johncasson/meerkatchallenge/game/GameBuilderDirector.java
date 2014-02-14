@@ -61,7 +61,7 @@ public class GameBuilderDirector {
 	 * Returns the game
 	 * @return
 	 */
-	protected GameController getGame() {
+	GameController getGame() {
 		return gameBuilder.getGame();
 	}
 }

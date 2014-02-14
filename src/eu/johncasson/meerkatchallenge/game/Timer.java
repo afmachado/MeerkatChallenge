@@ -20,7 +20,7 @@ class Timer implements Stopper, GameComponent {
 	 * Stops the game after a specified time
 	 * @param gameTime The time to stop after
 	 */
-	protected Timer(int gameTime) {
+	Timer(int gameTime) {
 		this.timeLimit = gameTime;
 	}
 	
