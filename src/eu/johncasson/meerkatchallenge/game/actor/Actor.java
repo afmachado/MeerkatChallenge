@@ -14,7 +14,7 @@ import eu.johncasson.meerkatchallenge.game.interfaces.GameComponent;
  * @author John Casson
  * 
  */
-public class Actor implements Drawable, GameComponent {
+public final class Actor implements Drawable, GameComponent {
 //	private final int POPUP_SPEED = 150;
 	private final int POPUP_SPEED = 2000;
 	private Point location;
@@ -44,14 +44,14 @@ public class Actor implements Drawable, GameComponent {
 	/**
 	 * Sets the location of the actor
 	 */
-	protected void setLocation(int x, int y) {
+	void setLocation(int x, int y) {
 		this.location = new Point(x, y);
 	}
 
 	/**
 	 * Gets the bounds of this actor as a rectangle
 	 */
-	protected Rect getBounds() {
+	Rect getBounds() {
 		return this.bounds;
 	}
 
@@ -65,7 +65,7 @@ public class Actor implements Drawable, GameComponent {
 	/**
 	 * Shows this actor on the gameboard.
 	 */
-	protected void show() {
+	void show() {
 		gameBoard.place(this);
 		visible = true;
 		sprite.startAnimation(new PopUpper(sprite, POPUP_SPEED));
@@ -74,7 +74,7 @@ public class Actor implements Drawable, GameComponent {
 	/**
 	 * Hides the actor
 	 */
-	protected void hide() {
+	void hide() {
 		visible = false;
 		setLocation(-1, -1);
 		gameBoard.remove(this);
