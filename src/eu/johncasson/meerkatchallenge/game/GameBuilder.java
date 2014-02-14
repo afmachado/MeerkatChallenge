@@ -7,8 +7,9 @@ import android.media.SoundPool;
 import android.widget.TextView;
 import eu.johncasson.meerkatchallenge.R;
 import eu.johncasson.meerkatchallenge.game.actor.Actor;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.OnStopListener;
+import eu.johncasson.meerkatchallenge.game.actor.GameBoard;
+import eu.johncasson.meerkatchallenge.game.interfaces.GameComponent;
+import eu.johncasson.meerkatchallenge.game.interfaces.OnStopListener;
 import eu.johncasson.meerkatchallenge.game.loops.GameLoop;
 import eu.johncasson.meerkatchallenge.game.loops.GraphicsLoop;
 import eu.johncasson.meerkatchallenge.levels.Level;
@@ -20,7 +21,6 @@ import eu.johncasson.meerkatchallenge.levels.Level;
  */
 public class GameBuilder {
 	private GameLoop gameLoop;
-//	private InputLoop inputLoop;
 	private GraphicsLoop graphicsLoop;
 	private Level level;
 	private GameController game;
@@ -135,11 +135,8 @@ public class GameBuilder {
 	 * @return
 	 */
 	private Actor addMeerkat(final Bitmap meerkatPic, final GameBoard gameBoard) {
-		final Actor meerkat = new Actor(gameBoard);
+		final Actor meerkat = new Actor(gameBoard, meerkatPic, getMeerkatSize());
 		// Set the size of the meerkat to be a fixed % of the gameboard's height
-		final int size = getMeerkatSize();
-		meerkat.setBitmap(meerkatPic, size);
-
 		gameLoop.addGameComponent(meerkat);
 		gameLogic.addActor(meerkat);
 
@@ -151,8 +148,7 @@ public class GameBuilder {
 	}
 	
 	public void addLogic(Bitmap meerkatPic) {
-		gameLogic = new GameLogic(game, score, meerkatPic, getMeerkatSize(), 
-				soundPool, meerkatHitSoundId);
+		gameLogic = new GameLogic(game, score, soundPool, meerkatHitSoundId);
 		graphicsLoop.setOnTouchListener(gameLogic);
 	}
 

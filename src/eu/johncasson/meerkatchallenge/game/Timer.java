@@ -1,8 +1,8 @@
 package eu.johncasson.meerkatchallenge.game;
 
 import android.graphics.Paint;
+import eu.johncasson.meerkatchallenge.game.interfaces.GameComponent;
 import eu.johncasson.meerkatchallenge.game.interfaces.Stopper;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
 
 /**
  * Times the game

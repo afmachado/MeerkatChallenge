@@ -1,15 +1,11 @@
 package eu.johncasson.meerkatchallenge.game.actor;
 
-import java.util.Random;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
-import eu.johncasson.meerkatchallenge.game.GameBoard;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
-import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
+import eu.johncasson.meerkatchallenge.game.interfaces.Drawable;
+import eu.johncasson.meerkatchallenge.game.interfaces.GameComponent;
 
 /**
  * Responsible for having and setting a location, being shown and hidden and
@@ -18,25 +14,30 @@ import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
  * @author John Casson
  * 
  */
-public class Actor implements Hittable, Drawable, GameComponent {
-	final int POPUP_SPEED = 150;
+public class Actor implements Drawable, GameComponent {
+//	private final int POPUP_SPEED = 150;
+	private final int POPUP_SPEED = 2000;
 	private Point location;
 	private Rect bounds;
 	private boolean visible = false;
-	private Sprite sprite;
-	private GameBoard gameBoard;
-	final private PopUpBehavior behavior;
+	private final Sprite sprite;
+	private final GameBoard gameBoard;
+	private final PopUpBehavior behavior;
 
 	/**
 	 * Creates a new actor that is placed with the injected placer and draws
 	 * itself with the passed sprite.
+	 * @param i 
+	 * @param meerkatPic 
 	 * 
 	 * @param placer
 	 * @param sprite
 	 */
-	public Actor(GameBoard gameBoard) {
+	public Actor(GameBoard gameBoard, Bitmap meerkatPic, int picSize) {
 		this.gameBoard = gameBoard;
 		this.sprite = new Sprite();
+		this.sprite.setBitmap(meerkatPic, picSize);
+		this.bounds = new Rect(0, 0, picSize, picSize);
 		this.behavior = new PopUpBehavior(this);
 	}
 
@@ -65,10 +66,9 @@ public class Actor implements Hittable, Drawable, GameComponent {
 	 * Shows this actor on the gameboard.
 	 */
 	protected void show() {
-		this.place();
+		gameBoard.place(this);
 		visible = true;
-		gameBoard.addActor(this);
-		popUp();
+		sprite.startAnimation(new PopUpper(sprite, POPUP_SPEED));
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class Actor implements Hittable, Drawable, GameComponent {
 	protected void hide() {
 		visible = false;
 		setLocation(-1, -1);
-		gameBoard.removeActor(this);
+		gameBoard.remove(this);
 	}
 
 	/**
@@ -103,19 +103,6 @@ public class Actor implements Hittable, Drawable, GameComponent {
 	}
 
 	/**
-	 * Sets this Actor's image
-	 * 
-	 * @param bitmap
-	 *            The image to use
-	 * @param size
-	 *            The actor's size
-	 */
-	public void setBitmap(Bitmap bitmap, int size) {
-		this.sprite.setBitmap(bitmap, size);
-		this.bounds = new Rect(0, 0, size, size);
-	}
-
-	/**
 	 * Draws the actor onto the passed canvas
 	 */
 	@Override
@@ -124,20 +111,6 @@ public class Actor implements Hittable, Drawable, GameComponent {
 		if (visible) {
 			sprite.draw(canvas, location.x, location.y);
 		}
-	}
-
-	/**
-	 * Returns the bitmap used for this actor
-	 */
-	protected Bitmap getBitmap() {
-		return sprite.getBitmap();
-	}
-
-	/**
-	 * Returns the matrix used to draw the actor
-	 */
-	protected Matrix getMatrix() {
-		return sprite.getMatrix();
 	}
 
 	/**
@@ -150,32 +123,5 @@ public class Actor implements Hittable, Drawable, GameComponent {
 	@Override
 	public void play(long runTime) {
 		behavior.play(runTime);
-	}
-
-	private void popUp() {
-		sprite.startAnimation(new PopUpper(sprite, POPUP_SPEED));
-	}
-	
-	/**
-	 * Places this on the Gameboard
-	 */
-	private void place() {
-		Random r = new Random();
-		int x = 0;
-		int y = 0;
-
-		int maxX = gameBoard.getWidth() - getBounds().width();
-		int maxY = gameBoard.getHeight() - getBounds().height();
-		
-		int count = 0;
-		do {
-			x = r.nextInt(maxX);
-			y = r.nextInt(maxY);
-			count++;
-			if (count > 100) {
-				throw new RuntimeException("Can't place locatable");
-			}
-		} while (gameBoard.doesOverlap(new Rect(x, y, x + getBounds().width(), y + getBounds().height())));
-		setLocation(x, y);
 	}
 }

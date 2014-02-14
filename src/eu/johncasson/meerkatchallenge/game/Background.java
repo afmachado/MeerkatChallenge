@@ -1,6 +1,6 @@
 package eu.johncasson.meerkatchallenge.game;
 
-import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
+import eu.johncasson.meerkatchallenge.game.interfaces.Drawable;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;

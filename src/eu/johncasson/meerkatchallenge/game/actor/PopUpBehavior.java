@@ -2,7 +2,7 @@ package eu.johncasson.meerkatchallenge.game.actor;
 
 import java.util.Random;
 
-import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
+import eu.johncasson.meerkatchallenge.game.interfaces.GameComponent;
 
 /**
  * Makes an Actor pop up, then hide itself after a short time

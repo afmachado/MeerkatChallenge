@@ -3,13 +3,11 @@ package eu.johncasson.meerkatchallenge.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.media.SoundPool;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-
 import eu.johncasson.meerkatchallenge.game.actor.Actor;
 
 /**
@@ -24,17 +22,13 @@ final class GameLogic implements OnTouchListener {
 	private final GameController game;
 	private final Score score;
 	private final List<Actor> actors = new ArrayList<Actor>();
-	private final Bitmap meerkatPic;
-	private final int bitmapSize;
 	private final SoundPool soundPool;
 	private final int meerkatSoundId;
 
-	public GameLogic(GameController game, Score score, Bitmap meerkatPic, int bitmapSize,
-			SoundPool soundPool, int meerkatSoundId) {
+	public GameLogic(GameController game, Score score, SoundPool soundPool, 
+			int meerkatSoundId) {
 		this.game = game;
 		this.score = score;
-		this.meerkatPic = meerkatPic;
-		this.bitmapSize = bitmapSize;
 		this.soundPool = soundPool;
 		this.meerkatSoundId = meerkatSoundId;
 	}
@@ -71,7 +65,6 @@ final class GameLogic implements OnTouchListener {
 					if (a.isVisible() && !game.isPaused()) {
 						score.add(1);
 						a.hit();
-						a.setBitmap(meerkatPic, bitmapSize);
 						soundPool.play(meerkatSoundId, 1, 1, 1, 0, 1f);
 					}
 				}

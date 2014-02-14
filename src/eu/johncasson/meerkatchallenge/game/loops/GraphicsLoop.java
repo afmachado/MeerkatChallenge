@@ -6,8 +6,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
-import eu.johncasson.meerkatchallenge.game.interfaces.visual.Drawable;
+import eu.johncasson.meerkatchallenge.game.interfaces.Drawable;
+import eu.johncasson.meerkatchallenge.game.interfaces.GameComponent;
 
 /**
  * Maintains a list of the current drawables to be drawn,

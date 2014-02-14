@@ -2,7 +2,6 @@ package eu.johncasson.meerkatchallenge.game.actor;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import eu.johncasson.meerkatchallenge.game.interfaces.visual.Animator;
 
 /**
  * Pops up a sprite

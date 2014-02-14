@@ -1,6 +1,5 @@
 package eu.johncasson.meerkatchallenge.game.actor;
 
-import eu.johncasson.meerkatchallenge.game.interfaces.visual.Animator;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

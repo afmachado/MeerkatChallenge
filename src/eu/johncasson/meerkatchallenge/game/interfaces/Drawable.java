@@ -1,4 +1,4 @@
-package eu.johncasson.meerkatchallenge.game.interfaces.visual;
+package eu.johncasson.meerkatchallenge.game.interfaces;
 
 import android.graphics.Canvas;
 

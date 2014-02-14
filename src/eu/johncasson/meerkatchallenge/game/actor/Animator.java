@@ -1,4 +1,4 @@
-package eu.johncasson.meerkatchallenge.game.interfaces.visual;
+package eu.johncasson.meerkatchallenge.game.actor;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -8,7 +8,7 @@ import android.graphics.Matrix;
  * @author John Casson
  *
  */
-public interface Animator {
+interface Animator {
 	/**
 	 * Starts an animation
 	 */

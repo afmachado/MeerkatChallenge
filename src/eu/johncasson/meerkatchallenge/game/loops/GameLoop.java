@@ -3,9 +3,9 @@ package eu.johncasson.meerkatchallenge.game.loops;
 import java.util.ArrayList;
 
 import android.os.Handler;
+import eu.johncasson.meerkatchallenge.game.interfaces.GameComponent;
+import eu.johncasson.meerkatchallenge.game.interfaces.OnStopListener;
 import eu.johncasson.meerkatchallenge.game.interfaces.Stopper;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.GameComponent;
-import eu.johncasson.meerkatchallenge.game.interfaces.status.OnStopListener;
 
 /**
  * The main loop for a game. Iterates through components, calling them each

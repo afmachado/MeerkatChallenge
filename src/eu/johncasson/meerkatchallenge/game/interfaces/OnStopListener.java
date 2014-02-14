@@ -1,4 +1,4 @@
-package eu.johncasson.meerkatchallenge.game.interfaces.status;
+package eu.johncasson.meerkatchallenge.game.interfaces;
 
 /**
  * Implemented by classes that want
