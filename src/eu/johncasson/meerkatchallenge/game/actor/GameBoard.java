@@ -35,7 +35,7 @@ public class GameBoard {
 	 * Gets the height
 	 * @return
 	 */
-	public int getHeight() {
+	int getHeight() {
 		return height;
 	}
 	

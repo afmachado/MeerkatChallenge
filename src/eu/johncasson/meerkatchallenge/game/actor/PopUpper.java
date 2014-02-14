@@ -1,14 +1,13 @@
 package eu.johncasson.meerkatchallenge.game.actor;
 
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 
 /**
- * Pops up a sprite
+ * A pop up animation
  * 
  * @author John Casson
  */
-class PopUpper implements Animator {
+class PopUpper {
 	/** 
 	 * The original bitmap (never changes)
 	 */
@@ -18,13 +17,9 @@ class PopUpper implements Animator {
 	 */
 	private Bitmap animBm;
 	/**
-	 * The matrix used to draw the bitmap
-	 */
-	private Matrix matrix = new Matrix();
-	/**
 	 * The animation's start time
 	 */
-	private long startTime;
+	private long startTime = 0;
 	/**
 	 * To be animated
 	 */
@@ -36,32 +31,34 @@ class PopUpper implements Animator {
 	/**
 	 * Indicates that the animation is ready to go
 	 */
-	private boolean ready = false;
+	private boolean enabled = false;
+	
 	/**
-	 * Indicates the animation is finished
+	 * Creates a new instance of the PopUpper
+	 * @param sprite Sprite to pop up
+	 * @param popUpSpeed Speed in ms
 	 */
-	private boolean finished = false;
-
 	PopUpper(Sprite sprite, int popUpSpeed) {
 		this.sprite = sprite;
 		this.originalBm = sprite.getBitmap();
 		this.popUpTime = popUpSpeed;
-		startTime = System.currentTimeMillis();
-		ready = true;
 	}
 
 	/**
 	 * Animates the sprite
 	 */
-	public synchronized void animate() {
+	synchronized void animate(long runTime) {
 		// don't start animating till the constructor has completed
-		if(!ready) {
+		if(!enabled) {
 			return;
 		}
-		matrix = sprite.getMatrix();
-		long now = System.currentTimeMillis();
-		float difference = now - startTime; // time in ms between starting pop
-											// up and now
+		
+		if(startTime == 0) {
+			startTime = runTime;
+		}
+
+		float difference = runTime - startTime; // time in ms between starting pop
+												// up and now
 		// Popping up takes popUpSpeed milliseconds. Get the percent of time between
 		// the start time and popUpSpeed seconds later
 		float popUpPercent = difference / popUpTime ;
@@ -69,37 +66,48 @@ class PopUpper implements Animator {
 
 		// If the animation is finished
 		if (popUpPercent >= 1) {
-			animBm = originalBm;
-			finished = true;
+			stop();
 			return;
 		}
 		
 		// Calculates which "slice" of the original bitmap to show
 		int slice = (int) (originalBm.getHeight() - (originalBm.getHeight() * popUpPercent));
 		animBm = Bitmap.createBitmap(originalBm, 0, 0, originalBm.getWidth(),
-				originalBm.getHeight() - slice);
+		originalBm.getHeight() - slice);
 
 		// Move the image "up" so it looks like it's appearing from the bottom
-		matrix.postTranslate(0, slice);
+		sprite.additionalY(slice);
+		sprite.setBitmap(animBm);
 	}
 
 	/**
 	 * Returns the bitmap as it's drawn
 	 */
-	@Override
-	public Bitmap getBitmap() {
-		// Ensure the original bitmap is always sent back when this animation ends
-		if(finished) {
-			sprite.stopAnimation(this);
-		}
+	Bitmap getBitmap() {
 		return animBm;
 	}
 
 	/**
-	 * Returns the matrix to transform the bitmap during drawing
+	 * Is this animation enabled?
+	 * @return
 	 */
-	@Override
-	public Matrix getMatrix() {
-		return matrix;
+	boolean enabled() {
+		return enabled;
+	}
+	
+	/**
+	 * Start this animation
+	 */
+	void start() {
+		enabled = true;
+	}
+	
+	/**
+	 * Stop this animation
+	 */
+	void stop() {
+		enabled = false;
+		sprite.additionalY(0);
+		sprite.setBitmap(originalBm);
 	}
 }

@@ -15,30 +15,29 @@ import eu.johncasson.meerkatchallenge.game.interfaces.GameComponent;
  * 
  */
 public final class Actor implements Drawable, GameComponent {
-//	private final int POPUP_SPEED = 150;
-	private final int POPUP_SPEED = 2000;
+	private final int POPUP_SPEED = 150;
 	private Point location;
 	private Rect bounds;
 	private boolean visible = false;
 	private final Sprite sprite;
 	private final GameBoard gameBoard;
 	private final PopUpBehavior behavior;
+	private PopUpper popUpper;
 
 	/**
 	 * Creates a new actor that is placed with the injected placer and draws
 	 * itself with the passed sprite.
-	 * @param i 
-	 * @param meerkatPic 
-	 * 
-	 * @param placer
-	 * @param sprite
+	 * @param gameBoard The gameboard the actor should appear on
+	 * @param meerkatPic A picture of this actor
+	 * @param size The size of the actor
 	 */
-	public Actor(GameBoard gameBoard, Bitmap meerkatPic, int picSize) {
+	public Actor(GameBoard gameBoard, Bitmap meerkatPic, int size) {
 		this.gameBoard = gameBoard;
 		this.sprite = new Sprite();
-		this.sprite.setBitmap(meerkatPic, picSize);
-		this.bounds = new Rect(0, 0, picSize, picSize);
+		this.sprite.setBitmap(meerkatPic, size);
+		this.bounds = new Rect(0, 0, size, size);
 		this.behavior = new PopUpBehavior(this);
+		popUpper = new PopUpper(sprite, POPUP_SPEED);
 	}
 
 	/**
@@ -67,8 +66,9 @@ public final class Actor implements Drawable, GameComponent {
 	 */
 	void show() {
 		gameBoard.place(this);
+		popUpper = new PopUpper(sprite, POPUP_SPEED);
+		popUpper.start();
 		visible = true;
-		sprite.startAnimation(new PopUpper(sprite, POPUP_SPEED));
 	}
 
 	/**
@@ -78,6 +78,7 @@ public final class Actor implements Drawable, GameComponent {
 		visible = false;
 		setLocation(-1, -1);
 		gameBoard.remove(this);
+		popUpper.stop();
 	}
 
 	/**
@@ -123,5 +124,8 @@ public final class Actor implements Drawable, GameComponent {
 	@Override
 	public void play(long runTime) {
 		behavior.play(runTime);
+		if(popUpper.enabled()) {
+			popUpper.animate(runTime);
+		}
 	}
 }
