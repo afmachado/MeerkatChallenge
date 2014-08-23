@@ -40,4 +40,10 @@ public class TitleScreen extends VolumeControlActivity {
 	@Override
 	public void onBackPressed() {
 	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		finish();
+	}
 }

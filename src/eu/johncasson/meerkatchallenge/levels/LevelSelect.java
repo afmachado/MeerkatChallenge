@@ -77,7 +77,6 @@ public class LevelSelect extends VolumeControlActivity {
 				});
 			}
 		}
-
 	}
 
 	/**
@@ -87,5 +86,11 @@ public class LevelSelect extends VolumeControlActivity {
 	public void onBackPressed() {
 		Intent i = new Intent(LevelSelect.this, TitleScreen.class);
 		startActivity(i);
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		finish();
 	}
 }

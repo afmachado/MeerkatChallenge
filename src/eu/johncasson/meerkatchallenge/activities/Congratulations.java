@@ -11,11 +11,23 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import eu.johncasson.meerkatchallenge.R;
+import eu.johncasson.meerkatchallenge.game.GameBuilderDirector;
+import eu.johncasson.meerkatchallenge.game.Background;
 
 public class Congratulations extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		GameBuilderDirector.freeMemory();
+		Background.freeMemory();
+		System.gc();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		setContentView(R.layout.activity_congratulations);
 		
 		ImageView balloon1 = (ImageView) findViewById(R.id.balloon_1);

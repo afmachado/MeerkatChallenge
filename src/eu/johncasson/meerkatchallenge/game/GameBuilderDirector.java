@@ -16,6 +16,8 @@ import eu.johncasson.meerkatchallenge.levels.Level;
  */
 public class GameBuilderDirector {
 	private final GameBuilder gameBuilder;
+	private static Bitmap meerkatPic;
+	private static Bitmap backgroundPic;
 
 	/**
 	 * Builds the game
@@ -34,9 +36,13 @@ public class GameBuilderDirector {
 				.findViewById(R.id.canvas);
 		gameBuilder.makeLoops(graphicsLoop);
 		gameBuilder.setLevel(level);
-		Bitmap backgroundPic = BitmapFactory.decodeResource(resources,
+		if(backgroundPic == null) {
+			backgroundPic = BitmapFactory.decodeResource(resources,
 				R.drawable.background);
+		}
 		gameBuilder.addGameBoard(width, height, backgroundPic);
+		backgroundPic.recycle();
+		backgroundPic = null;
 		
 		TextView scoreText = (TextView) gameActivity
 				.findViewById(R.id.game_score);
@@ -51,8 +57,11 @@ public class GameBuilderDirector {
 		TextView timerText = (TextView) gameActivity.findViewById(R.id.game_time);
 		gameBuilder.makeTimer(timerText);
 
-		Bitmap meerkatPic = (BitmapFactory.decodeResource(resources,
-				R.drawable.meerkat_hole));
+		if(meerkatPic == null) {
+			meerkatPic = (BitmapFactory.decodeResource(resources,
+					R.drawable.meerkat_hole));
+		}
+		
 		gameBuilder.addLogic(meerkatPic);
 		gameBuilder.addMeerkats(meerkatPic);
 	}
@@ -63,5 +72,19 @@ public class GameBuilderDirector {
 	 */
 	GameController getGame() {
 		return gameBuilder.getGame();
+	}
+	
+	public static void freeMemory() {
+		if(meerkatPic != null) {
+			System.out.println("Recycling meerkatpic");
+			meerkatPic.recycle();
+			meerkatPic = null;
+		}
+		
+		if(backgroundPic != null) {
+			System.out.println("Recycling backgroundpic");
+			backgroundPic.recycle();
+			backgroundPic = null;
+		}
 	}
 }

@@ -1,5 +1,8 @@
 package eu.johncasson.meerkatchallenge.game;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -41,10 +44,24 @@ public class GameActivity extends VolumeControlActivity {
 			public void onClick(View v) {
 				pause();
 			}
-		});	
+		});
+		
 		Intent intent = new Intent(gameActivity, StartLevel.class);
 		intent.putExtra("level", level);
 		startActivity(intent);
+	}
+
+	private void startAds() {
+		// Look up the AdView as a resource and load a request.
+	    AdView adView = (AdView) this.findViewById(R.id.adView);
+	    AdRequest adRequest = new AdRequest.Builder()
+	    	.addTestDevice("49DF64CC878637EC6688968DCE79C38A") // S3
+			.addTestDevice("BE33969214ADC559F5715CA6CB92E408") // Dad's HTC
+			.addTestDevice("53642F8C3689BB2559E6B295B1900288") // N7
+			.addTestDevice("5E12190FA78AE7BA8D663D9721D46D2D") // Rach's Tab3
+			.addTestDevice("62B0F0EE0ACDC837A0D7722866289A94") // Atrix
+			.build();
+	    adView.loadAd(adRequest);		
 	}
 
 	/**
@@ -82,6 +99,7 @@ public class GameActivity extends VolumeControlActivity {
 		graphicsLoop.setVisibility(View.VISIBLE);
 		game.start();
 		game.pause();
+		startAds();
 	}
 
 	/**

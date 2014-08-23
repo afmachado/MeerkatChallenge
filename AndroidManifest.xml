@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eu.johncasson.meerkatchallenge"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.1" >
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
@@ -11,6 +11,8 @@
         android:icon="@drawable/meerkat"
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme" >
+        <meta-data android:name="com.google.android.gms.version"
+               android:value="@integer/google_play_services_version"/>
         <activity
             android:name="eu.johncasson.meerkatchallenge.game.GameActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -56,5 +58,10 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+    	
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
+  	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 </manifest>

@@ -28,7 +28,7 @@ public class GameBuilder {
 	private int meerkatHitSoundId;
 	private SoundPool soundPool;
 	private GameLogic gameLogic;
-	private GameBoard gameBoard; 
+	private GameBoard gameBoard;
 
 	/**
 	 * Sets the level around which this game is built

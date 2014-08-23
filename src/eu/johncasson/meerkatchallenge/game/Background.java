@@ -10,8 +10,8 @@ import android.graphics.Canvas;
  * @author John Casson
  *
  */
-class Background implements Drawable {
-	private Bitmap bm;
+public class Background implements Drawable {
+	private static Bitmap bm;
 
 	/**
 	 * Creates a background
@@ -20,12 +20,15 @@ class Background implements Drawable {
 	 * @param bm the background image
 	 */
 	Background(int width, int height, Bitmap bm) {
-		// Scale the background to the game board size
-		BitmapFactory.Options options = new BitmapFactory.Options(); 
-		options.inPurgeable = true;
-		this.bm = Bitmap.createScaledBitmap(bm, width, height, false);
+		if(Background.bm == null) {
+			System.out.println("Setting a new background");
+			// Scale the background to the game board size
+			BitmapFactory.Options options = new BitmapFactory.Options(); 
+			options.inPurgeable = true;
+			Background.bm = Bitmap.createScaledBitmap(bm, width, height, false);
+		}
 	}
-
+		
 	/**
 	 * Draws this background on a canvas
 	 * @param canvas from the Android framework
@@ -33,5 +36,13 @@ class Background implements Drawable {
 	@Override
 	public void draw(Canvas canvas) {
 		canvas.drawBitmap(bm, 0, 0, null);
+	}
+	
+	public static void freeMemory() {
+		if(bm != null) {
+			System.out.println("Recycling background");
+			bm.recycle();
+			bm = null;
+		}
 	}
 }

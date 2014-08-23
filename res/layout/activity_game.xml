@@ -1,11 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/game_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="game.entities.GameActivity" >
-
+    
     <RelativeLayout android:id='@+id/game_header' style="@style/GameHeader">
         <ImageView
             android:id="@+id/game_clock_image"
@@ -26,7 +27,7 @@
             android:id="@+id/game_score"
             style="@style/GameMeerkatCount" />
     </RelativeLayout>
-
+    
     <!-- When the game starts the currently invisible GameBoard 
         is made visible and the placeholder background is hidden. -->
     <eu.johncasson.meerkatchallenge.game.loops.GraphicsLoop
@@ -41,4 +42,10 @@
 		style="@style/GameBoard"
 		android:src="@drawable/background"
 		android:scaleType="fitXY" />
+    
+    <com.google.android.gms.ads.AdView android:id="@+id/adView"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         ads:adUnitId="ca-app-pub-4939165211937338/6197091401"
+                         ads:adSize="SMART_BANNER" />
 </LinearLayout>
