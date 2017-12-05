@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Meerkat Challenge</string>
+    <string name="level_1_button">Vamos Lá!</string>
+    <string name="next">Continuar</string>
+    <string name="start_button">Ir!</string>
+    <string name="title">Meerkat Challenge</string>
+    <string name="go">Ir!</string>
+    <string name="title_image">título</string>
+    <string name="background_image">Imagem de Fundo</string>
+    <string name="unpause">Continue!!</string>
+    <string name="paused">Parado!</string>
+
+    <!-- Image Descriptions -->
+    <string name="go_description">Botão Ir</string>
+    <string name="placeholder_description">Reserva espaço para o fundo do jogo</string>
+    <string name="game_description">Main game board</string>
+    <string name="meerkat_description">Meerkat</string>
+    <string name="clock_description">Relógio</string>
+    <string name="title_image_description">Imagem do Título</string>
+    <string name="balloon_description">Balão</string>
+    <string name="congratulations_description">Parabéns você ganhou!</string>
+    <string name="pause_description">Botão Pause</string>
+</resources>
